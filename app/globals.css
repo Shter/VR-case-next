@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+/* Токены темы v4 — будут работать как bg-primary, text-secondary и т.п. */
+@theme {
+  --color-primary: #1B449E;
+  --color-secondary: #88d3ce;
+  --color-dark: #1a1a2e;
+  --color-light: #f8f9fa;
+  --color-accent: #ff7e5f;
+
+  --shadow-soft: 0 10px 30px rgba(0,0,0,0.05);
+  --radius-xl2: 1.25rem;
+}
+
+html, body { @apply bg-light text-dark antialiased; }
+
+.container { @apply max-w-screen-xl mx-auto px-5; }
+
+.btn { @apply inline-block rounded-full px-6 py-3 font-semibold shadow transition; background: var(--color-accent); color: white; }
+.btn:hover { @apply -translate-y-0.5 shadow-lg; }
+
+.hero-bg { @apply min-h-[90vh] flex items-center text-center text-white; background-image: linear-gradient(rgba(26,26,46,0.7), rgba(26,26,46,0.7)), url('/assets/img/hero-fallback.webp'); background-size: cover; background-position: center; }
+
+.card-glass { @apply rounded-2xl border border-white/20 bg-white/15 backdrop-blur p-8 shadow; }
+
+.modal-backdrop { @apply fixed inset-0 z-50 hidden items-center justify-center bg-black/70; }
+.modal-backdrop[data-open="true"] { @apply flex; }
+
+summary { @apply cursor-pointer font-semibold text-lg; }
+
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(8px);} to { opacity: 1; transform: translateY(0);} }
+.fade-in-up { animation: fadeInUp .6s ease both; }
