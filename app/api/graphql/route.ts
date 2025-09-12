@@ -1,36 +1,24 @@
-import { createYoga, createSchema } from "graphql-yoga";
-import { NextRequest } from "next/server";
-import offers from "@/app/data/pricing.json";
+import { createYoga, createSchema } from 'graphql-yoga'
 
-const typeDefs = /* GraphQL */ `
-type Offer {
-id: ID!
-title: String!
-headsets: Int!
-period: String! # "2h" | "day" | "week"
-price: Int!
-plusPrice: Int
-plusUnit: String
-}
+const { handleRequest } = createYoga({
+    graphqlEndpoint: '/api/graphql',
+    schema: createSchema({
+        typeDefs: /* GraphQL */ `
+      type Query {
+        greetings: String
+      }
+    `,
+        resolvers: {
+            Query: {
+                greetings: () =>
+                    'This is the `greetings` field of the root `Query` type',
+            },
+        },
+    }),
+    fetchAPI: {
+        Response: Response,
+        Request: Request,
+    },
+})
 
-type Query {
-offers(headsets: Int): [Offer!]!
-}
-`;
-
-const resolvers = {
-    Query: {
-        offers: (_: unknown, args: { headsets?: number }) => {
-            if (!args.headsets) return offers;
-            return offers.filter(o => o.headsets === args.headsets);
-        }
-    }
-};
-
-const schema = createSchema<{ req: NextRequest }>({ typeDefs, resolvers });
-
-export const { handleRequest } = createYoga<{ req: NextRequest }>({
-    schema,
-    context: ({ request }) => ({ req: request as NextRequest }),
-    graphqlEndpoint: "/api/graphql",
-});
+export { handleRequest as GET, handleRequest as POST }
