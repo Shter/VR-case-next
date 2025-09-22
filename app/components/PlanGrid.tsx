@@ -25,7 +25,7 @@ export function OffersGridClient() {
             })
         })
             .then((r) => r.json())
-            .then((json) => setOffers(json?.data?.offers ?? []));
+            .then((json) => {console.log(json); setOffers(json?.data?.offers ?? [])});
     }, []);
 
     const PlanCard = (o: Offer) => (
@@ -43,6 +43,7 @@ export function OffersGridClient() {
                 <li>{o.headsets} x Meta Quest 3</li>
                 <li>Envío gratis</li>
             </ul>
+
             <Button
                 variant="contained"
                 color="primary"

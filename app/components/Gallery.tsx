@@ -9,6 +9,7 @@ export function Gallery() {
     ];
     const [open, setOpen] = useState(false);
     const [src, setSrc] = useState<string | null>(null);
+
     return (
         <section id="gallery" className="bg-white py-16">
             <div className="container">

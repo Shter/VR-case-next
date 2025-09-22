@@ -1,5 +1,4 @@
 import offersData from "@/data/pricing.json";
-import { OffersGridClient } from "@/components/PlanGrid";
 
 type Offer = {
     id: string;
@@ -37,6 +36,7 @@ function ServerPlanCard(o: Offer) {
 export function Pricing() {
     const offers = offersData as Offer[];
     const oneHeadset = offers.filter((o) => o.headsets === 1);
+    const twoHeadset = offers.filter((o) => o.headsets === 2);
 
     return (
         <section className="bg-primary py-8">
@@ -45,8 +45,12 @@ export function Pricing() {
                     <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 text-white">
                         Alquiler de 2 lentes realidad virtual VR Meta Quest 3
                     </h2>
-                    {/* Только этот блок — клиентский, использует хуки/GraphQL */}
-                    <OffersGridClient />
+
+                    <div className="grid gap-6 md:grid-cols-3">
+                        {twoHeadset.map((o) => (
+                            <ServerPlanCard key={o.id} {...o} />
+                        ))}
+                    </div>
                 </div>
 
                 <div className="bg-primary/90 rounded-2xl p-6 border-4 border-white/20 shadow">

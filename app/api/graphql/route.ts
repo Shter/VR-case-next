@@ -3,15 +3,14 @@ import { createYoga, createSchema } from 'graphql-yoga'
 const { handleRequest } = createYoga({
     graphqlEndpoint: '/api/graphql',
     schema: createSchema({
-        typeDefs: /* GraphQL */ `
-      type Query {
-        greetings: String
-      }
-    `,
+        typeDefs: `
+type Query {
+greetings: String
+}
+`,
         resolvers: {
             Query: {
-                greetings: () =>
-                    'This is the `greetings` field of the root `Query` type',
+                greetings: () => 'This is the `greetings` field of the root `Query` type',
             },
         },
     }),
@@ -21,4 +20,10 @@ const { handleRequest } = createYoga({
     },
 })
 
-export { handleRequest as GET, handleRequest as POST }
+export async function GET(request: Request) {
+    return handleRequest(request, {})
+}
+
+export async function POST(request: Request) {
+    return handleRequest(request, {})
+}
