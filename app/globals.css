@@ -10,6 +10,7 @@
 
   --shadow-soft: 0 10px 30px rgba(0,0,0,0.05);
   --radius-xl2: 1.25rem;
+  --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 html, body { @apply bg-light text-dark antialiased; }
@@ -19,7 +20,35 @@ html, body { @apply bg-light text-dark antialiased; }
 .btn { @apply inline-block rounded-full px-6 py-3 font-semibold shadow transition; background: var(--color-accent); color: white; }
 .btn:hover { @apply -translate-y-0.5 shadow-lg; }
 
-.hero-bg { @apply min-h-[90vh] flex items-center text-center text-white; background-image: linear-gradient(rgba(26,26,46,0.7), rgba(26,26,46,0.7)), url('/assets/img/hero-fallback.webp'); background-size: cover; background-position: center; }
+.hero-bg {
+  @apply min-h-[100vh] flex items-center text-center text-white;
+  background-image: linear-gradient(rgba(26,26,46,0.7), rgba(26,26,46,0.7)), url('/assets/img/hero-background.webp');
+  background-size: cover; background-position: center;
+}
+
+.header-logo {
+  font-size: 1.8rem;
+}
+
+nav ul li a {
+  position: relative;
+  display: inline-block;
+}
+
+nav ul li a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--color-red-50);
+  transition: var(--transition);
+}
+
+nav ul li a:hover::after {
+  width: 100%;
+}
 
 .card-glass { @apply rounded-2xl border border-white/20 bg-white/15 backdrop-blur p-8 shadow; }
 
