@@ -22,6 +22,7 @@ export function Header() {
                 <nav className={"fixed md:static top-0 right-0 h-screen md:h-auto w-4/5 max-w-xs md:max-w-none bg-dark md:bg-transparent pt-20 md:pt-0 px-8 md:px-0 transition-all " + (open ? "translate-x-0" : "translate-x-full md:translate-x-0")}>
                     <ul className="flex flex-col justify-end md:flex-row gap-6 md:gap-8">
                         <li><Link href="/#home" onClick={() => setOpen(false)}>Principal</Link></li>
+                        <li><Link href="/vr-buenos-aires" onClick={() => setOpen(false)}>VR Buenos Aires</Link></li>
                         <li><Link href="/#about" onClick={() => setOpen(false)}>Sobre nosotros</Link></li>
                         <li><Link href="/#features" onClick={() => setOpen(false)}>Ventajas</Link></li>
                         <li><Link href="/#gallery" onClick={() => setOpen(false)}>Galería</Link></li>

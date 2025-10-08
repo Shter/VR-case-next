@@ -2,16 +2,18 @@ import Link from "next/link";
 
 export function Footer() {
     return (
-        <footer className="bg-dark text-white pt-16 pb-6 mt-20">
+        <footer className="bg-dark text-white pt-16 pb-6">
             <div className="container grid gap-10 md:grid-cols-4">
                 <div>
-                    <h3 className="text-secondary mb-4 text-xl">VR.CASE</h3>
+                    <h3 className="font-bold header-logo">VR<span className="text-secondary">.CASE</span></h3>
+                    {/*<span className="header-logo">VR<span className="text-secondary">.CASE</span></span>*/}
                     <p>Servicio de alquiler de lentes VR Meta Quest 3 para evento y uso privado</p>
                 </div>
                 <div>
                     <h3 className="text-secondary mb-4 text-xl">Menú</h3>
                     <ul className="space-y-2">
                         <li><Link href="/#home">Principal</Link></li>
+                        <li><Link href="/vr-buenos-aires">VR Buenos Aires</Link></li>
                         <li><Link href="/#about">Sobre nosotros</Link></li>
                         <li><Link href="/#features">Ventajas</Link></li>
                         <li><Link href="/#gallery">Galería</Link></li>
