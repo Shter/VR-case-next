@@ -28,7 +28,7 @@ export default function Page() {
         <>
             <JsonLd data={pricingBreadcrumbLd()} />
             <JsonLd data={pricingRentalLd()} />
-            <div className="container py-12">
+            <div className="container py-24">
                 <h1 className="text-3xl md:text-5xl font-extrabold text-center mb-6">
                     Precios de alquiler realidad virtual VR en Buenos Aires
                 </h1>

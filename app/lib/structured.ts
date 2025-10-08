@@ -1,3 +1,23 @@
+import { site } from "@/lib/site";
+
+export const vrBuenosAiresBreadcrumbLd = () => ({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": `${site.url}/` },
+        { "@type": "ListItem", "position": 2, "name": "VR Buenos Aires", "item": `${site.url}/vr-buenos-aires` }
+    ]
+});
+
+export const vrServiceLd = () => ({
+    "@context": "https://schema.org",
+    "@type": "RentalService",
+    "name": "VR.CASE",
+    "serviceType": "Alquiler de lentes VR Meta Quest 3",
+    "url": `${site.url}/vr-buenos-aires`,
+    // + address, areaServed, telephone, sameAs, offers...
+});
+
 export const homeBreadcrumbLd = () => ({
     "areaServed": [
         { "@type": "City", "name": "Buenos Aires" },
