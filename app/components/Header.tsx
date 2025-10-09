@@ -26,7 +26,7 @@ export function Header() {
                         <li><Link href="/#about" onClick={() => setOpen(false)}>Sobre nosotros</Link></li>
                         <li><Link href="/#features" onClick={() => setOpen(false)}>Ventajas</Link></li>
                         <li><Link href="/#gallery" onClick={() => setOpen(false)}>Galería</Link></li>
-                        <li><Link href="/alquiler-precios" onClick={() => setOpen(false)}>Alquiler precios</Link></li>
+                        <li><Link href="/alquiler" onClick={() => setOpen(false)}>Alquiler precios</Link></li>
                         <li><Link href="/#contact" onClick={() => setOpen(false)}>Contactos</Link></li>
                     </ul>
                 </nav>

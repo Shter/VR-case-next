@@ -12,7 +12,7 @@ export function Hero() {
                         Sumérgete en la realidad virtual con Meta Quest 3 en Buenos Aires. Ideal para eventos corporativos, fiestas infantiles y uso personal.
                     </p>
                     <div className="flex items-center justify-center gap-4 fade-in-up">
-                        <Link href="/alquiler-precios" className="btn">Seleccionar tarifa</Link>
+                        <Link href="/alquiler" className="btn">Seleccionar tarifa</Link>
                     </div>
                 </div>
             </div>

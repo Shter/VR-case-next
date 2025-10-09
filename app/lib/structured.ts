@@ -48,7 +48,7 @@ export const pricingBreadcrumbLd = () => ({
     "@type":"BreadcrumbList",
     "itemListElement":[
         {"@type":"ListItem","position":1,"name":"Inicio","item":"https://vr-case.com.ar/"},
-        {"@type":"ListItem","position":2,"name":"Alquiler precios","item":"https://vr-case.com.ar/alquiler-precios"}
+        {"@type":"ListItem","position":2,"name":"Alquiler precios","item":"https://vr-case.com.ar/alquiler"}
     ]
 });
 
@@ -58,7 +58,7 @@ export const pricingRentalLd = () => ({
     "name": "VR.CASE",
     "address": { "@type": "PostalAddress", "addressLocality": "Buenos Aires", "addressCountry": "AR" },
     "telephone": "+541127827150",
-    "url": "https://vr-case.com.ar/alquiler-precios",
+    "url": "https://vr-case.com.ar/alquiler",
     "offers": [
         { "@type": "Offer", "priceCurrency": "ARS", "price": "35000", "itemOffered": "Alquiler por 2 horas de 2 Meta Quest 3", "availability": "https://schema.org/InStock" },
         { "@type": "Offer", "priceCurrency": "ARS", "price": "100000", "itemOffered": "Alquiler por dia de 2 Meta Quest 3", "availability": "https://schema.org/InStock" },

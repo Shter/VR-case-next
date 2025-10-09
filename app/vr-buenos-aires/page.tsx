@@ -41,8 +41,8 @@ export default function VRBuenosAiresPage() {
           <section className="max-w-4xl mx-auto py-20 px-4">
           <JsonLd data={vrBuenosAiresBreadcrumbLd()} />
           <JsonLd data={vrServiceLd()} />
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">VR Buenos Aires: alquiler de lentes Meta Quest 3</h1>
-              <p className="text-lg  mb-6">
+              <h1 className="text-4xl md:text-6xl font-extrabold mb-4">VR Buenos Aires: alquiler de VR Meta Quest 3</h1>
+              <p className="text-lg mb-6">
                   незнакомы с ВР? у вас есть отличная возможность познакомиться поближе в домашних условиях. Мы предлагаем
                   VR Buenos Aires y VR Argentina para eventos, fiestas y empresas. En VR.CASE alquilamos headsets Meta Quest 3 con
                   instalación y soporte para que tu experiencia de realidad virtual sea impecable. Servicio en CABA y Zona Norte.
@@ -52,7 +52,7 @@ export default function VRBuenosAiresPage() {
                      className="inline-flex items-center justify-center rounded bg-green-500 px-5 py-3 font-semibold text-white hover:bg-green-600">
                       Consultar por WhatsApp
                   </a>
-                  <Link href="/alquiler-precios" className="inline-flex items-center justify-center rounded border border-white/20 px-5 py-3 font-semibold hover:bg-white/10">
+                  <Link href="/alquiler" className="inline-flex items-center justify-center rounded border border-white/20 px-5 py-3 font-semibold hover:bg-white/10">
                       Ver precios y planes
                   </Link>
                   <a href="/#contact" className="inline-flex items-center justify-center rounded border border-white/20 px-5 py-3 font-semibold hover:bg-white/10">
@@ -114,7 +114,7 @@ export default function VRBuenosAiresPage() {
                       <li>Por hora o por día — elegí la modalidad según tu evento.</li>
                   </ul>
                   <div className="mt-4">
-                      <Link href="/alquiler-precios" className="text-secondary underline font-semibold">Ver precios de alquiler VR en Buenos Aires</Link>
+                      <Link href="/alquiler" className="text-secondary underline font-semibold">Ver precios de alquiler VR en Buenos Aires</Link>
                   </div>
               </div>
 
