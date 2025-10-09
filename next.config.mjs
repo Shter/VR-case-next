@@ -1,6 +1,6 @@
 const nextConfig = {
   reactStrictMode: true,
-  experimental: { typedRoutes: true },
+  typedRoutes: true,
   async redirects() {
     return [
       { source: "/index.html", destination: "/", permanent: true },

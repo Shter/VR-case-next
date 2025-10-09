@@ -1,5 +1,8 @@
 /tmp
 /out-tsc
+.DS_Store
+.idea/
+.next
 
 /node_modules
 npm-debug.log*
