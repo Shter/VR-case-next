@@ -28,11 +28,11 @@ export default function Page() {
         <>
             <JsonLd data={pricingBreadcrumbLd()} />
             <JsonLd data={pricingRentalLd()} />
-            <div className="container pt-24">
+            <div className="container pt-22">
                 <h1 className="text-4xl md:text-6xl font-extrabold text-center mb-10">
                     Precios de alquiler realidad virtual VR en Buenos Aires
                 </h1>
-                <p className="text-center mx-auto mb-10 opacity-90">
+                <p className="text-center mx-auto mb-4 opacity-90">
                     Buscas precios de alquiler realidad virtual VR en Buenos Aires? Nuestras tarifas son competitivas y
                     flexibles. Contacta para en eventos corporativos. Descubre nuestras tarifas flexibles para alquiler
                     lentes de realidad virtual VR Meta Quest 3 en Buenos Aires. Incluye envío gratis y soporte completo

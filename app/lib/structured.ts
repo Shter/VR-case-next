@@ -19,6 +19,8 @@ export const vrServiceLd = () => ({
 });
 
 export const homeBreadcrumbLd = () => ({
+    "@context": "https://schema.org",
+    "@type": "RentalService",
     "areaServed": [
         { "@type": "City", "name": "Buenos Aires" },
         { "@type": "AdministrativeArea", "name": "Provincia de Buenos Aires" }
@@ -44,11 +46,11 @@ export const homeBreadcrumbLd = () => ({
 });
 
 export const pricingBreadcrumbLd = () => ({
-    "@context":"https://schema.org",
-    "@type":"BreadcrumbList",
-    "itemListElement":[
-        {"@type":"ListItem","position":1,"name":"Inicio","item":"https://vr-case.com.ar/"},
-        {"@type":"ListItem","position":2,"name":"Alquiler precios","item":"https://vr-case.com.ar/alquiler"}
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://vr-case.com.ar/" },
+        { "@type": "ListItem", "position": 2, "name": "Alquiler precios", "item": "https://vr-case.com.ar/alquiler" }
     ]
 });
 

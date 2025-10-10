@@ -1,9 +1,9 @@
 [
-  { "id": "2h-2", "title": "VR por 2 horas", "headsets": 2, "period": "2h", "price": 35000, "plusPrice": 16000, "plusUnit": "hora" },
-  { "id": "day-2", "title": "VR por día", "headsets": 2, "period": "day", "price": 100000, "plusPrice": 40000, "plusUnit": "dia" },
-  { "id": "week-2","title": "VR por semana", "headsets": 2, "period": "week", "price": 380000, "plusPrice": 140000, "plusUnit": "semana" },
+  { "id": "2h-2", "rentLimit": "De 2 a 4 horas experencia", "title": "VR por 2 horas", "headsets": 2, "period": "2h", "price": 35000, "plusPrice": 16000, "plusUnit": "hora" },
+  { "id": "day-2", "rentLimit": "Desde 1 día", "title": "VR por día", "headsets": 2, "period": "day", "price": 100000, "plusPrice": 40000, "plusUnit": "dia" },
+  { "id": "week-2", "rentLimit": "Desde 1 semana", "title": "VR por semana", "headsets": 2, "period": "week", "price": 380000, "plusPrice": 140000, "plusUnit": "semana" },
 
-  { "id": "2h-1", "title": "VR por 2 horas", "headsets": 1, "period": "2h", "price": 20000, "plusPrice": 7000, "plusUnit": "hora" },
-  { "id": "day-1", "title": "VR por día", "headsets": 1, "period": "day", "price": 55000, "plusPrice": 35000, "plusUnit": "dia" },
-  { "id": "week-1","title": "VR por semana", "headsets": 1, "period": "week", "price": 220000, "plusPrice": 100000, "plusUnit": "semana" }
+  { "id": "2h-1", "rentLimit": "De 2 a 4 horas experencia", "title": "VR por 2 horas", "headsets": 1, "period": "2h", "price": 20000, "plusPrice": 7000, "plusUnit": "hora" },
+  { "id": "day-1", "rentLimit": "Desde 1 día", "title": "VR por día", "headsets": 1, "period": "day", "price": 55000, "plusPrice": 35000, "plusUnit": "dia" },
+  { "id": "week-1", "rentLimit": "Desde 1 semana", "title": "VR por semana", "headsets": 1, "period": "week", "price": 220000, "plusPrice": 100000, "plusUnit": "semana" }
 ]

@@ -1,4 +1,59 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+
 export function About() {
+    const videoRef = useRef<HTMLVideoElement | null>(null);
+
+    useEffect(() => {
+        const video = videoRef.current;
+
+        if (!video) {
+            return;
+        }
+
+        const play = () => {
+            void video.play().catch(() => {});
+        };
+
+        const handleLoadedData = () => {
+            play();
+        };
+
+        const handleVisibilityChange = () => {
+            if (!document.hidden) {
+                play();
+            }
+        };
+
+        play();
+        video.addEventListener("loadeddata", handleLoadedData);
+        document.addEventListener("visibilitychange", handleVisibilityChange);
+
+        return () => {
+            video.removeEventListener("loadeddata", handleLoadedData);
+            document.removeEventListener("visibilitychange", handleVisibilityChange);
+        };
+    }, []);
+
+    const handleVideoError = () => {
+        const video = videoRef.current;
+        if (!video) {
+            return;
+        }
+
+        const currentSrc = video.currentSrc || video.dataset.src || video.src;
+
+        if (currentSrc) {
+            video.src = "";
+
+            requestAnimationFrame(() => {
+                video.src = currentSrc;
+                video.load();
+            });
+        }
+    };
+
     return (
         <section id="about" className="py-16 bg-white">
             <div className="container grid md:grid-cols-2 gap-12 items-start">
@@ -31,13 +86,14 @@ export function About() {
 
                 <div className="h-fit md:h-full">
                     <video
+                        ref={videoRef}
                         className="w-full h-full rounded-2xl border-2 border-dark md:aspect-[16/9]"
-                        preload="metadata"
-                        poster="/assets/video/action.webm"
+                        preload="auto"
                         autoPlay
                         muted
                         loop
                         playsInline
+                        onError={handleVideoError}
                     >
                         <source src="/assets/video/action.webm" type="video/webm" />
                         Tu navegador no soporta el video.

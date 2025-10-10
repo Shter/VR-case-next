@@ -1,27 +1,14 @@
 "use client";
 
-import { ReactNode, useId } from 'react';
+import { useId } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import Dialog from '@mui/material/Dialog';
-import type { DialogProps } from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
-
-export type AppDialogProps = {
-  open: boolean;
-  onClose: () => void;
-  title?: ReactNode;
-  description?: ReactNode;
-  children?: ReactNode;
-  actions?: ReactNode;
-  titleId?: string;
-  maxWidth?: DialogProps['maxWidth'];
-  fullWidth?: boolean;
-  closeLabel?: string;
-};
+import { AppDialogProps }   from "@/types/allTypes";
 
 export function AppDialog({
   open,

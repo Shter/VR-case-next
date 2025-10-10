@@ -6,13 +6,9 @@ import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 
 import { AppDialog } from "@/components/AppDialog";
-import type { Offer } from "@/types/pricing";
+import { PriceCardProps } from "@/types/allTypes";
 
-type ServerPlanCardProps = {
-    offer: Offer;
-};
-
-export function PlanCard({ offer }: ServerPlanCardProps) {
+export function PriceCard({ offer }: PriceCardProps) {
     const [isDialogOpen, setDialogOpen] = useState(false);
 
     const handleOpenDialog = () => setDialogOpen(true);
@@ -25,13 +21,16 @@ export function PlanCard({ offer }: ServerPlanCardProps) {
                 <div className="text-secondary text-5xl font-extrabold mb-1">
                     ${offer.price.toLocaleString("es-AR")}
                 </div>
+
                 {offer.plusPrice ? (
                     <div className="text-secondary text-xl font-bold mb-4">
                         + ${offer.plusPrice.toLocaleString("es-AR")}/{offer.plusUnit}
                     </div>
                 ) : null}
+
                 <ul className="space-y-2 mb-6">
-                    <li>{offer.headsets} x Meta Quest 3</li>
+                    <li>{offer.rentLimit}</li>
+                    <li className="border-y-1 py-2 border-secondary">{offer.headsets} x Meta Quest 3</li>
                     <li>Envío gratis</li>
                 </ul>
                 <Button
@@ -83,6 +82,7 @@ export function PlanCard({ offer }: ServerPlanCardProps) {
                             className="h-20 w-20"
                         />
                     </IconButton>
+
                     <IconButton
                         component="a"
                         href="https://instagram.com/vr.case.ar"

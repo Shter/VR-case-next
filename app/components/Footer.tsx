@@ -6,7 +6,6 @@ export function Footer() {
             <div className="container grid gap-10 md:grid-cols-4">
                 <div>
                     <h3 className="font-bold header-logo">VR<span className="text-secondary">.CASE</span></h3>
-                    {/*<span className="header-logo">VR<span className="text-secondary">.CASE</span></span>*/}
                     <p>Servicio de alquiler de lentes VR Meta Quest 3 para evento y uso privado</p>
                 </div>
                 <div>
@@ -17,7 +16,7 @@ export function Footer() {
                         <li><Link href="/#about">Sobre nosotros</Link></li>
                         <li><Link href="/#features">Ventajas</Link></li>
                         <li><Link href="/#gallery">Galería</Link></li>
-                        <li><Link href="/alquiler">Alquiler precios</Link></li>
+                        <li><Link href="/alquiler">Precios</Link></li>
                     </ul>
                 </div>
                 <div>

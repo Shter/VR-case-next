@@ -19,7 +19,7 @@
 - Prefer Material UI primitives and follow Material Design spacing, typography, and color guidance where practical.
 - Source icons from `public/assets/icons` to keep branding consistent; avoid external icon packs unless pre-approved.
 - Name function arguments descriptively (e.g., `offer`, `planOption`); avoid single-letter identifiers.
-- Keep one React component per file; extract helper components (e.g., `PlanCard`) into their own module when they need reuse.
+- Keep one React component per file; extract helper components into their own module when they need reuse.
 - Keep files under 300 lines when possible; extract primitives into `app/lib` or `app/components` to stay modular.
 - Treat modals, overlays, and other large UI primitives as abstract shells that accept arbitrary content so they can be reused across features.
 - Follow ESLint formatting (2-space indent, trailing commas, single quotes). Use your editor's ESLint integration or run `npm run lint -- --fix`.
