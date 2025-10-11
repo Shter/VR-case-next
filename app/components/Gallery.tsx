@@ -11,7 +11,7 @@ export function Gallery() {
     const [src, setSrc] = useState<string | null>(null);
 
     return (
-        <section id="gallery" className="bg-white py-16">
+        <section id="gallery" className="bg-white pb-12">
             <div className="container">
                 <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">Nuestras lentes virtual realidad VR Meta Quest 3</h2>
                 <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">

@@ -8,7 +8,7 @@ export function Features() {
         { img: "/assets/img/flex.webp", title: "Condiciones flexibles", text: "Desde horas hasta semanas a tarifas competitivas." },
     ];
     return (
-        <section id="features" className="bg-gradient-to-br from-light to-gray-200 py-16">
+        <section id="features" className="bg-gradient-to-br from-light to-gray-200 pt-8 pb-16">
             <div className="container">
                 <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">Por qué elegir nuestra virtual realidad?</h2>
                 <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

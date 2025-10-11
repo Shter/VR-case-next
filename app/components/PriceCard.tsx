@@ -18,6 +18,7 @@ export function PriceCard({ offer }: PriceCardProps) {
         <>
             <div className="card-glass text-white text-center">
                 <h3 className="text-xl font-semibold mb-2">{offer.title}</h3>
+
                 <div className="text-secondary text-5xl font-extrabold mb-1">
                     ${offer.price.toLocaleString("es-AR")}
                 </div>
@@ -33,6 +34,7 @@ export function PriceCard({ offer }: PriceCardProps) {
                     <li className="border-y-1 py-2 border-secondary">{offer.headsets} x Meta Quest 3</li>
                     <li>Envío gratis</li>
                 </ul>
+
                 <Button
                     variant="contained"
                     onClick={handleOpenDialog}
