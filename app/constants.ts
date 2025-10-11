@@ -11,3 +11,9 @@ export const navItems: NavItem[] = [
     { href: "/alquiler" satisfies Route, label: "Precios" },
     { href: { pathname: "/", hash: "contact" } satisfies UrlObject, label: "Contactos" },
 ];
+
+export const images = [
+    "/assets/img/on-station.webp",
+    "/assets/img/in-case.webp",
+    "/assets/img/on-wood.webp",
+];

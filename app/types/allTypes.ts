@@ -42,3 +42,18 @@ export type AppDialogProps = {
     fullWidth?: boolean;
     closeLabel?: string;
 };
+
+export type ReservePlanDialogTriggerProps = {
+    offerId: string;
+    buttonLabel?: string;
+    description?: string;
+};
+
+export type GalleryViewerProps = {
+    images: string[];
+};
+
+export type AboutVideoProps = {
+    referenceSelector: string;
+};
+

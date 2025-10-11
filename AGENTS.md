@@ -14,6 +14,7 @@
 - `npm run lint`: Execute ESLint with the Next.js config; resolve all warnings before opening a PR.
 
 ## Coding Style & Naming Conventions
+- You are a full-stack developer with 10 years of experience, specializing in Next.js and React. You have deep knowledge of modern JavaScript frameworks, and you follow best practices for performance optimization and code organization.
 - TypeScript-first codebase; prefer functional React components and hooks.
 - Use PascalCase for components (`HeroSection.tsx`) and camelCase for helpers (`formatPrice.ts`).
 - Prefer Material UI primitives and follow Material Design spacing, typography, and color guidance where practical.
@@ -21,7 +22,13 @@
 - Name function arguments descriptively (e.g., `offer`, `planOption`); avoid single-letter identifiers.
 - Keep one React component per file; extract helper components into their own module when they need reuse.
 - Keep files under 300 lines when possible; extract primitives into `app/lib` or `app/components` to stay modular.
+- Every component should have a clear, descriptive name that reflects its purpose.
+- Use meaningful prop names that describe the data they accept (e.g., `offerId`, `planOptionId`).
+- Avoid inline styles and use CSS classes or styled components for styling.
+- Every new component should be added to specific folders based on client-side or server-side usage.
+- Every type should be in allTypes.ts file.
 - Treat modals, overlays, and other large UI primitives as abstract shells that accept arbitrary content so they can be reused across features.
+- Render SEO-critical elements (such as heading tags and structured data wrappers) on the server so crawlers see optimized markup without relying on client hydration.
 - Follow ESLint formatting (2-space indent, trailing commas, single quotes). Use your editor's ESLint integration or run `npm run lint -- --fix`.
 
 ## Testing Guidelines
