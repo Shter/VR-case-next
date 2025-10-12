@@ -11,16 +11,16 @@ export function About() {
                     <p>
                         VR.CASE ofrece alquiler de lentes VR Meta Quest 3 para cualquier propósito, desde eventos
                         corporativos y fiestas infantiles. Proporcionamos un equipo completo y soporte completo
-                        durante el período de alquiler.
+                        durante el período de alquiler
                     </p>
                     <p>
                         Nuestra misión es hacer que la realidad virtual sea accesible para todos. Sin la necesidad
-                        de comprar equipos costosos, puedes experimentar todas las posibilidades del VR.
+                        de comprar equipos costosos, puedes experimentar todas las posibilidades del VR
                     </p>
                     <p>
                         Nos encargamos de monitorear cuidadosamente el estado de nuestro equipo y actualizamos
                         regularmente la biblioteca de juegos y aplicaciones. Los juegos y aplicaciones se instalan
-                        de forma personalizada para cada cliente.
+                        de forma personalizada para cada cliente
                     </p>
 
                     <div className="overflow-hidden rounded-2xl border-2 mt-6 border-dark">

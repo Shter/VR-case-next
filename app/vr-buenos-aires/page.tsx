@@ -39,7 +39,7 @@ export const metadata: Metadata = {
 export default function VRBuenosAiresPage() {
   return (
     <main>
-      <section className="max-w-4xl mx-auto pt-20 pb-8 px-4">
+      <section className="max-w-4xl mx-auto pt-20 pb-10 px-4">
         <JsonLd data={vrBuenosAiresBreadcrumbLd()} />
         <JsonLd data={vrServiceLd()} />
 

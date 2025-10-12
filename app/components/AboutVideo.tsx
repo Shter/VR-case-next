@@ -111,7 +111,7 @@ export function AboutVideo({ referenceSelector }: AboutVideoProps) {
         <div ref={videoWrapperRef} className="h-fit md:h-full flex justify-center">
             <video
                 ref={videoRef}
-                className="rounded-2xl border-2 border-dark max-w-full w-full md:w-auto"
+                className="rounded-2xl border-2 border-dark max-w-full w-full md:w-auto bg-[var(--color-amber)]"
                 preload="auto"
                 autoPlay
                 muted

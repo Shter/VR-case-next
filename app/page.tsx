@@ -22,8 +22,8 @@ export default function Page() {
             <About />
             <Gallery />
             <Features />
-            <PricingTeaser />
             <Contact />
+            <PricingTeaser />
             <Faq />
         </>
     );

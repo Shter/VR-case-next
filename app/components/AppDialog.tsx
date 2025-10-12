@@ -12,7 +12,7 @@ import { AppDialogProps }   from "@/types/allTypes";
 
 export function AppDialog({
   open,
-  onClose,
+  onClose: onCloseAction,
   title,
   description,
   children,
@@ -28,7 +28,7 @@ export function AppDialog({
   return (
     <Dialog
       open={open}
-      onClose={onClose}
+      onClose={onCloseAction}
       aria-labelledby={resolvedTitleId}
       maxWidth={maxWidth}
       fullWidth={fullWidth}
@@ -40,7 +40,7 @@ export function AppDialog({
         },
       }}
     >
-      {title || onClose ? (
+      {title || onCloseAction ? (
         <DialogTitle
           id={resolvedTitleId}
           sx={{
@@ -56,7 +56,7 @@ export function AppDialog({
           {title}
           <IconButton
             aria-label={closeLabel}
-            onClick={onClose}
+            onClick={onCloseAction}
             sx={{
               position: 'absolute',
               top: 16,
