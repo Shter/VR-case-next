@@ -23,7 +23,7 @@ export function GalleryViewer({ images }: GalleryViewerProps) {
                     <button
                         key={image}
                         type="button"
-                        className="group relative overflow-hidden rounded-2xl border border-dark/10"
+                        className="group relative overflow-hidden rounded-2xl border-2 border-dark"
                         onClick={() => handleOpen(image)}
                     >
                         <img src={image} alt="Galería VR" className="w-full h-full object-cover" />

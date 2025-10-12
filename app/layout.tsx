@@ -7,7 +7,7 @@ import "./globals.css"
 export const metadata: Metadata = {
     metadataBase: new URL(site.url),
     title: {
-        default: "VR Buenos Aires — Alquiler de lentes de realidad virtual Meta Quest 3 | VR.CASE",
+        default: "VR Buenos Aires — Alquiler de realidad virtual Meta Quest 3 | VR.CASE",
         template: "%s | VR.CASE",
     },
     description:
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
         type: "website",
         locale: "es_AR",
         url: site.url,
-        title: "VR Buenos Aires — Alquiler de lentes VR Meta Quest 3 | VR.CASE",
+        title: "VR Buenos Aires — Alquiler VR Meta Quest 3 | VR.CASE",
         description:
             "Alquila lentes VR Meta Quest 3 en Buenos Aires: ideal para eventos y uso personal. Envío y soporte incluidos.",
         siteName: "VR.CASE",

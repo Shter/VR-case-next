@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/JsonLd";
 import { vrBuenosAiresBreadcrumbLd, vrServiceLd } from "@/lib/structured";
-import Link                         from "next/link";
 import { advantages, serviceCards } from "@/app/constants";
 
 export const metadata: Metadata = {
