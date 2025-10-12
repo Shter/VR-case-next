@@ -20,10 +20,10 @@ export default function Page() {
             <JsonLd data={pricingRentalLd()} />
             <Hero />
             <About />
-            <Features />
             <Gallery />
-            <PricingTeaser />
+            <Features />
             <Contact />
+            <PricingTeaser />
             <Faq />
         </>
     );

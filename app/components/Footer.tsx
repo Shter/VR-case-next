@@ -6,7 +6,6 @@ export function Footer() {
             <div className="container grid gap-10 md:grid-cols-4">
                 <div>
                     <h3 className="font-bold header-logo">VR<span className="text-secondary">.CASE</span></h3>
-                    {/*<span className="header-logo">VR<span className="text-secondary">.CASE</span></span>*/}
                     <p>Servicio de alquiler de lentes VR Meta Quest 3 para evento y uso privado</p>
                 </div>
                 <div>
@@ -17,13 +16,13 @@ export function Footer() {
                         <li><Link href="/#about">Sobre nosotros</Link></li>
                         <li><Link href="/#features">Ventajas</Link></li>
                         <li><Link href="/#gallery">Galería</Link></li>
-                        <li><Link href="/alquiler-precios">Alquiler precios</Link></li>
+                        <li><Link href="/alquiler">Precios</Link></li>
                     </ul>
                 </div>
                 <div>
                     <h3 className="text-secondary mb-4 text-xl">Servicios</h3>
                     <ul className="space-y-2">
-                        <li><Link href="/alquiler-precios">Alquiler de lentes VR</Link></li>
+                        <li><Link href="/alquiler">Alquiler de lentes VR</Link></li>
                         <li><span className="opacity-70">Eventos corporativos</span></li>
                         <li><span className="opacity-70">Fiestas infantiles</span></li>
                         <li><span className="opacity-70">Excursiones VR</span></li>

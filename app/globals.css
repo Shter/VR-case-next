@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
-/* Токены темы v4 — будут работать как bg-primary, text-secondary и т.п. */
 @theme {
   --color-primary: #1B449E;
   --color-secondary: #88d3ce;
   --color-dark: #1a1a2e;
   --color-light: #f8f9fa;
   --color-accent: #ff7e5f;
+  --color-amber: #D3C3B0;
 
   --shadow-soft: 0 10px 30px rgba(0,0,0,0.05);
   --radius-xl2: 1.25rem;

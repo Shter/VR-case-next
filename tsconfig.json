@@ -22,7 +22,8 @@
       "@/app/*": ["app/*"],
       "@/components/*": ["components/*", "app/components/*"],
       "@/lib/*": ["lib/*", "app/lib/*"],
-      "@/data/*": ["data/*", "app/data/*"]
+      "@/data/*": ["data/*", "app/data/*"],
+      "@/types/*": ["types/*", "app/types/*"]
     },
     "allowJs": true,
     "incremental": true,

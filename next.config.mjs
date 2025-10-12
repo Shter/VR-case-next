@@ -1,11 +1,10 @@
 const nextConfig = {
   reactStrictMode: true,
-  experimental: { typedRoutes: true },
+  typedRoutes: true,
   async redirects() {
-// Отражает существующие редиректы из vercel.json
     return [
       { source: "/index.html", destination: "/", permanent: true },
-      { source: "/alquiler-precios.html", destination: "/alquiler-precios", permanent: true }
+      { source: "/alquiler-precios.html", destination: "/alquiler", permanent: true }
     ];
   },
   async headers() {

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/JsonLd";
 import { vrBuenosAiresBreadcrumbLd, vrServiceLd } from "@/lib/structured";
-import Link from "next/link";
+import { advantages, serviceCards } from "@/app/constants";
 
 export const metadata: Metadata = {
     title: "VR Buenos Aires — Alquiler de lentes VR Meta Quest 3",
@@ -37,119 +37,96 @@ export const metadata: Metadata = {
 
 export default function VRBuenosAiresPage() {
   return (
-      <main>
-          <section className="max-w-4xl mx-auto py-20 px-4">
-          <JsonLd data={vrBuenosAiresBreadcrumbLd()} />
-          <JsonLd data={vrServiceLd()} />
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">VR Buenos Aires: alquiler de lentes Meta Quest 3</h1>
-              <p className="text-lg  mb-6">
-                  незнакомы с ВР? у вас есть отличная возможность познакомиться поближе в домашних условиях. Мы предлагаем
-                  VR Buenos Aires y VR Argentina para eventos, fiestas y empresas. En VR.CASE alquilamos headsets Meta Quest 3 con
-                  instalación y soporte para que tu experiencia de realidad virtual sea impecable. Servicio en CABA y Zona Norte.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3 mb-10">
-                  <a href="https://wa.me/5491127827150" target="_blank" rel="nofollow"
-                     className="inline-flex items-center justify-center rounded bg-green-500 px-5 py-3 font-semibold text-white hover:bg-green-600">
-                      Consultar por WhatsApp
-                  </a>
-                  <Link href="/alquiler-precios" className="inline-flex items-center justify-center rounded border border-white/20 px-5 py-3 font-semibold hover:bg-white/10">
-                      Ver precios y planes
-                  </Link>
-                  <a href="/#contact" className="inline-flex items-center justify-center rounded border border-white/20 px-5 py-3 font-semibold hover:bg-white/10">
-                      Contacto
-                  </a>
-              </div>
+    <main>
+      <section className="max-w-4xl mx-auto pt-20 pb-10 px-4">
+        <JsonLd data={vrBuenosAiresBreadcrumbLd()} />
+        <JsonLd data={vrServiceLd()} />
 
-              <div className="grid md:grid-cols-2 gap-10 mb-14">
-                  <div>
-                      <h2 className="text-2xl font-semibold mb-3">¿Por qué elegir VR en Buenos Aires?</h2>
-                      <ul className="list-disc pl-5 space-y-2 ">
-                          <li>Experiencias inmersivas de alta calidad con Meta Quest 3 (standalone, sin cables).</li>
-                          <li>Ideal para <strong>eventos corporativos</strong>, activaciones de marca y <strong>fiestas</strong>.</li>
-                          <li>Instalación, calibración y <strong>soporte técnico</strong> durante el evento.</li>
-                          <li>Catálogo de juegos y experiencias: Beat Saber, Superhot VR, Job Simulator, más títulos familiares.</li>
-                          <li>Servicio de <strong>VR Argentina</strong>: cobertura en CABA y Zona Norte (Olivos, Vicente López, Núñez, Belgrano, Palermo, San Isidro, Martínez).</li>
-                      </ul>
-                  </div>
-                  <div>
-                      <h2 className="text-2xl font-semibold mb-3">¿Qué incluye el alquiler?</h2>
-                      <ul className="list-disc pl-5 space-y-2 ">
-                          <li>Headsets Meta Quest 3 con correas cómodas y cargadores.</li>
-                          <li>Juegos/experiencias preinstalados según el tipo de evento.</li>
-                          <li>Brief rápido de uso y mejores prácticas para los invitados.</li>
-                          <li>Opcional: monitores para proyección, señalética y stands.</li>
-                          <li>Envío a domicilio en Buenos Aires y retiro programado.</li>
-                      </ul>
-                  </div>
-              </div>
+        <h1 className="text-4xl md:text-6xl font-extrabold mb-6">VR Buenos Aires: alquiler de VR Meta Quest 3</h1>
 
-              <div className="mb-12">
-                  <h2 className="text-2xl font-semibold mb-3">Casos de uso populares</h2>
-                  <div className="grid md:grid-cols-3 gap-6 ">
-                      <div className="rounded border border-white/10 p-4">
-                          <h3 className="font-semibold mb-1">Eventos corporativos</h3>
-                          <p>Team building, lanzamientos, ferias y congresos. Atraé visitas con una demo VR impactante.</p>
-                      </div>
-                      <div className="rounded border border-white/10 p-4">
-                          <h3 className="font-semibold mb-1">Fiestas y cumpleaños</h3>
-                          <p>Experiencias seguras y divertidas para todas las edades. Juegos activos y party-friendly.</p>
-                      </div>
-                      <div className="rounded border border-white/10 p-4">
-                          <h3 className="font-semibold mb-1">Educación y training</h3>
-                          <p>Simuladores, recorridos virtuales y contenidos didácticos para escuelas y capacitaciones.</p>
-                      </div>
-                  </div>
-              </div>
+        <p className="text-lg mb-6">
+          Descubre Buenos Aires como nunca antes: vive la inmersión total alquilando gafas Meta Quest 3. La mejor experiencia
+          de realidad virtual llega a tu puerta con el servicio de VR.CASE
+        </p>
+        <p className="text-lg mb-6">
+          Listo para recorrer nuevos mundos, protagonizar aventuras épicas y transformar tu entretenimiento? En VR Buenos
+          Aires llevamos la tecnología más avanzada directamente a vos, con alquiler de Meta Quest 3 en toda la Capital
+          Federal para que disfrutes de la libertad de la VR sin cables ni complicaciones
+        </p>
 
-              <div className="mb-12">
-                  <h2 className="text-2xl font-semibold mb-3">Zonas de cobertura</h2>
-                  <p className="">CABA (Palermo, Recoleta, Belgrano, Núñez, Caballito, Microcentro) y Zona Norte (Olivos, Vicente López, Florida, Martínez, San Isidro). Consultá por otras zonas de Buenos Aires.</p>
-              </div>
+        <ul className="md:grid-cols-2 lg:grid-cols-3 rounded-2xl bg-dark/20 p-8 shadow-soft">
+          {advantages.map(({ title, text }) => (
+            <li key={title} className="my-3">
+              <h2 className="text-xl font-semibold">{title}</h2>
+              <p>{text}</p>
+            </li>
+          ))}
+        </ul>
 
-              <div className="mb-12">
-                  <h2 className="text-2xl font-semibold mb-3">Planes recomendados</h2>
-                  <ul className="list-disc pl-5 space-y-2 ">
-                      <li>1 headset — ideal para grupos chicos o demos continuas.</li>
-                      <li>2 headsets — más rotación de invitados y menos tiempo de espera.</li>
-                      <li>Por hora o por día — elegí la modalidad según tu evento.</li>
-                  </ul>
-                  <div className="mt-4">
-                      <Link href="/alquiler-precios" className="text-secondary underline font-semibold">Ver precios de alquiler VR en Buenos Aires</Link>
-                  </div>
-              </div>
+        <div className="space-y-10 mb-6">
+          <div className="pt-6">
+            <h2 className="text-2xl font-semibold mb-4">Nuestros servicios de alquiler de VR</h2>
+            <p className="mb-6">
+              En VR Buenos Aires nos especializamos en hacer tu experiencia fácil y memorable. Elegí el plan que mejor se
+              adapte a tu ocasión
+            </p>
 
-              <div className="mb-14">
-                  <h2 className="text-2xl font-semibold mb-3">Preguntas frecuentes (VR Buenos Aires / VR Argentina)</h2>
-                  <div className="space-y-4 ">
-                      <details className="rounded border border-white/10 p-4">
-                          <summary className="font-semibold cursor-pointer">¿En qué barrios de Buenos Aires trabajan?</summary>
-                          <p>CABA completa (Palermo, Recoleta, Belgrano, Núñez, Caballito, Microcentro) y Zona Norte (Olivos, Vicente López, Florida, Martínez, San Isidro). Consultá por disponibilidad en otras zonas de <strong>VR Argentina</strong>.</p>
-                      </details>
-                      <details className="rounded border border-white/10 p-4">
-                          <summary className="font-semibold cursor-pointer">¿Qué juegos y experiencias incluyen?</summary>
-                          <p>Beat Saber, Superhot VR, Job Simulator y más títulos para todas las edades. Podemos adaptar el contenido según tu evento.</p>
-                      </details>
-                      <details className="rounded border border-white/10 p-4">
-                          <summary className="font-semibold cursor-pointer">¿Proveen instalación y asistencia?</summary>
-                          <p>Sí. Llevamos, instalamos y dejamos todo listo. También podemos asistir durante el evento para guiar a los invitados.</p>
-                      </details>
-                      <details className="rounded border border-white/10 p-4">
-                          <summary className="font-semibold cursor-pointer">¿Cuánto tiempo de alquiler recomiendan?</summary>
-                          <p>Para fiestas, 2–4 horas suele ser ideal. Para stands o activaciones, recomendamos jornada completa para maximizar el alcance.</p>
-                      </details>
-                  </div>
-              </div>
+            <ul className="md:grid-cols-2 lg:grid-cols-3 rounded-2xl bg-dark/20 p-8 shadow-soft">
+              {serviceCards.map(({ heading, description }) => (
+                <li key={heading} className="my-3">
+                  <h3 className="text-xl font-semibold">{heading}</h3>
+                  <p>{description}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-              <div className="flex flex-col sm:flex-row gap-3">
-                  <a href="https://wa.me/5491127827150" target="_blank" rel="nofollow"
-                     className="inline-flex items-center justify-center rounded bg-green-500 px-5 py-3 font-semibold text-white hover:bg-green-600">
-                      Reservar por WhatsApp
-                  </a>
-                  <a href="mailto:info@vr-case.com.ar" className="inline-flex items-center justify-center rounded border border-white/20 px-5 py-3 font-semibold hover:bg-white/10">
-                      Escribir por Email
-                  </a>
-              </div>
-        </section>
-      </main>
+          <div className="rounded-2xl">
+            <h2 className="text-2xl font-semibold mb-4">Cómo funciona?</h2>
+            <ol className="space-y-4 text-base">
+              <li>
+                <span className="font-semibold text-secondary">1. Contactanos:</span> contanos qué necesitás y por cuánto
+                tiempo querés vivir la experiencia
+              </li>
+              <li>
+                <span className="font-semibold text-secondary">2. Coordinamos la entrega:</span> llevamos el Meta Quest 3
+                directamente a tu domicilio en CABA
+              </li>
+              <li>
+                <span className="font-semibold text-secondary">3. Disfrutá y jugá:</span> recibís una inducción express y te
+                sumergís en la realidad virtual. Nosotros nos ocupamos del resto
+              </li>
+              <li>
+                <span className="font-semibold text-secondary">4. Retiro programado:</span> al finalizar el período, pasamos a
+                buscar el equipo sin que tengas que preocuparte por nada
+              </li>
+            </ol>
+          </div>
+        </div>
+
+        <div className="rounded-2xl bg-dark/20 p-6">
+          <h2 className="text-2xl font-semibold mb-4">Explorá un universo de posibilidades</h2>
+          <ul className="md:grid-cols-2">
+            <li>- Jugá títulos de alta gama como Beat Saber, Superhot VR o Resident Evil 4</li>
+            <li>- Explorá mundos sociales en Horizon Worlds y conocé gente sin salir de casa</li>
+            <li>- Entrená con apps de fitness inmersivo pensadas para motivarte</li>
+            <li>- Mirá películas en una pantalla del tamaño de un cine privado</li>
+          </ul>
+        </div>
+
+        <div className="rounded-2xl pt-6">
+          <h2 className="text-2xl font-semibold mb-4">VR Buenos Aires: tu puerta de entrada a la realidad virtual</h2>
+          <p className="mb-4">
+            Somos más que un servicio de alquiler: somos tus guías en el mundo VR. Nuestra pasión es democratizar el acceso a
+            esta tecnología en Buenos Aires, con un servicio confiable, personalizado y de la más alta calidad
+          </p>
+          <p>
+            Qué estás esperando? La aventura está a un clic de distancia.
+            Contactanos hoy mismo para consultar disponibilidad y precios.
+            Alquilá tu Meta Quest 3 y empezá a vivir en otra dimensión
+          </p>
+        </div>
+      </section>
+    </main>
   );
 }
