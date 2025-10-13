@@ -7,7 +7,7 @@ import { PricingTeaser } from "@/components/PricingTeaser";
 import { Contact } from "@/components/Contact";
 import { Faq } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
-import { homeBreadcrumbLd, pricingRentalLd } from "@/lib/structured";
+import { homeBreadcrumbLd, homeRentalLd, pricingRentalLd } from "@/lib/structured";
 
 export const metadata: Metadata = {
     alternates: { canonical: "/", languages: { "es-AR": "/" } }
@@ -16,6 +16,7 @@ export const metadata: Metadata = {
 export default function Page() {
     return (
         <>
+            <JsonLd data={homeRentalLd()} />
             <JsonLd data={homeBreadcrumbLd()} />
             <JsonLd data={pricingRentalLd()} />
             <Hero />

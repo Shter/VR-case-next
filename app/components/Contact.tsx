@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Button from "@mui/material/Button";
 import Stack  from "@mui/material/Stack";
 
@@ -6,9 +7,12 @@ export function Contact() {
         <section className="py-16">
             <div className="container flex justify-center">
                 <div className="flex flex-col border-y-4 rounded-2xl border-secondary max-w-2xl text-center py-6 px-10">
-                    <h2 className="text-4xl md:text-3xl font-extrabold mb-6">
-                        Contactanos en nuestras redes sociales para recibir asesoramiento sobre <br /> VR en Buenos Aires
+                    <h2 className="text-3xl md:text-4xl font-extrabold mb-6">
+                        Hablemos sobre tu próximo evento de realidad virtual en Buenos Aires
                     </h2>
+                    <p className="mb-6 text-lg opacity-90">
+                        Coordinamos reservas por WhatsApp e Instagram para brindarte disponibilidad inmediata, recomendaciones de contenido y asistencia logística
+                    </p>
 
                     <Stack direction="row" spacing={6} justifyContent="center" flexWrap="wrap">
                         <Button
@@ -39,7 +43,7 @@ export function Contact() {
                                 },
                             }}
                         >
-                            <img src="/assets/icons/whatsapp.svg" alt="WhatsApp" className="h-10 w-10" />
+                            <Image src="/assets/icons/whatsapp.svg" alt="WhatsApp" width={40} height={40} priority />
                             <span className="text-lg">WhatsApp</span>
                         </Button>
                         <Button
@@ -70,7 +74,7 @@ export function Contact() {
                                 },
                             }}
                         >
-                            <img src="/assets/icons/instagram.svg" alt="Instagram" className="h-10 w-10" />
+                            <Image src="/assets/icons/instagram.svg" alt="Instagram" width={40} height={40} />
                             <span className="text-lg">Instagram</span>
                         </Button>
                     </Stack>
