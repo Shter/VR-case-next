@@ -6,7 +6,7 @@ export function Gallery() {
         <section id="gallery" className="bg-white pb-12">
             <div className="container">
                 <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">
-                    Nuestras lentes virtual realidad VR Meta Quest 3
+                    Equipos Meta Quest 3 listos para tu experiencia VR
                 </h2>
 
                 <GalleryViewer images={images} />

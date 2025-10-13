@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export function Footer() {
@@ -6,7 +7,7 @@ export function Footer() {
             <div className="container grid gap-10 md:grid-cols-4">
                 <div>
                     <h3 className="font-bold header-logo">VR<span className="text-secondary">.CASE</span></h3>
-                    <p>Servicio de alquiler de lentes VR Meta Quest 3 para evento y uso privado</p>
+                    <p>Servicio de alquiler de lentes VR Meta Quest 3 para eventos, activaciones y experiencias privadas en Buenos Aires.</p>
                 </div>
                 <div>
                     <h3 className="text-secondary mb-4 text-xl">Menú</h3>
@@ -35,10 +36,10 @@ export function Footer() {
                     </address>
                     <div className="flex gap-3 mt-4">
                         <a href="https://wa.me/5491127827150" rel="nofollow" target="_blank">
-                            <img src="/assets/icons/whatsapp.svg" alt="WhatsApp" className="h-8 w-8" />
+                            <Image src="/assets/icons/whatsapp.svg" alt="WhatsApp" width={32} height={32} />
                         </a>
                         <a href="https://instagram.com/vr.case.ar" rel="nofollow" target="_blank">
-                            <img src="/assets/icons/instagram.svg" alt="Instagram" className="h-8 w-8" />
+                            <Image src="/assets/icons/instagram.svg" alt="Instagram" width={32} height={32} />
                         </a>
                     </div>
                 </div>

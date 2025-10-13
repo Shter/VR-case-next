@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
@@ -62,11 +63,7 @@ export function ReserveDialog({
                         size="large"
                         sx={{ p: 2 }}
                     >
-                        <img
-                            src="/assets/icons/whatsapp.svg"
-                            alt="WhatsApp"
-                            className="h-20 w-20"
-                        />
+                        <Image src="/assets/icons/whatsapp.svg" alt="WhatsApp" width={80} height={80} />
                     </IconButton>
                     <IconButton
                         component="a"
@@ -78,11 +75,7 @@ export function ReserveDialog({
                         size="large"
                         sx={{ p: 2 }}
                     >
-                        <img
-                            src="/assets/icons/instagram.svg"
-                            alt="Instagram"
-                            className="h-20 w-20"
-                        />
+                        <Image src="/assets/icons/instagram.svg" alt="Instagram" width={80} height={80} />
                     </IconButton>
                 </Stack>
             </AppDialog>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/JsonLd";
 import { vrBuenosAiresBreadcrumbLd, vrServiceLd } from "@/lib/structured";
@@ -38,20 +39,17 @@ export const metadata: Metadata = {
 export default function VRBuenosAiresPage() {
   return (
     <main>
-      <section className="max-w-4xl mx-auto pt-20 pb-10 px-4">
+      <section className="container py-24">
         <JsonLd data={vrBuenosAiresBreadcrumbLd()} />
         <JsonLd data={vrServiceLd()} />
 
-        <h1 className="text-4xl md:text-6xl font-extrabold mb-6">VR Buenos Aires: alquiler de VR Meta Quest 3</h1>
+        <h1 className="text-4xl md:text-6xl font-extrabold mb-6 text-center">VR Buenos Aires: alquiler de Meta Quest 3 para eventos</h1>
 
         <p className="text-lg mb-6">
-          Descubre Buenos Aires como nunca antes: vive la inmersión total alquilando gafas Meta Quest 3. La mejor experiencia
-          de realidad virtual llega a tu puerta con el servicio de VR.CASE
+          Llevamos experiencias de realidad virtual premium a empresas, agencias y particulares en Buenos Aires. Entregamos los headsets Meta Quest 3 configurados, guiamos la instalación en el lugar y brindamos soporte para que cada sesión sea un éxito
         </p>
         <p className="text-lg mb-6">
-          Listo para recorrer nuevos mundos, protagonizar aventuras épicas y transformar tu entretenimiento? En VR Buenos
-          Aires llevamos la tecnología más avanzada directamente a vos, con alquiler de Meta Quest 3 en toda la Capital
-          Federal para que disfrutes de la libertad de la VR sin cables ni complicaciones
+          Cubrimos toda la Ciudad Autónoma de Buenos Aires y zona norte. Desde lanzamientos de marca hasta cumpleaños, diseñamos la biblioteca de juegos y aplicaciones según la audiencia para garantizar participación y seguridad
         </p>
 
         <ul className="md:grid-cols-2 lg:grid-cols-3 rounded-2xl bg-dark/20 p-8 shadow-soft">
@@ -66,15 +64,16 @@ export default function VRBuenosAiresPage() {
         <div className="space-y-10 mb-6">
           <div className="pt-6">
             <h2 className="text-2xl font-semibold mb-4">Nuestros servicios de alquiler de VR</h2>
+
             <p className="mb-6">
-              En VR Buenos Aires nos especializamos en hacer tu experiencia fácil y memorable. Elegí el plan que mejor se
-              adapte a tu ocasión
+              Diseñamos propuestas llave en mano para activaciones en retail, eventos corporativos, instituciones educativas y celebraciones privadas. Elegí el formato que mejor se adapte a tu ocasión
             </p>
 
             <ul className="md:grid-cols-2 lg:grid-cols-3 rounded-2xl bg-dark/20 p-8 shadow-soft">
               {serviceCards.map(({ heading, description }) => (
                 <li key={heading} className="my-3">
                   <h3 className="text-xl font-semibold">{heading}</h3>
+
                   <p>{description}</p>
                 </li>
               ))}
@@ -108,23 +107,27 @@ export default function VRBuenosAiresPage() {
           <h2 className="text-2xl font-semibold mb-4">Explorá un universo de posibilidades</h2>
           <ul className="md:grid-cols-2">
             <li>- Jugá títulos de alta gama como Beat Saber, Superhot VR o Resident Evil 4</li>
-            <li>- Explorá mundos sociales en Horizon Worlds y conocé gente sin salir de casa</li>
-            <li>- Entrená con apps de fitness inmersivo pensadas para motivarte</li>
-            <li>- Mirá películas en una pantalla del tamaño de un cine privado</li>
+            <li>- Explorá mundos sociales en Horizon Worlds y conectate con tu comunidad sin moverte del evento</li>
+            <li>- Entrená con apps de fitness inmersivo para romper la rutina</li>
+            <li>- Convertí cualquier sala en un cine privado para proyecciones 360°</li>
           </ul>
         </div>
 
         <div className="rounded-2xl pt-6">
           <h2 className="text-2xl font-semibold mb-4">VR Buenos Aires: tu puerta de entrada a la realidad virtual</h2>
+
           <p className="mb-4">
-            Somos más que un servicio de alquiler: somos tus guías en el mundo VR. Nuestra pasión es democratizar el acceso a
-            esta tecnología en Buenos Aires, con un servicio confiable, personalizado y de la más alta calidad
+            Somos más que un servicio de alquiler: acompañamos a tu equipo durante todo el proceso, desde la planificación previa hasta el retiro coordinado. Nos encargamos de la higiene de los visores, el onboarding de los invitados y la asistencia técnica in situ
           </p>
+
           <p>
-            Qué estás esperando? La aventura está a un clic de distancia.
-            Contactanos hoy mismo para consultar disponibilidad y precios.
-            Alquilá tu Meta Quest 3 y empezá a vivir en otra dimensión
+            Qué estás esperando? La aventura está a un clic de distancia. <Link href="/alquiler" className="text-secondary underline">Consultá los precios</Link> o <Link href="/#contact" className="text-secondary underline">coordiná una demo rápida</Link> para asegurar la disponibilidad en la fecha de tu evento
           </p>
+        </div>
+
+        <div className="mt-10 flex flex-wrap gap-4">
+          <Link href="/alquiler" className="btn">Reservar Meta Quest 3</Link>
+          <Link href="/#contact" className="btn btn--ghost">Hablar con un especialista</Link>
         </div>
       </section>
     </main>

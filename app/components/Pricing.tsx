@@ -9,14 +9,14 @@ export function Pricing() {
 
     return (
         <section className="py-8">
-            <div className="container space-y-10">
+            <div className="container space-y-8">
                 <PriceSection
-                    title="Alquiler de 2 lentes realidad virtual VR Meta Quest 3"
+                    title="Alquiler de 2 VR lentes Meta Quest 3"
                     offers={twoHeadset}
                 />
 
                 <PriceSection
-                    title="Alquiler de 1 lentes realidad virtual VR Meta Quest 3"
+                    title="Alquiler de 1 VR lente Meta Quest 3"
                     offers={oneHeadset}
                 />
             </div>

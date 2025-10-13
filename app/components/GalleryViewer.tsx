@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { GalleryViewerProps } from "@/types/allTypes";
 
@@ -23,16 +24,39 @@ export function GalleryViewer({ images }: GalleryViewerProps) {
                     <button
                         key={image}
                         type="button"
-                        className="group relative overflow-hidden rounded-2xl border-2 border-dark"
+                        className="group block overflow-hidden rounded-2xl border-2 border-dark focus:outline-none focus:ring-2 focus:ring-secondary"
                         onClick={() => handleOpen(image)}
                     >
-                        <img src={image} alt="Galería VR" className="w-full h-full object-cover" />
+                        <div className="relative w-full" style={{ paddingBottom: "66%" }}>
+                            <Image
+                                src={image}
+                                alt="Galería VR Meta Quest 3"
+                                fill
+                                className="object-cover transition-transform duration-300 group-hover:scale-105"
+                                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                                loading="lazy"
+                            />
+                        </div>
                     </button>
                 ))}
             </div>
 
             <div className="modal-backdrop" data-open={open} onClick={handleClose}>
-                {src ? <img src={src} alt="VR Meta Quest 3" className="max-w-[90%] max-h-[90vh] object-contain" /> : null}
+                {src ? (
+                    <div
+                        className="relative"
+                        style={{ width: "min(90vw, 720px)", aspectRatio: "4 / 5" }}
+                    >
+                        <Image
+                            src={src}
+                            alt="VR Meta Quest 3"
+                            fill
+                            className="object-contain"
+                            sizes="(max-width: 768px) 90vw, 720px"
+                            priority
+                        />
+                    </div>
+                ) : null}
             </div>
         </>
     );
