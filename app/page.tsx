@@ -21,10 +21,13 @@ export default function Page() {
             <JsonLd data={pricingRentalLd()} />
             <Hero />
             <About />
-            <Gallery />
             <Features />
-            <Contact />
-            <PricingTeaser />
+            <div className="container grid grid-cols-2 grid-flow-col gap-16">
+                <Contact />
+                <PricingTeaser />
+            </div>
+            <Gallery />
+
             <Faq />
         </>
     );

@@ -65,10 +65,11 @@ export default function Page() {
                         </p>
 
                         <p>
-                            Si necesitás asistencia presencial o mayor cantidad de visores,
+                            Si necesitás asistencia presencial o mayor cantidad de visores,&nbsp;
                             <Link href="/#contact" className="text-accent font-bold hover:underline">
-                                &nbsp; escribinos para preparar un paquete personalizado
+                                escribinos
                             </Link>
+                            &nbsp;para preparar un paquete personalizado
                         </p>
                     </div>
                 </div>
