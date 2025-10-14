@@ -5,8 +5,8 @@ import Stack  from "@mui/material/Stack";
 export function Contact() {
     return (
         <section className="py-16">
-            <div className="container flex justify-center">
-                <div className="flex flex-col border-y-4 rounded-2xl border-secondary max-w-2xl text-center py-6 px-10">
+            <div className="flex justify-center">
+                <div className="flex flex-col border-4 rounded-2xl border-secondary max-w-2xl text-center py-6 px-10">
                     <h2 className="text-3xl md:text-4xl font-extrabold mb-6">
                         Hablemos sobre tu próximo evento de realidad virtual en Buenos Aires
                     </h2>

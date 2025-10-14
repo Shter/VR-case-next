@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/JsonLd";
@@ -52,16 +53,27 @@ export default function VRBuenosAiresPage() {
           Cubrimos toda la Ciudad Autónoma de Buenos Aires y zona norte. Desde lanzamientos de marca hasta cumpleaños, diseñamos la biblioteca de juegos y aplicaciones según la audiencia para garantizar participación y seguridad
         </p>
 
-        <ul className="md:grid-cols-2 lg:grid-cols-3 rounded-2xl bg-dark/20 p-8 shadow-soft">
-          {advantages.map(({ title, text }) => (
-            <li key={title} className="my-3">
-              <h2 className="text-xl font-semibold">{title}</h2>
-              <p>{text}</p>
-            </li>
-          ))}
-        </ul>
+          <div className="grid grid-cols-[1fr_auto] justify-between rounded-2xl bg-gray-200 p-8 shadow-soft border-3 border-dark">
+              <ul className="md:grid-cols-2 lg:grid-cols-3 me-16 border-e-3 border-dark">
+                  {advantages.map(({title, text}) => (
+                      <li key={title} className="my-3">
+                          <h2 className="text-xl font-semibold">{title}</h2>
+                          <p>{text}</p>
+                      </li>
+                  ))}
+              </ul>
 
-        <div className="space-y-10 mb-6">
+              <Image
+                  src="/assets/img/kitchen.webp"
+                  alt="Meta Quest 3 listados para eventos corporativos en Buenos Aires"
+                  width={256}
+                  height={256}
+                  className="rounded-xl aspect-square object-cover h-full w-auto border-3 border-dark"
+                  sizes="(min-width: 768px) 10rem, 9rem"
+              />
+          </div>
+
+        <div className="space-y-8 mb-8">
           <div className="pt-6">
             <h2 className="text-2xl font-semibold mb-4">Nuestros servicios de alquiler de VR</h2>
 
@@ -69,20 +81,31 @@ export default function VRBuenosAiresPage() {
               Diseñamos propuestas llave en mano para activaciones en retail, eventos corporativos, instituciones educativas y celebraciones privadas. Elegí el formato que mejor se adapte a tu ocasión
             </p>
 
-            <ul className="md:grid-cols-2 lg:grid-cols-3 rounded-2xl bg-dark/20 p-8 shadow-soft">
-              {serviceCards.map(({ heading, description }) => (
-                <li key={heading} className="my-3">
-                  <h3 className="text-xl font-semibold">{heading}</h3>
+            <div className="grid grid-cols-[1fr_auto] rounded-2xl bg-gray-200 p-8 shadow-soft border-3 border-dark">
+                <Image
+                    src="/assets/img/corporative.webp"
+                    alt="Experiencias VR configuradas por VR.CASE"
+                    width={256}
+                    height={256}
+                    className="rounded-xl aspect-square object-cover h-full w-auto border-3 border-dark"
+                    sizes="(min-width: 768px) 10rem, 9rem"
+                />
 
-                  <p>{description}</p>
-                </li>
-              ))}
-            </ul>
+                <ul className="md:grid-cols-2 lg:grid-cols-3 ps-49 border-s-3 border-dark">
+                    {serviceCards.map(({ heading, description }) => (
+                        <li key={heading} className="my-3">
+                            <h3 className="text-xl font-semibold">{heading}</h3>
+
+                            <p>{description}</p>
+                        </li>
+                    ))}
+                </ul>
+            </div>
           </div>
 
           <div className="rounded-2xl">
             <h2 className="text-2xl font-semibold mb-4">Cómo funciona?</h2>
-            <ol className="space-y-4 text-base">
+            <ol className="space-y-2 text-base">
               <li>
                 <span className="font-semibold text-secondary">1. Contactanos:</span> contanos qué necesitás y por cuánto
                 tiempo querés vivir la experiencia
@@ -103,25 +126,40 @@ export default function VRBuenosAiresPage() {
           </div>
         </div>
 
-        <div className="rounded-2xl bg-dark/20 p-6">
-          <h2 className="text-2xl font-semibold mb-4">Explorá un universo de posibilidades</h2>
-          <ul className="md:grid-cols-2">
-            <li>- Jugá títulos de alta gama como Beat Saber, Superhot VR o Resident Evil 4</li>
-            <li>- Explorá mundos sociales en Horizon Worlds y conectate con tu comunidad sin moverte del evento</li>
-            <li>- Entrená con apps de fitness inmersivo para romper la rutina</li>
-            <li>- Convertí cualquier sala en un cine privado para proyecciones 360°</li>
-          </ul>
+        <div className="grid grid-cols-[1fr_auto] rounded-2xl bg-gray-200 p-8 border-3 border-dark">
+          <div className="me-16 border-e-3 border-dark">
+            <h2 className="text-2xl font-semibold mb-4">Explorá un universo de posibilidades</h2>
+            <ul className="space-y-3">
+              <li>- Jugá títulos de alta gama como Beat Saber, Superhot VR o Resident Evil 4</li>
+              <li>- Explorá mundos sociales en Horizon Worlds y conectate con tu comunidad sin moverte del evento</li>
+              <li>- Entrená con apps de fitness inmersivo para romper la rutina</li>
+              <li>- Convertí cualquier sala en un cine privado para proyecciones 360°</li>
+            </ul>
+          </div>
+
+            <Image
+                src="/assets/img/nature.webp"
+                alt="Equipo de soporte VR listo para asistir"
+                width={224}
+                height={224}
+                className="rounded-xl aspect-square object-cover h-full w-auto border-3 border-dark"
+                sizes="(min-width: 768px) 9rem, 8rem"
+            />
         </div>
 
         <div className="rounded-2xl pt-6">
           <h2 className="text-2xl font-semibold mb-4">VR Buenos Aires: tu puerta de entrada a la realidad virtual</h2>
 
           <p className="mb-4">
-            Somos más que un servicio de alquiler: acompañamos a tu equipo durante todo el proceso, desde la planificación previa hasta el retiro coordinado. Nos encargamos de la higiene de los visores, el onboarding de los invitados y la asistencia técnica in situ
+              Somos más que un servicio de alquiler: acompañamos a tu equipo durante todo el proceso, desde la planificación
+              previa hasta el retiro coordinado. Nos encargamos del onboarding de los invitados y la asistencia técnica
+              in situ. La aventura está a un clic de distancia.&nbsp;
+              <Link href="/alquiler" className="text-accent font-bold hover:underline">Consultá</Link> los precios o
+              la disponibilidad en la fecha de tu evento
           </p>
 
           <p>
-            Qué estás esperando? La aventura está a un clic de distancia. <Link href="/alquiler" className="text-secondary underline">Consultá los precios</Link> o <Link href="/#contact" className="text-secondary underline">coordiná una demo rápida</Link> para asegurar la disponibilidad en la fecha de tu evento
+
           </p>
         </div>
 
