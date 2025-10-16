@@ -23,10 +23,14 @@ export function AboutVideo({ referenceSelector }: AboutVideoProps) {
 
         if (!isDesktop || !content) {
             wrapper.style.maxHeight = "";
+            wrapper.style.height = "";
             return;
         }
 
-        wrapper.style.maxHeight = `${content.offsetHeight}px`;
+        const targetHeight = Math.min(content.offsetHeight, 600);
+
+        wrapper.style.maxHeight = `${targetHeight}px`;
+        wrapper.style.height = `${targetHeight}px`;
     }, [referenceSelector]);
 
     useEffect(() => {
@@ -108,10 +112,13 @@ export function AboutVideo({ referenceSelector }: AboutVideoProps) {
     };
 
     return (
-        <div ref={videoWrapperRef} className="h-fit md:h-full flex justify-center">
+        <div
+            ref={videoWrapperRef}
+            className="h-fit md:h-full md:max-h-[600px] w-full md:w-auto flex justify-center md:justify-end md:self-stretch"
+        >
             <video
                 ref={videoRef}
-                className="rounded-2xl border-2 border-dark max-w-full w-full md:w-auto bg-[var(--color-amber)]"
+                className="rounded-2xl border-2 border-dark max-w-full w-full md:w-auto h-full object-contain bg-[var(--color-amber)]"
                 preload="auto"
                 autoPlay
                 muted
