@@ -5,14 +5,14 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import clsx                      from 'clsx';
 import { FaqGalleryPhotoViewer } from '@/components/FaqGalleryPhotoViewer';
 import type { FaqGalleryItem }   from '@/types/allTypes';
-import { faqWithGalleryItems } from "@/app/constants";
+import { faqItems } from "@/app/constants";
 
 export function FaqGallery() {
-    const [activeFaqId, setActiveFaqId] = useState<string | null>(() => faqWithGalleryItems[0]?.id ?? null);
+    const [activeFaqId, setActiveFaqId] = useState<string | null>(() => faqItems[0]?.id ?? null);
     const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
     const closingTimeoutRef = useRef<number | null>(null);
 
-    const galleryImages = useMemo(() => faqWithGalleryItems.map((item) => item.image), []);
+    const galleryImages = useMemo(() => faqItems.map((item) => item.image), []);
 
     const handleFaqToggle = (itemId: string) => {
         if (closingTimeoutRef.current) {
@@ -54,7 +54,7 @@ export function FaqGallery() {
     };
 
     const handleNavigateLightbox = (nextIndex: number) => {
-        const totalItems = faqWithGalleryItems.length;
+        const totalItems = faqItems.length;
         if (totalItems === 0) {
             return;
         }
@@ -103,7 +103,7 @@ export function FaqGallery() {
                             <h2 className="text-3xl font-bold text-dark md:text-4xl pb-5">Todo lo que querés saber antes de vivir la VR</h2>
 
                             <ul className="space-y-2 lg:pr-4">
-                                {faqWithGalleryItems.map((item) => {
+                                {faqItems.map((item) => {
                                     const isActive = item.id === activeFaqId;
 2
                                     return (
@@ -156,7 +156,7 @@ export function FaqGallery() {
                             <div
                                 className="grid grid-flow-col auto-cols-[minmax(260px,1fr)] gap-5 overflow-x-auto lg:auto-cols-auto lg:grid-flow-row lg:grid-cols-2 lg:max-h-[680px] lg:overflow-x-hidden lg:overflow-y-auto"
                             >
-                                {faqWithGalleryItems.map((item, index) => renderPreview(item, index))}
+                                {faqItems.map((item, index) => renderPreview(item, index))}
                             </div>
                         </div>
                     </div>

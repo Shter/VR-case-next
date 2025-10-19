@@ -52,14 +52,6 @@ export const serviceCards = [
     },
 ];
 
-export const faqItems = [
-    { q: "Cómo alquilar Meta Quest 3 en Buenos Aires?", a: "Ofrecemos alquiler con envío rápido y soporte completo. Contáctanos por WhatsApp o Instagram para reservar" },
-    { q: "Es posible alquilar lentes VR cerca de mí en Buenos Aires?", a: "Sí, entregamos Meta Quest 3 en cualquier punto de Buenos Aires" },
-    { q: "Qué incluye el alquiler de Meta Quest 3?", a: "Estuche, headset Meta Quest 3, controles, Chromecast, estación de carga con baterías" },
-    { q: "Puedo usar Meta Quest 3 para eventos corporativos?", a: "Sí, configuraciones personalizadas y asistencia para eventos corporativos" },
-    { q: "Cuánto cuesta alquilar Meta Quest 3 por día?", a: "Desde $55000 por día para 1 Meta Quest 3, con envío gratis" },
-];
-
 export const featuresItems = [
     { img: "/assets/img/gamepad.webp", title: "Más de 100 juegos", text: "Una enorme biblioteca de los juegos y aplicaciones VR más populares" },
     { img: "/assets/img/lightning.webp", title: "Favorito por su rendimiento", text: "Pantalla mejorada y procesador para una experiencia fluida" },
@@ -69,7 +61,7 @@ export const featuresItems = [
     { img: "/assets/img/flex.webp", title: "Condiciones flexibles", text: "Desde horas hasta semanas a tarifas competitivas" },
 ];
 
-export const faqWithGalleryItems: FaqGalleryItem[] = [
+export const faqItems: FaqGalleryItem[] = [
     {
         id: 'delivery',
         question: 'Cómo funciona la entrega y devolución?',

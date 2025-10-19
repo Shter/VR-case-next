@@ -57,7 +57,7 @@ export type AboutVideoProps = {
     referenceSelector: string;
 };
 
-export type FaqGalleryImage = {
+export type GalleryImage = {
     id: string;
     src: string;
     alt: string;
@@ -68,11 +68,11 @@ export type FaqGalleryItem = {
     id: string;
     question: string;
     answer: string;
-    image: FaqGalleryImage;
+    image: GalleryImage;
 };
 
 export type FaqGalleryLightboxProps = {
-    images: FaqGalleryImage[];
+    images: GalleryImage[];
     currentIndex: number;
     open: boolean;
     onClose: () => void;
