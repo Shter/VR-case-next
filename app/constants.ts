@@ -1,13 +1,13 @@
 import type { Route } from "next";
 import type { UrlObject } from "url";
-import { NavItem } from "@/types/allTypes";
+import { FaqGalleryItem, NavItem } from "@/types/allTypes";
 
 export const navItems: NavItem[] = [
     { href: { pathname: "/", hash: "home" } satisfies UrlObject, label: "Principal" },
     { href: "/vr-buenos-aires" satisfies Route, label: "VR Buenos Aires" },
     { href: { pathname: "/", hash: "about" } satisfies UrlObject, label: "Sobre nosotros" },
     { href: { pathname: "/", hash: "features" } satisfies UrlObject, label: "Ventajas" },
-    { href: { pathname: "/", hash: "gallery" } satisfies UrlObject, label: "Galería" },
+    { href: { pathname: "/", hash: "faq-gallery" } satisfies UrlObject, label: "FAQ/Gallery" },
     { href: "/alquiler" satisfies Route, label: "Precios" },
     { href: { pathname: "/", hash: "contact" } satisfies UrlObject, label: "Contactos" },
 ];
@@ -67,4 +67,51 @@ export const featuresItems = [
     { img: "/assets/img/prise.webp", title: "Equipo profesional", text: "Solo dispositivos originales con garantía y mantenimiento" },
     { img: "/assets/img/dron.webp", title: "Envío rápido", text: "Te llevamos el equipo cuando y donde te convenga" },
     { img: "/assets/img/flex.webp", title: "Condiciones flexibles", text: "Desde horas hasta semanas a tarifas competitivas" },
+];
+
+export const faqWithGalleryItems: FaqGalleryItem[] = [
+    {
+        id: 'delivery',
+        question: 'Cómo funciona la entrega y devolución?',
+        answer: 'Coordinamos la entrega del Meta Quest 3 en el día y lo retiramos cuando termina tu reserva. Todo sin cargos extra dentro de CABA',
+        image: {
+            id: 'on-station',
+            src: '/assets/img/on-station.webp',
+            alt: 'Meta Quest 3 en estación',
+            caption: 'Entrega con estación',
+        },
+    },
+    {
+        id: 'events',
+        question: 'Sirve para eventos o activaciones?',
+        answer: 'Sí, tenemos paquetes para eventos corporativos y sociales con soporte remoto y contenido temático para sorprender a tus invitados',
+        image: {
+            id: 'two-cases',
+            src: '/assets/img/on-wood.webp',
+            alt: 'Dos estuches de Meta Quest 3 listos para traslado',
+            caption: 'Múltiples visores para tu evento',
+        },
+    },
+    {
+        id: 'support',
+        question: 'Qué pasa si tengo dudas durante el alquiler?',
+        answer: 'Nos escribís por WhatsApp y te fv al instante. Incluimos soporte técnico remoto sin costo durante toda tu experiencia',
+        image: {
+            id: 'nature',
+            src: '/assets/img/on-station-front.webp',
+            alt: 'Persona usando Meta Quest 3 en un ambiente natural',
+            caption: 'Soporte permanente para aprovechar la VR',
+        },
+    },
+    {
+        id: 'setup',
+        question: 'Necesito instalar algo para empezar?',
+        answer: 'El equipo llega configurado con tu sesión demo y los juegos precargados. Solo encendés el visor, seguís la guía rápida y ya estás dentro',
+        image: {
+            id: 'in-case',
+            src: '/assets/img/in-case.webp',
+            alt: 'Meta Quest 3 dentro de estuche rígido',
+            caption: 'Todo ordenado en un estuche de transporte',
+        },
+    },
 ];

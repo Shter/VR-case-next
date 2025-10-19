@@ -57,3 +57,24 @@ export type AboutVideoProps = {
     referenceSelector: string;
 };
 
+export type FaqGalleryImage = {
+    id: string;
+    src: string;
+    alt: string;
+    caption?: string;
+};
+
+export type FaqGalleryItem = {
+    id: string;
+    question: string;
+    answer: string;
+    image: FaqGalleryImage;
+};
+
+export type FaqGalleryLightboxProps = {
+    images: FaqGalleryImage[];
+    currentIndex: number;
+    open: boolean;
+    onClose: () => void;
+    onNavigate: (nextIndex: number) => void;
+};
