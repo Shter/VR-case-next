@@ -3,7 +3,7 @@ import { featuresItems } from "@/app/constants";
 
 export function Features() {
     return (
-        <section id="features" className="bg-gradient-to-br from-light to-gray-200 pt-8 pb-16">
+        <section id="features" className="bg-gradient-to-br from-light to-gray-200 py-10 md:py-16">
             <div className="container">
                 <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">Por qué elegir nuestra propuesta de VR?</h2>
 

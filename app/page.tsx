@@ -21,7 +21,7 @@ export default function Page() {
             <Hero />
             <About />
             <Features />
-            <div className="container grid grid-cols-2 grid-flow-col gap-16">
+            <div className="container grid grid-cols-1 gap-10 md:grid-cols-2 md:grid-flow-col md:gap-16 py-10 md:py-16">
                 <Contact />
                 <PricingTeaser />
             </div>

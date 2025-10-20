@@ -114,7 +114,7 @@ export function AboutVideo({ referenceSelector }: AboutVideoProps) {
     return (
         <div
             ref={videoWrapperRef}
-            className="h-fit md:h-full md:max-h-[600px] w-full md:w-auto flex justify-center md:justify-end md:self-stretch"
+            className="order-3 md:order-3 h-fit md:h-full md:max-h-[600px] w-full md:w-auto flex justify-center md:justify-end md:self-stretch"
         >
             <video
                 ref={videoRef}

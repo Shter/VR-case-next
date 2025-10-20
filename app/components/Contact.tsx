@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Button from "@mui/material/Button";
-import Stack  from "@mui/material/Stack";
+import Stack from "@mui/material/Stack";
 
 export function Contact() {
     return (
-        <section className="py-16">
+        <section className="">
             <div className="flex justify-center">
                 <div className="flex flex-col border-4 rounded-2xl border-secondary max-w-2xl text-center py-6 px-10">
                     <h2 className="text-3xl md:text-4xl font-extrabold mb-6">
@@ -14,7 +14,12 @@ export function Contact() {
                         Coordinamos reservas por WhatsApp e Instagram para brindarte disponibilidad inmediata, recomendaciones de contenido y asistencia logística
                     </p>
 
-                    <Stack direction="row" spacing={6} justifyContent="center" flexWrap="wrap">
+                    <Stack
+                        direction={{ xs: "column", md: "row" }}
+                        spacing={{xs: 3, md: 6}}
+                        justifyContent="center"
+                        alignItems={{ xs: "stretch", md: "center" }}
+                    >
                         <Button
                             component="a"
                             href="https://wa.me/5491127827150"
@@ -34,6 +39,7 @@ export function Contact() {
                                 boxShadow: "0 10px 20px rgba(0, 0, 0, 0.15)",
                                 transition: "transform 0.2s ease, box-shadow 0.2s ease",
                                 display: "inline-flex",
+                                width: { xs: "100%", md: 260 },
                                 alignItems: "center",
                                 gap: 1.5,
                                 '&:hover': {
@@ -65,6 +71,7 @@ export function Contact() {
                                 boxShadow: "0 10px 20px rgba(0, 0, 0, 0.15)",
                                 transition: "transform 0.2s ease, box-shadow 0.2s ease",
                                 display: "inline-flex",
+                                width: { xs: "100%", md: 260 },
                                 alignItems: "center",
                                 gap: 1.5,
                                 '&:hover': {
