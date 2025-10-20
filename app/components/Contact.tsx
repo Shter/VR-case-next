@@ -18,7 +18,7 @@ export function Contact() {
                         direction={{ xs: "column", md: "row" }}
                         spacing={{xs: 3, md: 6}}
                         justifyContent="center"
-                        alignItems="center"
+                        alignItems={{ xs: "stretch", md: "center" }}
                     >
                         <Button
                             component="a"

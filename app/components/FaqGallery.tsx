@@ -73,7 +73,7 @@ export function FaqGallery() {
                 type="button"
                 onClick={() => handlePreviewClick(index)}
                 className={clsx(
-                    'group relative flex min-w-[260px] overflow-hidden rounded-2xl border-3 border-dark duration-300',
+                    'group relative flex min-w-[260px] overflow-hidden rounded-2xl border-2 border-dark duration-300 no-scr',
                 )}
             >
                 <div className="relative h-56 w-full cursor-pointer">
@@ -100,12 +100,14 @@ export function FaqGallery() {
                 <div className="overflow-hidden">
                     <div className="flex flex-col gap-12 lg:flex-row">
                         <aside className="flex justify-center w-full flex-col lg:w-[45%] lg:max-h-[680px] lg:overflow-y-auto">
-                            <h2 className="text-3xl font-bold text-dark md:text-4xl pb-5">Todo lo que querés saber antes de vivir la VR</h2>
+                            <h2 className="text-3xl font-bold text-dark md:text-4xl pb-5">
+                                Todo lo que querés saber antes de vivir la VR
+                            </h2>
 
                             <ul className="space-y-2 lg:pr-4">
                                 {faqItems.map((item) => {
                                     const isActive = item.id === activeFaqId;
-2
+
                                     return (
                                         <li key={item.id}>
                                             <button
@@ -113,7 +115,6 @@ export function FaqGallery() {
                                                 onClick={() => handleFaqToggle(item.id)}
                                                 className={clsx(
                                                     'group w-full rounded-2xl border-2 border-secondary bg-white px-5 py-4 text-left transition',
-                                                    'focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2',
                                                     ' bg-secondary cursor-pointer'
                                                 )}
                                                 aria-expanded={isActive}
