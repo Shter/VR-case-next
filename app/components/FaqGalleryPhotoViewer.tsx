@@ -59,17 +59,20 @@ export function FaqGalleryPhotoViewer({
             maxWidth="lg"
             fullWidth
             keepMounted
-            PaperProps={{
-                sx: {
-                    backgroundColor: 'transparent',
-                    boxShadow: 'none',
-                    overflow: 'visible',
+            slotProps={{
+                paper: {
+                    sx: {
+                        backgroundColor: 'transparent',
+                        boxShadow: 'none',
+                        overflow: 'visible',
+                    },
                 },
-            }}
-            BackdropProps={{
-                sx: {
-                    backgroundColor: 'rgba(10, 14, 24, 0.92)',
+                backdrop: {
+                    sx: {
+                        backgroundColor: 'rgba(10, 14, 24, 0.92)',
+                    },
                 },
+
             }}
         >
             <div className="relative mx-auto flex w-full max-w-5xl flex-col items-center gap-6 py-8 text-white">
