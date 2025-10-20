@@ -12,7 +12,7 @@ import { AppDialogProps }   from "@/types/allTypes";
 
 export function AppDialog({
   open,
-  onClose: onCloseAction,
+  onCloseAction,
   title,
   description,
   children,

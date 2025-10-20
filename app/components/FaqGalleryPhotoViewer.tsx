@@ -12,8 +12,8 @@ export function FaqGalleryPhotoViewer({
     images,
     currentIndex,
     open,
-    onClose,
-    onNavigate,
+    onCloseAction,
+    onNavigateAction,
 }: FaqGalleryLightboxProps) {
     const totalImages = images.length;
     const activeImage = images[currentIndex];
@@ -26,10 +26,10 @@ export function FaqGalleryPhotoViewer({
 
         const handleKeyDown = (event: KeyboardEvent) => {
             if (event.key === 'ArrowRight') {
-                onNavigate(currentIndex + 1);
+                onNavigateAction(currentIndex + 1);
             }
             if (event.key === 'ArrowLeft') {
-                onNavigate(currentIndex - 1);
+                onNavigateAction(currentIndex - 1);
             }
         };
 
@@ -38,24 +38,24 @@ export function FaqGalleryPhotoViewer({
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
         };
-    }, [currentIndex, hasNavigation, onNavigate, open]);
+    }, [currentIndex, hasNavigation, onNavigateAction, open]);
 
     if (!open || !activeImage) {
         return null;
     }
 
     const handleShowPrevious = () => {
-        onNavigate(currentIndex - 1);
+        onNavigateAction(currentIndex - 1);
     };
 
     const handleShowNext = () => {
-        onNavigate(currentIndex + 1);
+        onNavigateAction(currentIndex + 1);
     };
 
     return (
         <Dialog
             open={open}
-            onClose={onClose}
+            onClose={onCloseAction}
             maxWidth="lg"
             fullWidth
             keepMounted

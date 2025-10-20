@@ -32,7 +32,7 @@ export type PriceCardProps = {
 
 export type AppDialogProps = {
     open: boolean;
-    onClose: () => void;
+    onCloseAction: () => void;
     title?: ReactNode;
     description?: ReactNode;
     children?: ReactNode;
@@ -75,6 +75,6 @@ export type FaqGalleryLightboxProps = {
     images: GalleryImage[];
     currentIndex: number;
     open: boolean;
-    onClose: () => void;
-    onNavigate: (nextIndex: number) => void;
+    onCloseAction: () => void;
+    onNavigateAction: (nextIndex: number) => void;
 };
