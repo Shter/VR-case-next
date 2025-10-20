@@ -44,7 +44,7 @@ export default function VRBuenosAiresPage() {
         <JsonLd data={vrBuenosAiresBreadcrumbLd()} />
         <JsonLd data={vrServiceLd()} />
 
-        <h1 className="text-4xl md:text-6xl font-extrabold mb-6 text-center">VR Buenos Aires: alquiler de Meta Quest 3 para eventos</h1>
+        <h1 className="text-4xl md:text-5xl font-extrabold mb-6 text-center">VR Buenos Aires: alquiler de Meta Quest 3 para eventos</h1>
 
         <p className="text-lg mb-6">
           Llevamos experiencias de realidad virtual premium a empresas, agencias y particulares en Buenos Aires. Entregamos los headsets Meta Quest 3 configurados, guiamos la instalación en el lugar y brindamos soporte para que cada sesión sea un éxito
@@ -127,7 +127,7 @@ export default function VRBuenosAiresPage() {
         </div>
 
         <div className="flex flex-col md:grid md:grid-cols-[1fr_auto] rounded-2xl bg-gray-200 p-8 border-3 border-dark">
-          <div className="order-2 md:order-1 md:me-16 md:border-e-3 md:border-dark">
+          <div className="order-2 md:order-1 md:me-16 md:border-e-3 md:border-dark mt-6 md:mt-0">
             <h2 className="text-2xl font-semibold mb-4">Explorá un universo de posibilidades</h2>
             <ul className="space-y-3">
               <li>- Jugá títulos de alta gama como Beat Saber, Superhot VR o Resident Evil 4</li>
