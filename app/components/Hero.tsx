@@ -5,7 +5,7 @@ export function Hero() {
         <section id="home" className="hero-bg pt-24">
             <div className="container">
                 <div className="max-w-3xl mx-auto">
-                    <h1 className="text-4xl md:text-6xl font-extrabold mb-6 fade-in-up">
+                    <h1 className="text-4xl md:text-5xl font-extrabold mb-6 fade-in-up">
                         Alquiler de realidad virtual VR en Buenos Aires con Meta Quest 3
                     </h1>
                     <p className="text-lg md:text-xl mb-8 opacity-90 fade-in-up">

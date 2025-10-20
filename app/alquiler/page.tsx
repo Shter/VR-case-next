@@ -31,7 +31,7 @@ export default function Page() {
             <JsonLd data={pricingRentalLd()} />
             <div className="container pt-24">
                 <div className="text-center">
-                    <h1 className="text-4xl md:text-6xl font-extrabold mb-8">
+                    <h1 className="text-4xl md:text-5xl font-extrabold mb-6 md:mb-8">
                         Precios de alquiler de realidad virtual VR en Buenos Aires
                     </h1>
 
