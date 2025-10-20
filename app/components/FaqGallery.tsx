@@ -168,8 +168,8 @@ export function FaqGallery() {
                 images={galleryImages}
                 currentIndex={lightboxIndex ?? 0}
                 open={lightboxIndex !== null}
-                onClose={handleCloseLightbox}
-                onNavigate={handleNavigateLightbox}
+                onCloseAction={handleCloseLightbox}
+                onNavigateAction={handleNavigateLightbox}
             />
         </section>
     );

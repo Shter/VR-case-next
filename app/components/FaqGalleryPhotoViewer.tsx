@@ -12,8 +12,8 @@ export function FaqGalleryPhotoViewer({
     images,
     currentIndex,
     open,
-    onClose,
-    onNavigate,
+    onCloseAction,
+    onNavigateAction,
 }: FaqGalleryLightboxProps) {
     const totalImages = images.length;
     const activeImage = images[currentIndex];
@@ -26,10 +26,10 @@ export function FaqGalleryPhotoViewer({
 
         const handleKeyDown = (event: KeyboardEvent) => {
             if (event.key === 'ArrowRight') {
-                onNavigate(currentIndex + 1);
+                onNavigateAction(currentIndex + 1);
             }
             if (event.key === 'ArrowLeft') {
-                onNavigate(currentIndex - 1);
+                onNavigateAction(currentIndex - 1);
             }
         };
 
@@ -38,38 +38,41 @@ export function FaqGalleryPhotoViewer({
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
         };
-    }, [currentIndex, hasNavigation, onNavigate, open]);
+    }, [currentIndex, hasNavigation, onNavigateAction, open]);
 
     if (!open || !activeImage) {
         return null;
     }
 
     const handleShowPrevious = () => {
-        onNavigate(currentIndex - 1);
+        onNavigateAction(currentIndex - 1);
     };
 
     const handleShowNext = () => {
-        onNavigate(currentIndex + 1);
+        onNavigateAction(currentIndex + 1);
     };
 
     return (
         <Dialog
             open={open}
-            onClose={onClose}
+            onClose={onCloseAction}
             maxWidth="lg"
             fullWidth
             keepMounted
-            PaperProps={{
-                sx: {
-                    backgroundColor: 'transparent',
-                    boxShadow: 'none',
-                    overflow: 'visible',
+            slotProps={{
+                paper: {
+                    sx: {
+                        backgroundColor: 'transparent',
+                        boxShadow: 'none',
+                        overflow: 'visible',
+                    },
                 },
-            }}
-            BackdropProps={{
-                sx: {
-                    backgroundColor: 'rgba(10, 14, 24, 0.92)',
+                backdrop: {
+                    sx: {
+                        backgroundColor: 'rgba(10, 14, 24, 0.92)',
+                    },
                 },
+
             }}
         >
             <div className="relative mx-auto flex w-full max-w-5xl flex-col items-center gap-6 py-8 text-white">

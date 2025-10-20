@@ -47,7 +47,7 @@ export function ReserveDialog({
 
             <AppDialog
                 open={isDialogOpen}
-                onClose={handleCloseDialog}
+                onCloseAction={handleCloseDialog}
                 title="Coordina tu reserva"
                 description={description}
                 titleId={`reserve-plan-${offerId}`}
