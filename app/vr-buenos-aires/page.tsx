@@ -53,8 +53,8 @@ export default function VRBuenosAiresPage() {
           Cubrimos toda la Ciudad Autónoma de Buenos Aires y zona norte. Desde lanzamientos de marca hasta cumpleaños, diseñamos la biblioteca de juegos y aplicaciones según la audiencia para garantizar participación y seguridad
         </p>
 
-          <div className="grid grid-cols-[1fr_auto] justify-between rounded-2xl bg-gray-200 p-8 shadow-soft border-3 border-dark">
-              <ul className="md:grid-cols-2 lg:grid-cols-3 me-16 border-e-3 border-dark">
+          <div className="flex flex-col md:grid md:grid-cols-[1fr_auto] md:justify-between rounded-2xl bg-gray-200 p-8 shadow-soft border-3 border-dark">
+              <ul className="order-2 md:order-1 md:grid-cols-2 lg:grid-cols-3 md:me-16 md:border-e-3 md:border-dark">
                   {advantages.map(({title, text}) => (
                       <li key={title} className="my-3">
                           <h2 className="text-xl font-semibold">{title}</h2>
@@ -68,7 +68,7 @@ export default function VRBuenosAiresPage() {
                   alt="Meta Quest 3 listados para eventos corporativos en Buenos Aires"
                   width={256}
                   height={256}
-                  className="rounded-xl aspect-square object-cover h-full w-auto border-3 border-dark"
+                  className="order-1 md:order-2 rounded-xl aspect-square object-cover w-full md:w-auto md:h-full border-3 border-dark"
                   sizes="(min-width: 768px) 10rem, 9rem"
               />
           </div>
@@ -81,17 +81,17 @@ export default function VRBuenosAiresPage() {
               Diseñamos propuestas llave en mano para activaciones en retail, eventos corporativos, instituciones educativas y celebraciones privadas. Elegí el formato que mejor se adapte a tu ocasión
             </p>
 
-            <div className="grid grid-cols-[1fr_auto] rounded-2xl bg-gray-200 p-8 shadow-soft border-3 border-dark">
+            <div className="flex flex-col md:grid md:grid-cols-[1fr_auto] rounded-2xl bg-gray-200 p-8 shadow-soft border-3 border-dark">
                 <Image
                     src="/assets/img/corporative.webp"
                     alt="Experiencias VR configuradas por VR.CASE"
                     width={256}
                     height={256}
-                    className="rounded-xl aspect-square object-cover h-full w-auto border-3 border-dark"
+                    className="order-1 md:order-1 rounded-xl aspect-square object-cover w-full md:w-auto md:h-full border-3 border-dark"
                     sizes="(min-width: 768px) 10rem, 9rem"
                 />
 
-                <ul className="md:grid-cols-2 lg:grid-cols-3 ps-49 border-s-3 border-dark">
+                <ul className="order-2 md:grid-cols-2 lg:grid-cols-3 md:ps-49 md:border-s-3 md:border-dark">
                     {serviceCards.map(({ heading, description }) => (
                         <li key={heading} className="my-3">
                             <h3 className="text-xl font-semibold">{heading}</h3>
@@ -126,8 +126,8 @@ export default function VRBuenosAiresPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-[1fr_auto] rounded-2xl bg-gray-200 p-8 border-3 border-dark">
-          <div className="me-16 border-e-3 border-dark">
+        <div className="flex flex-col md:grid md:grid-cols-[1fr_auto] rounded-2xl bg-gray-200 p-8 border-3 border-dark">
+          <div className="order-2 md:order-1 md:me-16 md:border-e-3 md:border-dark">
             <h2 className="text-2xl font-semibold mb-4">Explorá un universo de posibilidades</h2>
             <ul className="space-y-3">
               <li>- Jugá títulos de alta gama como Beat Saber, Superhot VR o Resident Evil 4</li>
@@ -142,7 +142,7 @@ export default function VRBuenosAiresPage() {
                 alt="Equipo de soporte VR listo para asistir"
                 width={224}
                 height={224}
-                className="rounded-xl aspect-square object-cover h-full w-auto border-3 border-dark"
+                className="order-1 md:order-2 rounded-xl aspect-square object-cover w-full md:w-auto md:h-full border-3 border-dark"
                 sizes="(min-width: 768px) 9rem, 8rem"
             />
         </div>

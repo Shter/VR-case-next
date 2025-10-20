@@ -4,10 +4,10 @@ import { AboutVideo } from "@/components/AboutVideo";
 
 export function About() {
     return (
-        <section id="about" className="py-16 bg-white">
+        <section id="about" className="py-10 md:py-16 bg-white">
             <div className="container grid gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)_auto] md:items-stretch">
-                <div className="flex md:self-stretch">
-                    <div className="relative w-full overflow-hidden rounded-2xl border-2 border-dark aspect-[4/3] md:aspect-auto md:h-full md:max-h-[600px]">
+                <div className="flex order-2 md:order-1 md:self-stretch">
+                    <div className="relative w-full overflow-hidden rounded-2xl border-2 border-dark aspect-4/3 md:aspect-auto md:h-full md:max-h-[600px]">
                         <Image
                             src="/assets/img/two-cases.webp"
                             alt="Headsets Meta Quest listos para alquiler en Buenos Aires"
@@ -19,7 +19,7 @@ export function About() {
                     </div>
                 </div>
 
-                <div id="about-content" className="space-y-4 h-fit md:self-stretch md:flex md:flex-col md:justify-center">
+                <div id="about-content" className="space-y-4 h-fit order-1 md:order-2 md:self-stretch md:flex md:flex-col md:justify-center">
                     <h2 className="text-3xl md:text-4xl font-bold">
                         Alquiler de realidad virtual con setup completo en Buenos Aires
                     </h2>

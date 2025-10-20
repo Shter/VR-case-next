@@ -95,7 +95,7 @@ export function FaqGallery() {
     };
 
     return (
-        <section id="faq-gallery" className="bg-white py-16">
+        <section id="faq-gallery" className="bg-white py-10 md:py-16">
             <div className="container">
                 <div className="overflow-hidden">
                     <div className="flex flex-col gap-12 lg:flex-row">

@@ -73,7 +73,7 @@ export function FaqGalleryPhotoViewer({
             }}
         >
             <div className="relative mx-auto flex w-full max-w-5xl flex-col items-center gap-6 py-8 text-white">
-                <div className="flex w-full items-center justify-center gap-6">
+                <div className="flex w-full items-center justify-center">
                     {hasNavigation && (
                         <div className="flex items-center justify-center gap-6" onClick={handleShowPrevious}>
                             <IconButton
