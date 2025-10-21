@@ -71,6 +71,8 @@ export const faqItems: FaqGalleryItem[] = [
             src: '/assets/img/on-station.webp',
             alt: 'Meta Quest 3 en estación',
             caption: 'Entrega con estación',
+            width: 1024,
+            height: 1536,
         },
     },
     {
@@ -82,6 +84,8 @@ export const faqItems: FaqGalleryItem[] = [
             src: '/assets/img/on-wood.webp',
             alt: 'Dos estuches de Meta Quest 3 listos para traslado',
             caption: 'Múltiples visores para tu evento',
+            width: 860,
+            height: 1290,
         },
     },
     {
@@ -93,6 +97,8 @@ export const faqItems: FaqGalleryItem[] = [
             src: '/assets/img/on-station-front.webp',
             alt: 'Persona usando Meta Quest 3 en un ambiente natural',
             caption: 'Soporte permanente para aprovechar la VR',
+            width: 1024,
+            height: 1536,
         },
     },
     {
@@ -104,6 +110,8 @@ export const faqItems: FaqGalleryItem[] = [
             src: '/assets/img/in-case.webp',
             alt: 'Meta Quest 3 dentro de estuche rígido',
             caption: 'Todo ordenado en un estuche de transporte',
+            width: 788,
+            height: 1182,
         },
     },
 ];
