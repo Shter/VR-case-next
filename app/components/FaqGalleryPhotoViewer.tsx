@@ -92,7 +92,6 @@ export function FaqGalleryPhotoViewer({
             open={open}
             onClose={onCloseAction}
             maxWidth="lg"
-            fullWidth
             keepMounted
             slotProps={{
                 paper: {
