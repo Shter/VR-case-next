@@ -4,8 +4,8 @@ import Link from "next/link";
 export function Footer() {
     return (
         <footer className="bg-dark text-white pt-16 pb-6">
-            <div className="container grid gap-10 md:grid-cols-4">
-                <div>
+            <div className="container grid gap-10 grid-cols-3 md:grid-cols-4">
+                <div className="col-span-3 md:col-span-1">
                     <h3 className="font-bold header-logo">VR<span className="text-secondary">.CASE</span></h3>
                     <p>Servicio de alquiler de lentes VR Meta Quest 3 para eventos, activaciones y experiencias privadas en Buenos Aires.</p>
                 </div>
