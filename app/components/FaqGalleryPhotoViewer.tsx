@@ -109,18 +109,22 @@ export function FaqGalleryPhotoViewer({
 
             }}
         >
-            <div className="relative flex flex-col justify-center items-center gap-6 text-white">
-                <div className="flex w-full items-center justify-center gap-4">
+            <div className="relative flex flex-col items-center justify-center text-white">
+                <div
+                    className="relative flex w-full max-w-full items-center justify-center"
+                    style={{
+                        maxWidth: 'min(90vw, 960px)',
+                    }}
+                >
                     {hasNavigation && (
-                        <div className="flex items-center justify-center gap-6" onClick={handleShowPrevious}>
-                            <IconButton
-                                aria-label="Ver imagen anterior"
-                                className="transform rounded-full border border-white/40 bg-white/10 text-white transition hover:-translate-y-1 hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/60"
-                                size="large"
-                            >
-                                <ArrowBackIosNewIcon sx={{ color: 'white' }} />
-                            </IconButton>
-                        </div>
+                        <IconButton
+                            aria-label="Ver imagen anterior"
+                            className="absolute xs:!p-0 md:p-4 top-1/2 z-10 -translate-y-1/2 transform rounded-full border border-white/40 bg-white/10 text-white transition hover:scale-105 hover:bg-white/20"
+                            size="large"
+                            onClick={handleShowPrevious}
+                        >
+                            <ArrowBackIosNewIcon sx={{ color: 'white' }} />
+                        </IconButton>
                     )}
 
                     <div
@@ -143,16 +147,14 @@ export function FaqGalleryPhotoViewer({
                     </div>
 
                     {hasNavigation && (
-                        <div className="flex items-center justify-center gap-6" onClick={handleShowNext}>
-                            <IconButton
-                                aria-label="Ver imagen siguiente"
-                                className=" bg-white/10 text-white transition hover:-translate-y-1 hover:bg-white/20"
-                                size="large"
-                            >
-                                <ArrowForwardIosIcon sx={{ color: 'white' }} />
-                            </IconButton>
-                        </div>
-
+                        <IconButton
+                            aria-label="Ver imagen siguiente"
+                            className="absolute xs:!p-0 md:p-4 top-1/2 z-10 -translate-y-1/2 transform rounded-full border border-white/40 bg-white/10 text-white transition hover:scale-105 hover:bg-white/20"
+                            size="large"
+                            onClick={handleShowNext}
+                        >
+                            <ArrowForwardIosIcon sx={{ color: 'white' }} />
+                        </IconButton>
                     )}
                 </div>
             </div>
