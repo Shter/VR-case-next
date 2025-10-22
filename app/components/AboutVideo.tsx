@@ -1,7 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useRef } from "react";
-import { AboutVideoProps } from "@/types/allTypes";
+import { useCallback, useEffect, useRef } from 'react';
+import { asset } from '@/lib/site';
+import { AboutVideoProps } from '@/types/allTypes';
 
 export function AboutVideo({ referenceSelector }: AboutVideoProps) {
     const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -127,7 +128,7 @@ export function AboutVideo({ referenceSelector }: AboutVideoProps) {
                 onLoadedMetadata={syncVideoHeight}
                 onError={handleVideoError}
             >
-                <source src="/assets/video/action.webm" type="video/webm" />
+                <source src={asset('/videos/action.webm')} type="video/webm" />
                 Tu navegador no soporta el video.
             </video>
         </div>

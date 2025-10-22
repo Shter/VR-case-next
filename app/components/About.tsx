@@ -1,6 +1,7 @@
-import Image from "next/image";
-import Link from "next/link";
-import { AboutVideo } from "@/components/AboutVideo";
+import Image from 'next/image';
+import Link from 'next/link';
+import { AboutVideo } from '@/components/AboutVideo';
+import { asset } from '@/lib/site';
 
 export function About() {
     return (
@@ -9,7 +10,7 @@ export function About() {
                 <div className="flex order-2 md:order-1 md:self-stretch">
                     <div className="relative w-full overflow-hidden rounded-2xl border-2 border-dark aspect-4/3 md:aspect-auto md:h-full md:max-h-[600px]">
                         <Image
-                            src="/assets/img/two-cases.webp"
+                            src={asset('/images/two-cases.webp')}
                             alt="Headsets Meta Quest listos para alquiler en Buenos Aires"
                             fill
                             className="object-cover"

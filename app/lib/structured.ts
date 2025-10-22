@@ -1,6 +1,6 @@
-import offersData from "@/data/pricing.json";
-import type { Offer } from "@/types/allTypes";
-import { site } from "@/lib/site";
+import offersData from '@/data/pricing.json';
+import type { Offer } from '@/types/allTypes';
+import { absoluteAsset, site } from '@/lib/site';
 
 const sameAsLinks = [
     "https://www.instagram.com/vr.case.ar",
@@ -41,7 +41,7 @@ const organization = {
     "@id": `${site.url}/#organization`,
     name: "VR.CASE",
     url: site.url,
-    logo: `${site.url}/assets/icons/logo-no-back.webp`
+    logo: absoluteAsset('/icons/logo-no-back.webp')
 };
 
 const contactPoints = [
@@ -113,8 +113,8 @@ export const homeRentalLd = () => ({
     "@id": `${site.url}/#rental-service`,
     name: "VR.CASE",
     url: site.url,
-    image: `${site.url}/assets/img/on-station.webp`,
-    logo: `${site.url}/assets/icons/logo-no-back.webp`,
+    image: absoluteAsset('/images/on-station.webp'),
+    logo: absoluteAsset('/icons/logo-no-back.webp'),
     description:
         "Alquiler de lentes VR Meta Quest 3 en Buenos Aires para eventos corporativos, activaciones y uso personal con entrega y soporte incluidos.",
     serviceType: "Alquiler de realidad virtual Meta Quest 3",
@@ -187,7 +187,7 @@ export const vrServiceLd = () => ({
     "@id": `${site.url}/vr-buenos-aires#service`,
     name: "VR.CASE Buenos Aires",
     url: `${site.url}/vr-buenos-aires`,
-    image: `${site.url}/assets/img/on-station.webp`,
+    image: absoluteAsset('/images/on-station.webp'),
     description:
         "Servicio de alquiler de realidad virtual con Meta Quest 3 en Buenos Aires. Incluye entrega, instalación guiada y soporte en el lugar.",
     serviceType: "Alquiler de lentes VR Meta Quest 3",

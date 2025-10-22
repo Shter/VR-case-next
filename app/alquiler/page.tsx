@@ -1,8 +1,9 @@
-import Link from "next/link";
-import type { Metadata } from "next";
-import { Pricing } from "@/components/Pricing";
-import { JsonLd } from "@/components/JsonLd";
-import { pricingBreadcrumbLd, pricingRentalLd } from "@/lib/structured";
+import { JsonLd } from '@/components/JsonLd';
+import { Pricing } from '@/components/Pricing';
+import { asset } from '@/lib/site';
+import { pricingBreadcrumbLd, pricingRentalLd } from '@/lib/structured';
+import type { Metadata } from 'next';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
     title: "VR Buenos Aires — Precios de alquiler de lentes VR (Meta Quest 3) | VR.CASE",
@@ -15,12 +16,13 @@ export const metadata: Metadata = {
         title: "VR Buenos Aires — Precios de alquiler de lentes VR | VR.CASE",
         description: "Tarifas flexibles por horas/día/semana para Meta Quest 3. Envío gratis.",
         url: "/alquiler",
-        images: [{ url: "/assets/img/in-case.webp" }]
+        images: [{ url: asset('/images/in-case.webp') }]
     },
     twitter: {
         card: "summary_large_image",
         title: "Precios de alquiler VR — VR Buenos Aires | VR.CASE",
-        description: "Consulta tarifas de Meta Quest 3 en Buenos Aires."
+        description: "Consulta tarifas de Meta Quest 3 en Buenos Aires.",
+        images: [asset('/images/in-case.webp')]
     }
 };
 

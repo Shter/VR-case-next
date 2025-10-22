@@ -1,11 +1,12 @@
 "use client";
 
-import Link from "next/link";
-import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
-import CloseIcon from "@mui/icons-material/Close";
-import MenuIcon from "@mui/icons-material/Menu";
-import { navItems } from "@/app/constants";
+import Image from 'next/image';
+import Link from 'next/link';
+import { useEffect, useRef, useState } from 'react';
+import CloseIcon from '@mui/icons-material/Close';
+import MenuIcon from '@mui/icons-material/Menu';
+import { navItems } from '@/app/constants';
+import { asset } from '@/lib/site';
 
 export function Header() {
     const [open, setOpen] = useState(false);
@@ -43,7 +44,7 @@ export function Header() {
         <header className="fixed top-0 inset-x-0 z-50 bg-dark text-white shadow font-bold">
             <div className="container flex items-center justify-between py-1.5">
                 <Link href="/" className="flex items-center gap-2 font-bold text-xl">
-                    <Image src="/assets/icons/logo-no-back.webp" alt="VR.CASE" width={58} height={58} priority />
+                    <Image src={asset('/icons/vrcase-logo.webp')} alt="VR.CASE" width={58} height={58} priority />
                     <span className="header-logo">VR<span className="text-secondary">.CASE</span></span>
                 </Link>
 

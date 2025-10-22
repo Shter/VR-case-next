@@ -23,9 +23,7 @@ html, body { @apply bg-light text-dark antialiased; }
 .btn--ghost:hover { background: white; color: var(--color-dark); }
 
 .hero-bg {
-  @apply min-h-[100vh] flex items-center text-center text-white;
-  background-image: linear-gradient(rgba(26,26,46,0.7), rgba(26,26,46,0.7)), url('/assets/img/hero-background.webp');
-  background-size: cover; background-position: center;
+  @apply min-h-[100vh] flex items-center justify-center text-center text-white py-24;
 }
 
 .header-logo {

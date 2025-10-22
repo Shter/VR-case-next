@@ -1,9 +1,10 @@
-import Image from "next/image";
-import Link from "next/link";
-import type { Metadata } from "next";
-import { JsonLd } from "@/components/JsonLd";
-import { vrBuenosAiresBreadcrumbLd, vrServiceLd } from "@/lib/structured";
-import { advantages, serviceCards } from "@/app/constants";
+import Image from 'next/image';
+import Link from 'next/link';
+import type { Metadata } from 'next';
+import { advantages, serviceCards } from '@/app/constants';
+import { JsonLd } from '@/components/JsonLd';
+import { asset } from '@/lib/site';
+import { vrBuenosAiresBreadcrumbLd, vrServiceLd } from '@/lib/structured';
 
 export const metadata: Metadata = {
     title: "VR Buenos Aires — Alquiler de lentes VR Meta Quest 3",
@@ -25,14 +26,14 @@ export const metadata: Metadata = {
         description:
             "Alquila lentes VR Meta Quest 3 en Buenos Aires. Ideal para eventos, fiestas y corporativos. Envío y soporte incluidos.",
         url: "/vr-buenos-aires",
-        images: [{ url: "/assets/img/on-station.webp" }]
+        images: [{ url: asset('/images/on-station.webp') }]
     },
     twitter: {
         card: "summary_large_image",
         title: "VR Buenos Aires — Alquiler de lentes VR Meta Quest 3 | VR.CASE",
         description:
             "Alquiler de realidad virtual en Buenos Aires con Meta Quest 3. Envío rápido, instalación y soporte.",
-        images: ["/assets/img/on-station.webp"]
+        images: [asset('/images/on-station.webp')]
     },
     robots: { index: true, follow: true }
 };
@@ -64,7 +65,7 @@ export default function VRBuenosAiresPage() {
               </ul>
 
               <Image
-                  src="/assets/img/kitchen.webp"
+                  src={asset('/images/kitchen.webp')}
                   alt="Meta Quest 3 listados para eventos corporativos en Buenos Aires"
                   width={256}
                   height={256}
@@ -83,7 +84,7 @@ export default function VRBuenosAiresPage() {
 
             <div className="flex flex-col md:grid md:grid-cols-[1fr_auto] rounded-2xl bg-gray-200 p-8 shadow-soft border-3 border-dark">
                 <Image
-                    src="/assets/img/corporative.webp"
+                    src={asset('/images/corporative.webp')}
                     alt="Experiencias VR configuradas por VR.CASE"
                     width={256}
                     height={256}
@@ -138,7 +139,7 @@ export default function VRBuenosAiresPage() {
           </div>
 
             <Image
-                src="/assets/img/nature.webp"
+                src={asset('/images/nature.webp')}
                 alt="Equipo de soporte VR listo para asistir"
                 width={224}
                 height={224}
