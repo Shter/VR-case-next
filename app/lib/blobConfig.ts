@@ -8,7 +8,17 @@ const prefixes: Record<MediaAssetKind, string> = {
   video: defaultVideoPrefix,
 };
 
-export const blobAccess = (process.env.BLOB_MEDIA_ACCESS as 'public' | 'private') || 'public';
+function resolveBlobAccess(): 'public' {
+  const access = process.env.BLOB_MEDIA_ACCESS;
+
+  if (access && access !== 'public') {
+    throw new Error('BLOB_MEDIA_ACCESS admite sólo значение "public" для текущей реализации Vercel Blob.');
+  }
+
+  return 'public';
+}
+
+export const blobAccess = resolveBlobAccess();
 
 export function getBlobPrefix(kind: MediaAssetKind): string {
   return prefixes[kind] || prefixes.photo;
