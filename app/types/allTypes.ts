@@ -80,3 +80,41 @@ export type FaqGalleryLightboxProps = {
     onCloseAction: () => void;
     onNavigateAction: (nextIndex: number) => void;
 };
+
+export type MediaAssetKind = 'photo' | 'video';
+
+export type MediaAsset = {
+    kind: MediaAssetKind;
+    pathname: string;
+    url: string;
+    size: number;
+    uploadedAt: string;
+    contentType: string;
+};
+
+export type UploadMediaOptions = {
+    file: File;
+    kind: MediaAssetKind;
+    targetPath?: string;
+    addRandomSuffix?: boolean;
+    contentType?: string;
+};
+
+export type UploadMediaResult = {
+    asset: MediaAsset;
+    downloadUrl: string;
+    contentDisposition?: string;
+};
+
+export type ListMediaOptions = {
+    kind?: MediaAssetKind;
+    prefixOverride?: string;
+    limit?: number;
+    cursor?: string;
+};
+
+export type ListMediaResult = {
+    items: MediaAsset[];
+    cursor?: string | null;
+    hasMore: boolean;
+};

@@ -1,6 +1,7 @@
-import Image from "next/image";
-import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
+import Image from 'next/image';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import { asset } from '@/lib/site';
 
 export function Contact() {
     return (
@@ -49,7 +50,7 @@ export function Contact() {
                                 },
                             }}
                         >
-                            <Image src="/assets/icons/whatsapp.svg" alt="WhatsApp" width={40} height={40} priority />
+                            <Image src={asset('/icons/whatsapp.svg')} alt="WhatsApp" width={40} height={40} priority />
                             <span className="text-lg">WhatsApp</span>
                         </Button>
                         <Button
@@ -81,7 +82,7 @@ export function Contact() {
                                 },
                             }}
                         >
-                            <Image src="/assets/icons/instagram.svg" alt="Instagram" width={40} height={40} />
+                            <Image src={asset('/icons/instagram.svg')} alt="Instagram" width={40} height={40} />
                             <span className="text-lg">Instagram</span>
                         </Button>
                     </Stack>

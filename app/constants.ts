@@ -1,6 +1,7 @@
 import type { Route } from "next";
 import type { UrlObject } from "url";
-import { FaqGalleryItem, NavItem } from "@/types/allTypes";
+import { asset } from '@/lib/site';
+import { FaqGalleryItem, NavItem } from '@/types/allTypes';
 
 export const navItems: NavItem[] = [
     { href: { pathname: "/", hash: "home" } satisfies UrlObject, label: "Principal" },
@@ -10,12 +11,6 @@ export const navItems: NavItem[] = [
     { href: { pathname: "/", hash: "faq-gallery" } satisfies UrlObject, label: "FAQ/Gallery" },
     { href: "/alquiler" satisfies Route, label: "Precios" },
     { href: { pathname: "/", hash: "contact" } satisfies UrlObject, label: "Contactos" },
-];
-
-export const images = [
-    "/assets/img/on-station.webp",
-    "/assets/img/in-case.webp",
-    "/assets/img/on-wood.webp",
 ];
 
 export const advantages = [
@@ -53,12 +48,12 @@ export const serviceCards = [
 ];
 
 export const featuresItems = [
-    { img: "/assets/img/gamepad.webp", title: "Más de 100 juegos", text: "Una enorme biblioteca de los juegos y aplicaciones VR más populares" },
-    { img: "/assets/img/lightning.webp", title: "Favorito por su rendimiento", text: "Pantalla mejorada y procesador para una experiencia fluida" },
-    { img: "/assets/img/support.webp", title: "Online soporte completo", text: "Asesoramiento y asistencia durante todo el período de alquiler" },
-    { img: "/assets/img/prise.webp", title: "Equipo profesional", text: "Solo dispositivos originales con garantía y mantenimiento" },
-    { img: "/assets/img/dron.webp", title: "Envío rápido", text: "Te llevamos el equipo cuando y donde te convenga" },
-    { img: "/assets/img/flex.webp", title: "Condiciones flexibles", text: "Desde horas hasta semanas a tarifas competitivas" },
+  { img: asset('/images/gamepad.webp'), title: 'Más de 100 juegos', text: 'Una enorme biblioteca de los juegos y aplicaciones VR más populares' },
+  { img: asset('/images/lightning.webp'), title: 'Favorito por su rendimiento', text: 'Pantalla mejorada y procesador para una experiencia fluida' },
+  { img: asset('/images/support.webp'), title: 'Online soporte completo', text: 'Asesoramiento y asistencia durante todo el período de alquiler' },
+  { img: asset('/images/prise.webp'), title: 'Equipo profesional', text: 'Solo dispositivos originales con garantía y mantenimiento' },
+  { img: asset('/images/dron.webp'), title: 'Envío rápido', text: 'Te llevamos el equipo cuando y donde te convenga' },
+  { img: asset('/images/flex.webp'), title: 'Condiciones flexibles', text: 'Desde horas hasta semanas a tarifas competitivas' },
 ];
 
 export const faqItems: FaqGalleryItem[] = [
@@ -68,7 +63,7 @@ export const faqItems: FaqGalleryItem[] = [
         answer: 'Coordinamos la entrega del Meta Quest 3 en el día y lo retiramos cuando termina tu reserva. Todo sin cargos extra dentro de CABA',
         image: {
             id: 'on-station',
-            src: '/assets/img/on-station.webp',
+            src: asset('/images/on-station.webp'),
             alt: 'Meta Quest 3 en estación',
             caption: 'Entrega con estación',
             width: 1024,
@@ -81,7 +76,7 @@ export const faqItems: FaqGalleryItem[] = [
         answer: 'Sí, tenemos paquetes para eventos corporativos y sociales con soporte remoto y contenido temático para sorprender a tus invitados',
         image: {
             id: 'two-cases',
-            src: '/assets/img/on-wood.webp',
+            src: asset('/images/on-wood.webp'),
             alt: 'Dos estuches de Meta Quest 3 listos para traslado',
             caption: 'Múltiples visores para tu evento',
             width: 860,
@@ -94,7 +89,7 @@ export const faqItems: FaqGalleryItem[] = [
         answer: 'Nos escribís por WhatsApp y te fv al instante. Incluimos soporte técnico remoto sin costo durante toda tu experiencia',
         image: {
             id: 'nature',
-            src: '/assets/img/on-station-front.webp',
+            src: asset('/images/on-station-front.webp'),
             alt: 'Persona usando Meta Quest 3 en un ambiente natural',
             caption: 'Soporte permanente para aprovechar la VR',
             width: 1024,
@@ -107,7 +102,7 @@ export const faqItems: FaqGalleryItem[] = [
         answer: 'El equipo llega configurado con tu sesión demo y los juegos precargados. Solo encendés el visor, seguís la guía rápida y ya estás dentro',
         image: {
             id: 'in-case',
-            src: '/assets/img/in-case.webp',
+            src: asset('/images/in-case.webp'),
             alt: 'Meta Quest 3 dentro de estuche rígido',
             caption: 'Todo ordenado en un estuche de transporte',
             width: 788,

@@ -1,5 +1,6 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image';
+import Link from 'next/link';
+import { asset } from '@/lib/site';
 
 export function Footer() {
     return (
@@ -36,10 +37,10 @@ export function Footer() {
                     </address>
                     <div className="flex gap-3 mt-4">
                         <a href="https://wa.me/5491127827150" rel="nofollow" target="_blank">
-                            <Image src="/assets/icons/whatsapp.svg" alt="WhatsApp" width={32} height={32} />
+                            <Image src={asset('/icons/whatsapp.svg')} alt="WhatsApp" width={32} height={32} />
                         </a>
                         <a href="https://instagram.com/vr.case.ar" rel="nofollow" target="_blank">
-                            <Image src="/assets/icons/instagram.svg" alt="Instagram" width={32} height={32} />
+                            <Image src={asset('/icons/instagram.svg')} alt="Instagram" width={32} height={32} />
                         </a>
                     </div>
                 </div>

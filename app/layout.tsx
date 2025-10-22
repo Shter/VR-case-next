@@ -1,8 +1,8 @@
-import { site } from "@/lib/site";
-import { Metadata } from "next";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
-import "./globals.css"
+import { Footer } from '@/components/Footer';
+import { Header } from '@/components/Header';
+import { asset, site } from '@/lib/site';
+import { Metadata } from 'next';
+import './globals.css';
 
 export const metadata: Metadata = {
     metadataBase: new URL(site.url),
@@ -31,13 +31,13 @@ export const metadata: Metadata = {
         description:
             "Alquila lentes VR Meta Quest 3 en Buenos Aires: ideal para eventos y uso personal. Envío y soporte incluidos.",
         siteName: "VR.CASE",
-        images: [{ url: "/assets/img/on-station.webp" }]
+        images: [{ url: asset('/images/on-station.webp') }]
     },
     twitter: {
         card: "summary_large_image",
         title: "VR Buenos Aires — Alquiler de lentes VR Meta Quest 3 | VR.CASE",
         description: "Alquiler de realidad virtual en Buenos Aires con Meta Quest 3. Envío rápido y soporte.",
-        images: ["/assets/img/on-station.webp"]
+        images: [asset('/images/on-station.webp')]
     },
     robots: { index: true, follow: true }
 };
