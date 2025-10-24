@@ -3,9 +3,9 @@
 import Image from 'next/image';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import clsx                      from 'clsx';
-import { FaqGalleryPhotoViewer } from '@/components/FaqGalleryPhotoViewer';
+import { FaqGalleryPhotoViewer } from '@/components/client/FaqGalleryPhotoViewer';
 import type { FaqGalleryItem }   from '@/types/allTypes';
-import { faqItems } from "@/app/constants";
+import { faqItems }              from "@/app/constants";
 
 export function FaqGallery() {
     const [activeFaqId, setActiveFaqId] = useState<string | null>(() => faqItems[0]?.id ?? null);

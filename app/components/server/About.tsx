@@ -1,7 +1,7 @@
 import Image from 'next/image';
-import Link from 'next/link';
-import { AboutVideo } from '@/components/AboutVideo';
-import { asset } from '@/lib/site';
+import Link           from 'next/link';
+import { AboutVideo } from '@/components/client/AboutVideo';
+import { asset }      from '@/lib/site';
 
 export function About() {
     return (

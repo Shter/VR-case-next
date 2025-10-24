@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
+import Stack     from '@mui/material/Stack';
 import { asset } from '@/lib/site';
 
 export function Contact() {

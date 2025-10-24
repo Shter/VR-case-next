@@ -1,6 +1,6 @@
-import { JsonLd } from '@/components/JsonLd';
-import { Pricing } from '@/components/Pricing';
-import { asset } from '@/lib/site';
+import { JsonLd }  from '@/components/server/JsonLd';
+import { Pricing } from '@/components/server/Pricing';
+import { asset }   from '@/lib/site';
 import { pricingBreadcrumbLd, pricingRentalLd } from '@/lib/structured';
 import type { Metadata } from 'next';
 import Link from 'next/link';

@@ -1,4 +1,4 @@
-import { Footer } from '@/components/Footer';
+import { Footer } from '@/components/server/Footer';
 import { Header } from '@/components/Header';
 import { asset, site } from '@/lib/site';
 import { Metadata } from 'next';

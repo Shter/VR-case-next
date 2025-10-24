@@ -1,6 +1,6 @@
-import offersData from "@/data/pricing.json";
-import type { Offer } from "@/types/allTypes";
-import { PriceSection } from "@/components/PriceSection";
+import offersData       from "@/data/pricing.json";
+import type { Offer }   from "@/types/allTypes";
+import { PriceSection } from "@/components/server/PriceSection";
 
 export function Pricing() {
     const offers = offersData as Offer[];

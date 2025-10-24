@@ -5,7 +5,7 @@ import Dialog from '@mui/material/Dialog';
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import Image from 'next/image';
+import Image                       from 'next/image';
 import { FaqGalleryLightboxProps } from '@/types/allTypes';
 
 export function FaqGalleryPhotoViewer({

@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image             from "next/image";
 import { featuresItems } from "@/app/constants";
 
 export function Features() {

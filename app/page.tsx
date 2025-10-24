@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Hero } from "@/components/Hero";
-import { About } from "@/components/About";
-import { Features } from "@/components/Features";
-import { PricingTeaser } from "@/components/PricingTeaser";
-import { Contact }    from "@/components/Contact";
-import { FaqGallery } from "@/components/FaqGallery";
-import { JsonLd }     from "@/components/JsonLd";
+import { Hero }          from "@/components/server/Hero";
+import { About }         from "@/components/server/About";
+import { Features }      from "@/components/server/Features";
+import { PricingTeaser } from "@/components/server/PricingTeaser";
+import { Contact }       from "@/components/server/Contact";
+import { FaqGallery }                                      from "@/components/FaqGallery";
+import { JsonLd }                                          from "@/components/server/JsonLd";
 import { homeBreadcrumbLd, homeRentalLd, pricingRentalLd } from "@/lib/structured";
 
 export const metadata: Metadata = {
