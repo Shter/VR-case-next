@@ -2,8 +2,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { advantages, serviceCards } from '@/app/constants';
-import { JsonLd }                   from '@/components/server/JsonLd';
-import { asset }                    from '@/lib/site';
+import { JsonLd } from '@/components/server/JsonLd';
+import { asset } from '@/lib/site';
 import { vrBuenosAiresBreadcrumbLd, vrServiceLd } from '@/lib/structured';
 
 export const metadata: Metadata = {
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
 export default function VRBuenosAiresPage() {
   return (
     <main>
-      <section className="container py-24">
+      <section className="container pt-24 pb-8 md:pb-16 ">
         <JsonLd data={vrBuenosAiresBreadcrumbLd()} />
         <JsonLd data={vrServiceLd()} />
 
@@ -164,7 +164,7 @@ export default function VRBuenosAiresPage() {
           </p>
         </div>
 
-        <div className="mt-10 flex flex-wrap gap-4">
+        <div className="mt-4 md:mt-10 flex flex-wrap gap-4">
           <Link href="/alquiler" className="btn">Reservar Meta Quest 3</Link>
           <Link href="/#contact" className="btn btn--ghost">Hablar con un especialista</Link>
         </div>

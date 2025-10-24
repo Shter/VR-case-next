@@ -22,7 +22,7 @@ export function Hero() {
             Alquiler de realidad virtual VR en Buenos Aires con Meta Quest 3
           </h1>
           <p className="fade-in-up mb-8 text-lg opacity-90 md:text-xl">
-            Activamos experiencias inmersivas para eventos corporativos, lanzamientos y reuniones privadas. Recibí los headsets Meta Quest 3 listos para jugar con entrega, instalación y soporte en toda CABA
+            Activamos experiencias inmersivas para eventos corporativos, lanzamientos y reuniones privadas. Recibí los headsets Meta Quest 3 listos para jugar con entrega, instalación y soporte en toda CABA y alrededores
           </p>
           <div className="fade-in-up flex flex-wrap items-center justify-center gap-4">
             <Link href="/alquiler" className="btn">Ver planes y precios</Link>

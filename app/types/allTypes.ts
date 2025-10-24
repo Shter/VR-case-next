@@ -1,6 +1,6 @@
 import { Route } from "next";
 import { UrlObject }        from "url";
-import { ReactNode } from "react";
+import { ReactElement, ReactNode } from "react";
 import { DialogProps }      from "@mui/material/Dialog";
 
 export type Offer = {
@@ -19,6 +19,14 @@ type NavHref = Route | UrlObject;
 export type NavItem = {
     href: NavHref;
     label: string;
+};
+
+export type HeaderNavigationProps = {
+    items: NavItem[];
+};
+
+export type HeaderMenuProps = {
+    children: ReactElement;
 };
 
 export type PriceSectionProps = {
