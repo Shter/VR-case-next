@@ -164,9 +164,9 @@ export default function VRBuenosAiresPage() {
           </p>
         </div>
 
-        <div className="mt-4 md:mt-10 flex flex-wrap gap-4">
-          <Link href="/alquiler" className="btn">Reservar Meta Quest 3</Link>
-          <Link href="/#contact" className="btn btn--ghost">Hablar con un especialista</Link>
+        <div className="mt-4 md:mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-8">
+          <Link href="/alquiler" className="btn w-full sm:w-64 text-center">Reservar Meta Quest 3</Link>
+          <Link href="/#contact" className="btn btn--ghost w-full sm:w-64 text-center">Hablar con un especialista</Link>
         </div>
       </section>
     </main>

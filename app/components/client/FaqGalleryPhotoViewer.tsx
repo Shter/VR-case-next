@@ -5,7 +5,7 @@ import Dialog from '@mui/material/Dialog';
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import Image                       from 'next/image';
+import Image from 'next/image';
 import { FaqGalleryLightboxProps } from '@/types/allTypes';
 
 export function FaqGalleryPhotoViewer({
@@ -18,7 +18,13 @@ export function FaqGalleryPhotoViewer({
     const totalImages = images.length;
     const activeImage = images[currentIndex];
     const hasNavigation = totalImages > 1;
-    const [viewportSize, setViewportSize] = useState<{ width: number; height: number }>({ width: 0, height: 0 });
+    const [viewportSize, setViewportSize] = useState<{ width: number; height: number }>(() => {
+        if (typeof window === 'undefined') {
+            return { width: 0, height: 0 };
+        }
+
+        return { width: window.innerWidth, height: window.innerHeight };
+    });
 
     useEffect(() => {
         if (!open || !hasNavigation) {
@@ -71,8 +77,17 @@ export function FaqGalleryPhotoViewer({
             return { width: 0, height: 0 };
         }
 
-        const widthLimit = viewportSize.width > 0 ? viewportSize.width * 0.9 : activeImage.width;
-        const heightLimit = viewportSize.height > 0 ? viewportSize.height * 0.8 : activeImage.height;
+        const viewportWidth = viewportSize.width > 0
+            ? viewportSize.width
+            : (typeof window !== 'undefined' ? window.innerWidth : 0);
+        const viewportHeight = viewportSize.height > 0
+            ? viewportSize.height
+            : (typeof window !== 'undefined' ? window.innerHeight : 0);
+        const hasViewport = viewportWidth > 0 && viewportHeight > 0;
+        const widthLimit = hasViewport
+            ? Math.min(viewportWidth * 0.9, 960)
+            : Math.min(activeImage.width, 960);
+        const heightLimit = hasViewport ? viewportHeight * 0.8 : activeImage.height;
         const widthScale = widthLimit / activeImage.width;
         const heightScale = heightLimit / activeImage.height;
         const scale = Math.min(widthScale, heightScale, 1);
@@ -131,16 +146,14 @@ export function FaqGalleryPhotoViewer({
                         className="relative flex items-center justify-center overflow-hidden rounded-3xl border border-white/10 bg-black/40"
                         style={{
                             width: containerDimensions.width,
-                            height: containerDimensions.height,
-                            maxWidth: '90vw',
-                            maxHeight: '80vh',
                         }}
                     >
                         <Image
                             src={activeImage.src}
                             alt={activeImage.alt}
-                            fill
-                            className="object-contain"
+                            width={containerDimensions.width}
+                            height={containerDimensions.height}
+                            className="h-full w-full object-contain"
                             sizes="(min-width: 1536px) 70vw, (min-width: 1280px) 75vw, (min-width: 1024px) 80vw, 90vw"
                             priority
                         />
