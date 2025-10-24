@@ -63,7 +63,7 @@ export default function Page() {
                         <p>
                             Para demos breves o stands itinerantes recomendamos la modalidad por 2 a 4 horas. Los
                             eventos corporativos y activaciones de marketing suelen funcionar mejor con el plan diario,
-                            mientras que producciones prolongadas optan por la semana completa.
+                            mientras que producciones prolongadas optan por la semana completa
                         </p>
 
                         <p>

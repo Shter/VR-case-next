@@ -1,9 +1,11 @@
 const defaultSiteUrl = 'https://vr-case.com.ar';
 const configuredAssetsBase = process.env.NEXT_PUBLIC_ASSETS_BASE ?? '';
+const configuredFaviconPath = process.env.NEXT_PUBLIC_FAVICON_PATH ?? '/icons/favicon.ico';
 
 export const site = {
     url: process.env.NEXT_PUBLIC_SITE_URL || defaultSiteUrl,
     assetsBase: configuredAssetsBase.replace(/\/$/, ''),
+    faviconPath: configuredFaviconPath,
 };
 
 export function asset(path: string) {

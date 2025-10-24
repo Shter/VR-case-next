@@ -12,7 +12,7 @@ function resolveBlobAccess(): 'public' {
   const access = process.env.BLOB_MEDIA_ACCESS;
 
   if (access && access !== 'public') {
-    throw new Error('BLOB_MEDIA_ACCESS admite sólo значение "public" для текущей реализации Vercel Blob.');
+    throw new Error('BLOB_MEDIA_ACCESS admite sólo "public"');
   }
 
   return 'public';

@@ -60,7 +60,7 @@ export const faqItems: FaqGalleryItem[] = [
     {
         id: 'delivery',
         question: 'Cómo funciona la entrega y devolución?',
-        answer: 'Coordinamos la entrega del Meta Quest 3 en el día y lo retiramos cuando termina tu reserva. Todo sin cargos extra dentro de CABA',
+        answer: 'Coordinamos la entrega del Meta Quest 3 en el día y lo retiramos cuando termina tu reserva. Todo sin cargos extra dentro de CABA y alrededores',
         image: {
             id: 'on-station',
             src: asset('/images/on-station.webp'),
@@ -86,7 +86,7 @@ export const faqItems: FaqGalleryItem[] = [
     {
         id: 'support',
         question: 'Qué pasa si tengo dudas durante el alquiler?',
-        answer: 'Nos escribís por WhatsApp y te fv al instante. Incluimos soporte técnico remoto sin costo durante toda tu experiencia',
+        answer: 'Nos escribís por WhatsApp y te ayudamos al instante. Incluimos soporte técnico remoto sin costo durante toda tu experiencia',
         image: {
             id: 'nature',
             src: asset('/images/on-station-front.webp'),
