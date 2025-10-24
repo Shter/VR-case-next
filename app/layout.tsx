@@ -39,7 +39,11 @@ export const metadata: Metadata = {
         description: "Alquiler de realidad virtual en Buenos Aires con Meta Quest 3. Envío rápido y soporte.",
         images: [asset('/images/on-station.webp')]
     },
-    robots: { index: true, follow: true }
+    robots: { index: true, follow: true },
+    icons: {
+        icon: asset(site.faviconPath),
+        shortcut: asset(site.faviconPath),
+    }
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
