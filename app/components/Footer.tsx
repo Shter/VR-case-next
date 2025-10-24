@@ -5,10 +5,10 @@ import { asset } from '@/lib/site';
 export function Footer() {
     return (
         <footer className="bg-dark text-white pt-16 pb-6">
-            <div className="container grid gap-10 grid-cols-3 md:grid-cols-4">
-                <div className="col-span-3 md:col-span-1">
+            <div className="container grid gap-10 grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
+                <div>
                     <h3 className="font-bold header-logo">VR<span className="text-secondary">.CASE</span></h3>
-                    <p>Servicio de alquiler de lentes VR Meta Quest 3 para eventos, activaciones y experiencias privadas en Buenos Aires.</p>
+                    <p>Servicio de alquiler de VR Meta Quest 3 para eventos, activaciones y experiencias privadas en Buenos Aires</p>
                 </div>
                 <div>
                     <h3 className="text-secondary mb-4 text-xl">Menú</h3>
