@@ -57,10 +57,6 @@ export type ReservePlanDialogTriggerProps = {
     description?: string;
 };
 
-export type GalleryViewerProps = {
-    images: string[];
-};
-
 export type AboutVideoProps = {
     referenceSelector: string;
 };
@@ -78,7 +74,6 @@ export type FaqGalleryItem = {
     id: string;
     question: string;
     answer: string;
-    image: GalleryImage;
 };
 
 export type FaqGalleryLightboxProps = {
