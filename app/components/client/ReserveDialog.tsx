@@ -6,8 +6,8 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 
-import { AppDialog } from '@/components/AppDialog';
-import { asset } from '@/lib/site';
+import { AppDialog }                     from '@/components/client/AppDialog';
+import { asset }                         from '@/lib/site';
 import { ReservePlanDialogTriggerProps } from '@/types/allTypes';
 
 export function ReserveDialog({

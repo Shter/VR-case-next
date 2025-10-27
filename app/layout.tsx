@@ -1,5 +1,5 @@
-import { Footer } from '@/components/Footer';
-import { Header } from '@/components/Header';
+import { Footer }      from '@/components/server/Footer';
+import { Header }      from '@/components/server/Header';
 import { asset, site } from '@/lib/site';
 import { Metadata } from 'next';
 import './globals.css';

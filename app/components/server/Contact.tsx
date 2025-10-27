@@ -1,11 +1,11 @@
 import Image from 'next/image';
 import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
+import Stack     from '@mui/material/Stack';
 import { asset } from '@/lib/site';
 
 export function Contact() {
     return (
-        <section className="">
+        <section id="contact">
             <div className="flex justify-center">
                 <div className="flex flex-col border-4 rounded-2xl border-secondary max-w-2xl text-center py-6 px-10">
                     <h2 className="text-3xl md:text-4xl font-extrabold mb-6">

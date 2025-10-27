@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Link from 'next/link';
+import Link      from 'next/link';
 import { asset } from '@/lib/site';
 
 export function Hero() {
@@ -22,11 +22,11 @@ export function Hero() {
             Alquiler de realidad virtual VR en Buenos Aires con Meta Quest 3
           </h1>
           <p className="fade-in-up mb-8 text-lg opacity-90 md:text-xl">
-            Activamos experiencias inmersivas para eventos corporativos, lanzamientos y reuniones privadas. Recibí los headsets Meta Quest 3 listos para jugar con entrega, instalación y soporte en toda CABA
+            Activamos experiencias inmersivas para eventos corporativos, lanzamientos y reuniones privadas. Recibí los headsets Meta Quest 3 listos para jugar con entrega, instalación y soporte en toda CABA y alrededores
           </p>
-          <div className="fade-in-up flex flex-wrap items-center justify-center gap-4">
-            <Link href="/alquiler" className="btn">Ver planes y precios</Link>
-            <Link href="/vr-buenos-aires" className="btn btn--ghost">
+          <div className="fade-in-up flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link href="/alquiler" className="btn w-full sm:w-64 text-center">Ver planes y precios</Link>
+            <Link href="/vr-buenos-aires" className="btn btn--ghost w-full sm:w-64 text-center">
               Cómo funciona el servicio
             </Link>
           </div>

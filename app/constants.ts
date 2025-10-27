@@ -1,7 +1,7 @@
 import type { Route } from "next";
 import type { UrlObject } from "url";
 import { asset } from '@/lib/site';
-import { FaqGalleryItem, NavItem } from '@/types/allTypes';
+import { FaqGalleryItem, GalleryImage, NavItem } from '@/types/allTypes';
 
 export const navItems: NavItem[] = [
     { href: { pathname: "/", hash: "home" } satisfies UrlObject, label: "Principal" },
@@ -61,52 +61,55 @@ export const faqItems: FaqGalleryItem[] = [
         id: 'delivery',
         question: 'Cómo funciona la entrega y devolución?',
         answer: 'Coordinamos la entrega del Meta Quest 3 en el día y lo retiramos cuando termina tu reserva. Todo sin cargos extra dentro de CABA y alrededores',
-        image: {
-            id: 'on-station',
-            src: asset('/images/on-station.webp'),
-            alt: 'Meta Quest 3 en estación',
-            caption: 'Entrega con estación',
-            width: 1024,
-            height: 1536,
-        },
     },
     {
         id: 'events',
         question: 'Sirve para eventos o activaciones?',
         answer: 'Sí, tenemos paquetes para eventos corporativos y sociales con soporte remoto y contenido temático para sorprender a tus invitados',
-        image: {
-            id: 'two-cases',
-            src: asset('/images/on-wood.webp'),
-            alt: 'Dos estuches de Meta Quest 3 listos para traslado',
-            caption: 'Múltiples visores para tu evento',
-            width: 860,
-            height: 1290,
-        },
     },
     {
         id: 'support',
         question: 'Qué pasa si tengo dudas durante el alquiler?',
         answer: 'Nos escribís por WhatsApp y te ayudamos al instante. Incluimos soporte técnico remoto sin costo durante toda tu experiencia',
-        image: {
-            id: 'nature',
-            src: asset('/images/on-station-front.webp'),
-            alt: 'Persona usando Meta Quest 3 en un ambiente natural',
-            caption: 'Soporte permanente para aprovechar la VR',
-            width: 1024,
-            height: 1536,
-        },
     },
     {
         id: 'setup',
         question: 'Necesito instalar algo para empezar?',
         answer: 'El equipo llega configurado con tu sesión demo y los juegos precargados. Solo encendés el visor, seguís la guía rápida y ya estás dentro',
-        image: {
-            id: 'in-case',
-            src: asset('/images/in-case.webp'),
-            alt: 'Meta Quest 3 dentro de estuche rígido',
-            caption: 'Todo ordenado en un estuche de transporte',
-            width: 788,
-            height: 1182,
-        },
+    },
+];
+
+export const galleryImages: GalleryImage[] = [
+    {
+        id: 'on-station',
+        src: asset('/images/on-station.webp'),
+        alt: 'Meta Quest 3 en estación',
+        caption: 'Entrega con estación',
+        width: 1024,
+        height: 1536,
+    },
+    {
+        id: 'two-cases',
+        src: asset('/images/on-wood.webp'),
+        alt: 'Dos estuches de Meta Quest 3 listos para traslado',
+        caption: 'Múltiples visores para tu evento',
+        width: 860,
+        height: 1290,
+    },
+    {
+        id: 'nature',
+        src: asset('/images/on-station-front.webp'),
+        alt: 'Persona usando Meta Quest 3 en un ambiente natural',
+        caption: 'Soporte permanente para aprovechar la VR',
+        width: 1024,
+        height: 1536,
+    },
+    {
+        id: 'in-case',
+        src: asset('/images/in-case.webp'),
+        alt: 'Meta Quest 3 dentro de estuche rígido',
+        caption: 'Todo ordenado en un estuche de transporte',
+        width: 788,
+        height: 1182,
     },
 ];

@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { advantages, serviceCards } from '@/app/constants';
-import { JsonLd } from '@/components/JsonLd';
+import { JsonLd } from '@/components/server/JsonLd';
 import { asset } from '@/lib/site';
 import { vrBuenosAiresBreadcrumbLd, vrServiceLd } from '@/lib/structured';
 
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
 export default function VRBuenosAiresPage() {
   return (
     <main>
-      <section className="container py-24">
+      <section className="container pt-24 pb-8 md:pb-16 ">
         <JsonLd data={vrBuenosAiresBreadcrumbLd()} />
         <JsonLd data={vrServiceLd()} />
 
@@ -164,9 +164,9 @@ export default function VRBuenosAiresPage() {
           </p>
         </div>
 
-        <div className="mt-10 flex flex-wrap gap-4">
-          <Link href="/alquiler" className="btn">Reservar Meta Quest 3</Link>
-          <Link href="/#contact" className="btn btn--ghost">Hablar con un especialista</Link>
+        <div className="mt-4 md:mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-8">
+          <Link href="/alquiler" className="btn w-full sm:w-64 text-center">Reservar Meta Quest 3</Link>
+          <Link href="/#contact" className="btn btn--ghost w-full sm:w-64 text-center">Hablar con un especialista</Link>
         </div>
       </section>
     </main>

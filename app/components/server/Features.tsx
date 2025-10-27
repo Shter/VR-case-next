@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image             from "next/image";
 import { featuresItems } from "@/app/constants";
 
 export function Features() {
@@ -23,9 +23,7 @@ export function Features() {
                         </div>
                     ))}
                 </div>
-                <div id="contact"></div>
             </div>
-
         </section>
     );
 }

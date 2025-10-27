@@ -1,8 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useRef } from 'react';
-import { asset } from '@/lib/site';
-import { AboutVideoProps } from '@/types/allTypes';
+import { asset }                          from '@/lib/site';
+import { AboutVideoProps }                from '@/types/allTypes';
 
 export function AboutVideo({ referenceSelector }: AboutVideoProps) {
     const videoRef = useRef<HTMLVideoElement | null>(null);
