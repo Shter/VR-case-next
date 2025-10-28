@@ -52,8 +52,9 @@ function parseShowMultiplayerParam(raw: string | string[] | undefined): boolean 
 
 export default async function JuegosPage({ searchParams }: JuegosPageProps) {
     const games = await fetchGames();
-    const categoriesParam = searchParams?.categories ?? searchParams?.category;
-    const showMultiplayerParam = searchParams?.showMultiplayer;
+    const searchParamsValue = await searchParams
+    const categoriesParam =  searchParamsValue?.categories ?? searchParamsValue?.category;
+    const showMultiplayerParam = searchParamsValue?.showMultiplayer;
     const initialCategories = parseCategoriesParam(categoriesParam);
     const initialShowMultiplayer = parseShowMultiplayerParam(showMultiplayerParam);
 

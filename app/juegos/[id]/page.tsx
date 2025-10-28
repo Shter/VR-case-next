@@ -1,21 +1,9 @@
-/* eslint-disable @next/next/no-img-element */
-
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { cache } from 'react';
-
 import { supabaseClient } from '@/lib/supabase/client';
-import type { GameRecord } from '../page';
-
-export const revalidate = 60;
-
-type PageProps = {
-    params: {
-        id: string;
-    };
-    searchParams?: Record<string, string | string[] | undefined>;
-};
+import { GameRecord, PageProps } from "@/types/allTypes";
 
 async function fetchGameById(rawId: string): Promise<GameRecord | null> {
     const decodedId = decodeURIComponent(rawId.trim());
@@ -35,7 +23,7 @@ async function fetchGameById(rawId: string): Promise<GameRecord | null> {
         .maybeSingle();
 
     if (error) {
-        console.error('[supabase] Не удалось получить запись игры', error);
+        console.error('[supabase] empty', error);
         throw new Error('Не удалось загрузить данные игры. Попробуйте позже.');
     }
 
@@ -53,8 +41,8 @@ async function fetchGameById(rawId: string): Promise<GameRecord | null> {
                 .maybeSingle();
 
             if (numericError) {
-                console.error('[supabase] Ошибка при повторном запросе игры по числовому ID', numericError);
-                throw new Error('Не удалось загрузить данные игры. Попробуйте позже.');
+                console.error('[supabase]  ID', numericError);
+                throw new Error('error');
             }
 
             if (numericData) {
@@ -69,7 +57,8 @@ async function fetchGameById(rawId: string): Promise<GameRecord | null> {
 const getGameById = cache(fetchGameById);
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-    const game = await getGameById(params.id);
+    const paramsValue = await params;
+    const game = await getGameById(paramsValue.id);
 
     if (!game) {
         return {
@@ -78,7 +67,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         } satisfies Metadata;
     }
 
-    const title = game.title ?? game.name ?? `Juego #${params.id}`;
+    const title = game.title ?? game.name ?? `Juego #${paramsValue.id}`;
     const description = (game.description as string | null | undefined)
         ?? 'Detalles del juego desde la base de datos de Supabase.';
 
@@ -89,13 +78,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function GamePage({ params, searchParams }: PageProps) {
-    const game = await getGameById(params.id);
+    const paramsValue = await params;
+    const game = await getGameById(paramsValue.id);
+    const searchParamsValue = await searchParams;
 
     if (!game) {
         notFound();
     }
 
-    const title = game.title ?? game.name ?? `Juego #${params.id}`;
+    const title = game.title ?? game.name ?? `Juego #${paramsValue.id}`;
     const name = typeof game.name === 'string' && game.name.trim().length > 0
         ? game.name
         : title;
@@ -114,23 +105,26 @@ export default async function GamePage({ params, searchParams }: PageProps) {
     const isMultiplayer = game.multiplayer === true;
 
     const categoriesQuery = (() => {
-        const raw = searchParams?.categories ?? searchParams?.category;
+        const raw = searchParamsValue?.categories ?? searchParamsValue?.category;
         if (!raw) return null;
         const values = Array.isArray(raw) ? raw : [raw];
         const sanitized = values
             .flatMap((value) => value.split(','))
             .map((value) => value.trim())
             .filter(Boolean);
+
         if (sanitized.length === 0) {
             return null;
         }
+
         return sanitized.join(',');
     })();
 
     const multiplayerQuery = (() => {
-        const raw = searchParams?.showMultiplayer;
+        const raw = searchParamsValue?.showMultiplayer;
         if (!raw) return null;
         const value = Array.isArray(raw) ? raw[0] : raw;
+
         return value === '0' ? '0' : null;
     })();
 
@@ -147,6 +141,8 @@ export default async function GamePage({ params, searchParams }: PageProps) {
         <section className="container mx-auto px-4 py-16 md:py-24">
             <div className="mb-8">
                 <Link
+                    //Todo fix
+                    // @ts-ignore
                     href={backHref}
                     className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
                 >

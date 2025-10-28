@@ -154,3 +154,10 @@ export type FilterableGamesProps = {
 export type JuegosPageProps = {
     searchParams?: Record<string, string | string[] | undefined>;
 };
+
+export type PageProps = {
+    params: {
+        id: string;
+    };
+    searchParams?: Record<string, string | string[] | undefined>;
+};
