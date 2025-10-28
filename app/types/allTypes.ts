@@ -139,3 +139,18 @@ export type GameRecord = {
     multiplayer_instructions?: string | null;
     [key: string]: unknown;
 };
+
+export type GameCardProps = {
+    game: GameRecord;
+    queryString: string;
+};
+
+export type FilterableGamesProps = {
+    games: GameRecord[];
+    initialCategories: string[];
+    initialShowMultiplayer: boolean;
+};
+
+export type JuegosPageProps = {
+    searchParams?: Record<string, string | string[] | undefined>;
+};

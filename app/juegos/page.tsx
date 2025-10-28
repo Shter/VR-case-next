@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
-import { supabaseClient } from '@/lib/supabase/client';
-import { FilterableGames } from './FilterableGames';
-import { GameRecord } from "@/types/allTypes";
+import { supabaseClient }              from '@/lib/supabase/client';
+import { FilterableGames }             from '@/components/client/FilterableGames';
+import { GameRecord, JuegosPageProps } from "@/types/allTypes";
 
 export const metadata: Metadata = {
     title: 'Juegos',
@@ -50,10 +50,6 @@ function parseShowMultiplayerParam(raw: string | string[] | undefined): boolean 
     return value !== '0';
 }
 
-type JuegosPageProps = {
-    searchParams?: Record<string, string | string[] | undefined>;
-};
-
 export default async function JuegosPage({ searchParams }: JuegosPageProps) {
     const games = await fetchGames();
     const categoriesParam = searchParams?.categories ?? searchParams?.category;
@@ -72,7 +68,7 @@ export default async function JuegosPage({ searchParams }: JuegosPageProps) {
 
             {games.length === 0 ? (
                 <p className="mx-auto max-w-2xl text-center text-gray-500">
-                    Пока список игр пуст. Загляните позже — скоро добавим больше контента.
+                    Empty
                 </p>
             ) : (
                 <FilterableGames

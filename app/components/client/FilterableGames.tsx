@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { GameRecord } from "@/types/allTypes";
+import { usePathname, useRouter, useSearchParams }         from 'next/navigation';
+import { FilterableGamesProps, GameCardProps, GameRecord } from "@/types/allTypes";
+import { FilterButton }                                    from "@/components/client/FiltereButton";
 
 const CATEGORY_FIELDS = ['category', 'categories', 'genre', 'genres', 'tags'] as const;
 
@@ -16,6 +17,7 @@ function sanitizeCategories(list: string[]): string[] {
         if (!value || seen.has(value)) {
             return;
         }
+
         seen.add(value);
         result.push(value);
     });
@@ -68,35 +70,8 @@ function isMultiplayer(game: GameRecord): boolean {
         return value;
     }
 
-    if (typeof value === 'number') {
-        if (Number.isNaN(value)) return false;
-        return value > 0;
-    }
-
-    if (typeof value === 'string') {
-        const normalized = value.trim().toLowerCase();
-        if (!normalized) return false;
-
-        if ([
-            'true', '1', 'yes', 'y', 'si', 'sí', 'on', 'multiplayer', 'multi', 'coop', 'co-op'
-        ].includes(normalized)) {
-            return true;
-        }
-
-        if ([
-            'false', '0', 'no', 'n', 'off', 'single', 'singleplayer', 'solo'
-        ].includes(normalized)) {
-            return false;
-        }
-    }
-
     return false;
 }
-
-type GameCardProps = {
-    game: GameRecord;
-    queryString: string;
-};
 
 function GameCard({ game, queryString }: GameCardProps) {
     const title = game.title ?? game.name ?? `Juego #${game.id}`;
@@ -106,8 +81,10 @@ function GameCard({ game, queryString }: GameCardProps) {
 
     return (
         <Link
+            //Todo fix
+            // @ts-ignore
             href={href}
-            className="group flex flex-col overflow-hidden rounded-2xl bg-white shadow-soft transition-shadow hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+            className="group flex flex-col overflow-hidden rounded-2xl bg-white shadow-soft transition-shadow hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
         >
             {cover ? (
                 <div className="h-48 w-full overflow-hidden">
@@ -132,12 +109,6 @@ function GameCard({ game, queryString }: GameCardProps) {
         </Link>
     );
 }
-
-type FilterableGamesProps = {
-    games: GameRecord[];
-    initialCategories: string[];
-    initialShowMultiplayer: boolean;
-};
 
 export function FilterableGames({ games, initialCategories, initialShowMultiplayer }: FilterableGamesProps) {
     const searchParams = useSearchParams();
@@ -209,6 +180,7 @@ export function FilterableGames({ games, initialCategories, initialShowMultiplay
         }
 
         const queryString = params.toString();
+
         return queryString ? `?${queryString}` : '';
     }, [selectedCategories, showMultiplayer]);
 
@@ -221,6 +193,8 @@ export function FilterableGames({ games, initialCategories, initialShowMultiplay
         }
 
         const target = desired ? `${pathname}?${desired}` : pathname;
+        // Todo fix
+        // @ts-ignore
         router.replace(target, { scroll: false });
     }, [filterQuery, pathname, router, searchParams]);
 
@@ -233,6 +207,7 @@ export function FilterableGames({ games, initialCategories, initialShowMultiplay
                 >
                     Todas
                 </FilterButton>
+
                 {categories.map((category) => {
                     const isActive = selectedCategories.some((item) => item === category);
                     const toggleCategory = () => {
@@ -283,29 +258,5 @@ export function FilterableGames({ games, initialCategories, initialShowMultiplay
                 </p>
             ) : null}
         </div>
-    );
-}
-
-function FilterButton({
-    isActive,
-    onClick,
-    children
-}: {
-    isActive: boolean;
-    onClick: () => void;
-    children: ReactNode;
-}) {
-    return (
-        <button
-            type="button"
-            onClick={onClick}
-            className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${
-                isActive
-                    ? 'border-primary bg-primary text-white shadow-sm'
-                    : 'border-gray-200 bg-white text-gray-700 hover:border-primary hover:text-primary'
-            }`}
-        >
-            {children}
-        </button>
     );
 }

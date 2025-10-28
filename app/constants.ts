@@ -9,6 +9,7 @@ export const navItems: NavItem[] = [
     { href: { pathname: "/", hash: "about" } satisfies UrlObject, label: "Sobre nosotros" },
     { href: { pathname: "/", hash: "features" } satisfies UrlObject, label: "Ventajas" },
     { href: { pathname: "/", hash: "faq-gallery" } satisfies UrlObject, label: "FAQ/Gallery" },
+    { href: "/juegos" satisfies Route, label: "Juegos" },
     { href: "/alquiler" satisfies Route, label: "Precios" },
     { href: { pathname: "/", hash: "contact" } satisfies UrlObject, label: "Contactos" },
 ];
