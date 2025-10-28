@@ -13,6 +13,7 @@
     "@emotion/styled": "latest",
     "@mui/icons-material": "latest",
     "@mui/material": "latest",
+    "@supabase/supabase-js": "^2.76.1",
     "@vercel/blob": "^2.0.0",
     "clsx": "latest",
     "graphql": "latest",

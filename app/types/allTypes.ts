@@ -121,3 +121,21 @@ export type ListMediaResult = {
     cursor?: string | null;
     hasMore: boolean;
 };
+
+export type GameRecord = {
+    id: number | string;
+    title?: string | null;
+    name?: string | null;
+    description?: string | null;
+    cover_url?: string | null;
+    image_url?: string | null;
+    category?: string | string[] | null;
+    categories?: string[] | null;
+    genre?: string | string[] | null;
+    genres?: string[] | null;
+    tags?: string[] | null;
+    multiplayer?: boolean | string | number | null;
+    controls?: string | null;
+    multiplayer_instructions?: string | null;
+    [key: string]: unknown;
+};
