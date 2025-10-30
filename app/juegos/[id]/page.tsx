@@ -1,11 +1,14 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { cache } from 'react';
 import { supabaseClient } from '@/lib/supabase/client';
-import { GameRecord, PageProps } from "@/types/allTypes";
+import { Game, GameFiltersState, PageProps } from '@/types/allTypes';
+import { buildFiltersQueryString, parseGenreIdsParam, parseMultiplayerParam } from '@/lib/juegos/filters';
+import { normalizeGame } from '@/lib/juegos/normalizers';
 
-async function fetchGameById(rawId: string): Promise<GameRecord | null> {
+async function fetchGameById(rawId: string): Promise<Game | null> {
     const decodedId = decodeURIComponent(rawId.trim());
 
     if (!decodedId) {
@@ -28,7 +31,7 @@ async function fetchGameById(rawId: string): Promise<GameRecord | null> {
     }
 
     if (data) {
-        return data as GameRecord;
+        return normalizeGame(data as Game);
     }
 
     if (!isNumeric) {
@@ -46,7 +49,7 @@ async function fetchGameById(rawId: string): Promise<GameRecord | null> {
             }
 
             if (numericData) {
-                return numericData as GameRecord;
+                return normalizeGame(numericData as Game);
             }
         }
     }
@@ -67,9 +70,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         } satisfies Metadata;
     }
 
-    const title = game.title ?? game.name ?? `Juego #${paramsValue.id}`;
-    const description = (game.description as string | null | undefined)
-        ?? 'Detalles del juego desde la base de datos de Supabase.';
+    const fallbackTitle = `Juego #${paramsValue.id}`;
+    const title = game.name ?? fallbackTitle;
+    const description = game.description ?? 'Detalles del juego desde la base de datos de Supabase.';
 
     return {
         title,
@@ -86,56 +89,21 @@ export default async function GamePage({ params, searchParams }: PageProps) {
         notFound();
     }
 
-    const title = game.title ?? game.name ?? `Juego #${paramsValue.id}`;
-    const name = typeof game.name === 'string' && game.name.trim().length > 0
-        ? game.name
-        : title;
-    const description = typeof game.description === 'string' && game.description.trim().length > 0
-        ? game.description
-        : null;
-    const controls = typeof game.controls === 'string' && game.controls.trim().length > 0
-        ? game.controls
-        : null;
-    const multiplayerInstructions = typeof game.multiplayer_instructions === 'string' && game.multiplayer_instructions.trim().length > 0
-        ? game.multiplayer_instructions
-        : null;
-    const cover = typeof game.image_url === 'string' && game.image_url.trim().length > 0
-        ? game.image_url
-        : null;
+    const fallbackTitle = `Juego #${paramsValue.id}`;
+    const name = game.name ?? fallbackTitle;
+    const description = game.description;
+    const controls = game.controls;
+    const multiplayerInstructions = game.multiplayer_instructions;
+    const cover = game.image_url;
     const isMultiplayer = game.multiplayer === true;
 
-    const categoriesQuery = (() => {
-        const raw = searchParamsValue?.categories ?? searchParamsValue?.category;
-        if (!raw) return null;
-        const values = Array.isArray(raw) ? raw : [raw];
-        const sanitized = values
-            .flatMap((value) => value.split(','))
-            .map((value) => value.trim())
-            .filter(Boolean);
+    const filtersFromParams: GameFiltersState = {
+        genreIds: parseGenreIdsParam(searchParamsValue?.genres),
+        multiplayerOnly: parseMultiplayerParam(searchParamsValue?.multiplayer)
+    };
 
-        if (sanitized.length === 0) {
-            return null;
-        }
-
-        return sanitized.join(',');
-    })();
-
-    const multiplayerQuery = (() => {
-        const raw = searchParamsValue?.showMultiplayer;
-        if (!raw) return null;
-        const value = Array.isArray(raw) ? raw[0] : raw;
-
-        return value === '0' ? '0' : null;
-    })();
-
-    const backParams = new URLSearchParams();
-    if (categoriesQuery) {
-        backParams.set('categories', categoriesQuery);
-    }
-    if (multiplayerQuery === '0') {
-        backParams.set('showMultiplayer', '0');
-    }
-    const backHref = backParams.toString() ? `/juegos?${backParams.toString()}` : '/juegos';
+    const filtersQuery = buildFiltersQueryString(filtersFromParams);
+    const backHref = filtersQuery ? `/juegos?${filtersQuery}` : '/juegos';
 
     return (
         <section className="container mx-auto px-4 py-16 md:py-24">
@@ -157,11 +125,14 @@ export default async function GamePage({ params, searchParams }: PageProps) {
 
                 {cover ? (
                     <div className="overflow-hidden rounded-3xl shadow-soft">
-                        <img
+                        <Image
                             src={cover}
                             alt={name}
+                            width={1600}
+                            height={900}
                             className="h-full w-full object-cover"
-                            loading="lazy"
+                            priority
+                            unoptimized
                         />
                     </div>
                 ) : null}

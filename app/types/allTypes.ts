@@ -122,33 +122,58 @@ export type ListMediaResult = {
     hasMore: boolean;
 };
 
-export type GameRecord = {
+export type Game = {
     id: number | string;
-    title?: string | null;
-    name?: string | null;
-    description?: string | null;
-    cover_url?: string | null;
-    image_url?: string | null;
-    category?: string | string[] | null;
-    categories?: string[] | null;
-    genre?: string | string[] | null;
-    genres?: string[] | null;
-    tags?: string[] | null;
-    multiplayer?: boolean | string | number | null;
-    controls?: string | null;
-    multiplayer_instructions?: string | null;
-    [key: string]: unknown;
+    name: string | null;
+    description: string | null;
+    image_url: string | null;
+    controls: string | null;
+    multiplayer: boolean | null;
+    multiplayer_instructions: string | null;
+    genre: number[] | null;
+};
+
+export type Genre = {
+    id: number;
+    name: string;
+};
+
+export type GameFiltersState = {
+    genreIds: number[];
+    multiplayerOnly: boolean;
+};
+
+export type GameBrowserProps = {
+    initialGames: Game[];
+    initialTotal: number;
+    genres: Genre[];
+    initialGenreIds: number[];
+    initialMultiplayerOnly: boolean;
+    initialQueryString: string;
+    pageSize?: number;
+};
+
+export type GameFiltersProps = {
+    genres: Genre[];
+    selectedGenreIds: number[];
+    multiplayerOnly: boolean;
+    onToggleGenre: (genreId: number) => void;
+    onResetGenres: () => void;
+    onToggleMultiplayerOnly: () => void;
+};
+
+export type GamesGridProps = {
+    games: Game[];
+    isLoading: boolean;
+    isLoadingMore: boolean;
+    hasMore: boolean;
+    filtersQueryString: string;
+    onLoadMore: () => void;
 };
 
 export type GameCardProps = {
-    game: GameRecord;
+    game: Game;
     queryString: string;
-};
-
-export type FilterableGamesProps = {
-    games: GameRecord[];
-    initialCategories: string[];
-    initialShowMultiplayer: boolean;
 };
 
 export type JuegosPageProps = {
