@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 import { cache } from 'react';
 import { supabaseClient } from '@/lib/supabase/client';
 import { Game, GameFiltersState, PageProps } from '@/types/allTypes';
-import { buildFiltersQueryString, parseGenreIdsParam, parseMultiplayerParam } from '@/lib/juegos/filters';
+import { buildFiltersQueryString, normalizeLegacyShowMultiplayer, parseGenreIdsParam, parseMultiplayerParam } from '@/lib/juegos/filters';
 import { normalizeGame } from '@/lib/juegos/normalizers';
 
 async function fetchGameById(rawId: string): Promise<Game | null> {
@@ -97,9 +97,13 @@ export default async function GamePage({ params, searchParams }: PageProps) {
     const cover = game.image_url;
     const isMultiplayer = game.multiplayer === true;
 
+    const rawMultiplayer = searchParamsValue?.multiplayer;
+    const legacyMultiplayer = normalizeLegacyShowMultiplayer(searchParamsValue?.showMultiplayer);
+    const multiplayerParam = typeof rawMultiplayer === 'undefined' ? legacyMultiplayer : rawMultiplayer;
+
     const filtersFromParams: GameFiltersState = {
         genreIds: parseGenreIdsParam(searchParamsValue?.genres),
-        multiplayerOnly: parseMultiplayerParam(searchParamsValue?.multiplayer)
+        multiplayerFilter: parseMultiplayerParam(multiplayerParam)
     };
 
     const filtersQuery = buildFiltersQueryString(filtersFromParams);

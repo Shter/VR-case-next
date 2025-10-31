@@ -29,26 +29,36 @@ export function parseGenreIdsParam(raw: RawParam): number[] {
     return Array.from(seen).sort((left, right) => left - right);
 }
 
-export function parseMultiplayerParam(raw: RawParam): boolean {
+export function parseMultiplayerParam(raw: RawParam): 'all' | 'multiplayer' | 'solo' {
     if (!raw) {
-        return false;
+        return 'all';
     }
 
-    const first = Array.isArray(raw) ? raw[0] : raw;
+    const first = (Array.isArray(raw) ? raw[0] : raw) ?? '';
     const normalized = first.trim().toLowerCase();
 
-    return normalized === '1' || normalized === 'true' || normalized === 'yes';
+    if (normalized === 'true' || normalized === '1') {
+        return 'multiplayer';
+    }
+
+    if (normalized === 'false' || normalized === '0') {
+        return 'solo';
+    }
+
+    return 'all';
 }
 
-export function buildFiltersQueryString({ genreIds, multiplayerOnly }: GameFiltersState): string {
+export function buildFiltersQueryString({ genreIds, multiplayerFilter }: GameFiltersState): string {
     const params = new URLSearchParams();
 
     if (genreIds.length > 0) {
         params.set('genres', genreIds.slice().sort((left, right) => left - right).join(','));
     }
 
-    if (multiplayerOnly) {
-        params.set('multiplayer', '1');
+    if (multiplayerFilter === 'multiplayer') {
+        params.set('multiplayer', 'true');
+    } else if (multiplayerFilter === 'solo') {
+        params.set('multiplayer', 'false');
     }
 
     return params.toString();
@@ -63,5 +73,20 @@ export function areGenreListsEqual(a: number[], b: number[]): boolean {
 }
 
 export function areFiltersEqual(a: GameFiltersState, b: GameFiltersState): boolean {
-    return a.multiplayerOnly === b.multiplayerOnly && areGenreListsEqual(a.genreIds, b.genreIds);
+    return a.multiplayerFilter === b.multiplayerFilter && areGenreListsEqual(a.genreIds, b.genreIds);
+}
+
+export function normalizeLegacyShowMultiplayer(raw: RawParam): RawParam {
+    if (!raw) {
+        return undefined;
+    }
+
+    const first = (Array.isArray(raw) ? raw[0] : raw) ?? '';
+    const normalized = first.trim().toLowerCase();
+
+    if (normalized === '0' || normalized === 'false') {
+        return 'false';
+    }
+
+    return undefined;
 }

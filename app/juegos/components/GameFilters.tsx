@@ -28,13 +28,19 @@ function formatGenreName(genre: Genre): string {
     return genre.name.trim().length > 0 ? genre.name : `Género #${genre.id}`;
 }
 
+const MULTIPLAYER_OPTIONS: Array<{ value: 'all' | 'multiplayer' | 'solo'; label: string }> = [
+    { value: 'all', label: 'Todos' },
+    { value: 'multiplayer', label: 'Multijugador' },
+    { value: 'solo', label: 'Un jugador' }
+];
+
 export function GameFilters({
     genres,
     selectedGenreIds,
-    multiplayerOnly,
+    multiplayerFilter,
     onToggleGenre,
     onResetGenres,
-    onToggleMultiplayerOnly
+    onSelectMultiplayerFilter
 }: GameFiltersProps) {
     return (
         <div className="flex flex-col gap-8">
@@ -62,11 +68,14 @@ export function GameFilters({
 
             <div className="flex flex-wrap items-center gap-3">
                 <span className="text-sm font-semibold uppercase tracking-wider text-gray-500">Multijugador</span>
-                <FilterPill
-                    isActive={multiplayerOnly}
-                    onClick={onToggleMultiplayerOnly}
-                    label={multiplayerOnly ? 'Solo multijugador' : 'Todos los juegos'}
-                />
+                {MULTIPLAYER_OPTIONS.map((option) => (
+                    <FilterPill
+                        key={option.value}
+                        isActive={multiplayerFilter === option.value}
+                        onClick={() => onSelectMultiplayerFilter(option.value)}
+                        label={option.label}
+                    />
+                ))}
             </div>
         </div>
     );

@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { supabaseClient } from '@/lib/supabase/client';
 import { GameFilters } from './GameFilters';
 import { GamesGrid } from './GamesGrid';
@@ -9,6 +9,7 @@ import type { Game, GameBrowserProps, GameFiltersState } from '@/types/allTypes'
 import {
     areFiltersEqual,
     buildFiltersQueryString,
+    normalizeLegacyShowMultiplayer,
     parseGenreIdsParam,
     parseMultiplayerParam
 } from '@/lib/juegos/filters';
@@ -21,13 +22,11 @@ export function GameBrowser({
     initialTotal,
     genres,
     initialGenreIds,
-    initialMultiplayerOnly,
+    initialMultiplayerFilter,
     initialQueryString,
     pageSize = DEFAULT_PAGE_SIZE
 }: GameBrowserProps) {
-    const router = useRouter();
     const pathname = usePathname();
-    const searchParams = useSearchParams();
 
     const [games, setGames] = useState<Game[]>(() => initialGames.map(normalizeGame));
     const [total, setTotal] = useState<number>(initialTotal);
@@ -36,11 +35,15 @@ export function GameBrowser({
     const [error, setError] = useState<string | null>(null);
     const [filters, setFilters] = useState<GameFiltersState>(() => ({
         genreIds: [...initialGenreIds],
-        multiplayerOnly: initialMultiplayerOnly
+        multiplayerFilter: initialMultiplayerFilter
     }));
 
     const latestRequestIdRef = useRef(0);
     const lastSyncedQueryRef = useRef(initialQueryString ?? '');
+    const latestFiltersRef = useRef<GameFiltersState>({
+        genreIds: [...initialGenreIds],
+        multiplayerFilter: initialMultiplayerFilter
+    });
 
     const hasMore = games.length < total;
 
@@ -51,10 +54,18 @@ export function GameBrowser({
 
     const updateUrl = useCallback((queryString: string) => {
         const target = queryString ? `${pathname}?${queryString}` : pathname;
-        //TODO fix
-        // @ts-ignore
-        router.replace(target, { scroll: false });
-    }, [pathname, router]);
+
+        if (typeof window === 'undefined') {
+            return;
+        }
+
+        if (queryString === lastSyncedQueryRef.current) {
+            return;
+        }
+
+        window.history.replaceState(null, '', target);
+        lastSyncedQueryRef.current = queryString;
+    }, [pathname]);
 
     const fetchGames = useCallback(async (
         offset: number,
@@ -76,8 +87,10 @@ export function GameBrowser({
             query = query.overlaps('genre', filtersToApply.genreIds);
         }
 
-        if (filtersToApply.multiplayerOnly) {
+        if (filtersToApply.multiplayerFilter === 'multiplayer') {
             query = query.eq('multiplayer', true);
+        } else if (filtersToApply.multiplayerFilter === 'solo') {
+            query = query.eq('multiplayer', false);
         }
 
         const { data, error: fetchError, count } = await query;
@@ -105,7 +118,6 @@ export function GameBrowser({
 
         if (shouldUpdateHistory) {
             const queryString = buildFiltersQueryString(nextFilters);
-            lastSyncedQueryRef.current = queryString;
             updateUrl(queryString);
         }
 
@@ -118,6 +130,7 @@ export function GameBrowser({
 
             setGames(fetchedGames);
             setTotal(fetchedTotal);
+            latestFiltersRef.current = nextFilters;
         } catch (fetchError) {
             if (latestRequestIdRef.current !== requestId) {
                 return;
@@ -167,10 +180,10 @@ export function GameBrowser({
         void applyFilters(nextFilters);
     }, [applyFilters, filters]);
 
-    const handleToggleMultiplayerOnly = useCallback(() => {
+    const handleSelectMultiplayerFilter = useCallback((value: 'all' | 'multiplayer' | 'solo') => {
         const nextFilters: GameFiltersState = {
             ...filters,
-            multiplayerOnly: !filters.multiplayerOnly
+            multiplayerFilter: value
         };
 
         if (areFiltersEqual(filters, nextFilters)) {
@@ -215,36 +228,53 @@ export function GameBrowser({
     }, [fetchGames, filters, games.length, hasMore, isLoading, isLoadingMore]);
 
     useEffect(() => {
-        const queryFromRouter = searchParams.toString();
+        latestFiltersRef.current = filters;
+    }, [filters]);
 
-        if (queryFromRouter === lastSyncedQueryRef.current) {
+    useEffect(() => {
+        if (typeof window === 'undefined') {
             return;
         }
 
-        const nextFilters: GameFiltersState = {
-            genreIds: parseGenreIdsParam(searchParams.get('genres') ?? undefined),
-            multiplayerOnly: parseMultiplayerParam(searchParams.get('multiplayer') ?? undefined)
+        lastSyncedQueryRef.current = initialQueryString ?? '';
+
+        const handlePopState = () => {
+            const params = new URLSearchParams(window.location.search);
+            const rawMultiplayer = params.get('multiplayer') ?? undefined;
+            const legacyValue = normalizeLegacyShowMultiplayer(params.get('showMultiplayer') ?? undefined);
+            const multiplayerParam = typeof rawMultiplayer === 'undefined' ? legacyValue : rawMultiplayer;
+
+            const nextFilters: GameFiltersState = {
+                genreIds: parseGenreIdsParam(params.get('genres') ?? undefined),
+                multiplayerFilter: parseMultiplayerParam(multiplayerParam)
+            };
+
+        lastSyncedQueryRef.current = buildFiltersQueryString(nextFilters);
+
+        if (areFiltersEqual(latestFiltersRef.current, nextFilters)) {
+            return;
+        }
+
+            setFilters(nextFilters);
+            void applyFilters(nextFilters, { shouldUpdateHistory: false });
         };
 
-        if (areFiltersEqual(filters, nextFilters)) {
-            lastSyncedQueryRef.current = queryFromRouter;
-            return;
-        }
+        window.addEventListener('popstate', handlePopState);
 
-        lastSyncedQueryRef.current = queryFromRouter;
-        setFilters(nextFilters);
-        void applyFilters(nextFilters, { shouldUpdateHistory: false });
-    }, [applyFilters, filters, searchParams]);
+        return () => {
+            window.removeEventListener('popstate', handlePopState);
+        };
+    }, [applyFilters, initialQueryString]);
 
     return (
         <div className="flex flex-col gap-12">
             <GameFilters
                 genres={genres}
                 selectedGenreIds={filters.genreIds}
-                multiplayerOnly={filters.multiplayerOnly}
+                multiplayerFilter={filters.multiplayerFilter}
                 onToggleGenre={handleToggleGenre}
                 onResetGenres={handleResetGenres}
-                onToggleMultiplayerOnly={handleToggleMultiplayerOnly}
+                onSelectMultiplayerFilter={handleSelectMultiplayerFilter}
             />
 
             {error ? (

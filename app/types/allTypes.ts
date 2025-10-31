@@ -140,7 +140,7 @@ export type Genre = {
 
 export type GameFiltersState = {
     genreIds: number[];
-    multiplayerOnly: boolean;
+    multiplayerFilter: 'all' | 'multiplayer' | 'solo';
 };
 
 export type GameBrowserProps = {
@@ -148,7 +148,7 @@ export type GameBrowserProps = {
     initialTotal: number;
     genres: Genre[];
     initialGenreIds: number[];
-    initialMultiplayerOnly: boolean;
+    initialMultiplayerFilter: 'all' | 'multiplayer' | 'solo';
     initialQueryString: string;
     pageSize?: number;
 };
@@ -156,10 +156,10 @@ export type GameBrowserProps = {
 export type GameFiltersProps = {
     genres: Genre[];
     selectedGenreIds: number[];
-    multiplayerOnly: boolean;
+    multiplayerFilter: 'all' | 'multiplayer' | 'solo';
     onToggleGenre: (genreId: number) => void;
     onResetGenres: () => void;
-    onToggleMultiplayerOnly: () => void;
+    onSelectMultiplayerFilter: (value: 'all' | 'multiplayer' | 'solo') => void;
 };
 
 export type GamesGridProps = {

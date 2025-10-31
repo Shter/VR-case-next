@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { supabaseClient } from '@/lib/supabase/client';
 import { GameBrowser } from './components/GameBrowser';
 import type { Game, GameFiltersState, Genre, JuegosPageProps } from '@/types/allTypes';
-import { buildFiltersQueryString, parseGenreIdsParam, parseMultiplayerParam } from '@/lib/juegos/filters';
+import { buildFiltersQueryString, normalizeLegacyShowMultiplayer, parseGenreIdsParam, parseMultiplayerParam } from '@/lib/juegos/filters';
 import { normalizeGame } from '@/lib/juegos/normalizers';
 
 const PAGE_SIZE = 6;
@@ -11,33 +11,6 @@ export const metadata: Metadata = {
     title: 'Juegos',
     description: 'Explora la colección de juegos disponibles para experimentar realidad virtual.'
 };
-
-function stringifySearchParams(searchParams?: Record<string, string | string[] | undefined>): string {
-    if (!searchParams) {
-        return '';
-    }
-
-    const params = new URLSearchParams();
-
-    Object.entries(searchParams).forEach(([key, rawValue]) => {
-        if (typeof rawValue === 'undefined') {
-            return;
-        }
-
-        if (Array.isArray(rawValue)) {
-            rawValue.forEach((value) => {
-                if (typeof value === 'string') {
-                    params.append(key, value);
-                }
-            });
-            return;
-        }
-
-        params.set(key, rawValue);
-    });
-
-    return params.toString();
-}
 
 async function fetchGenres(): Promise<Genre[]> {
     const { data, error } = await supabaseClient
@@ -79,8 +52,10 @@ async function fetchGamesPage(filters: GameFiltersState): Promise<{ games: Game[
         query = query.overlaps('genre', filters.genreIds);
     }
 
-    if (filters.multiplayerOnly) {
+    if (filters.multiplayerFilter === 'multiplayer') {
         query = query.eq('multiplayer', true);
+    } else if (filters.multiplayerFilter === 'solo') {
+        query = query.eq('multiplayer', false);
     }
 
     const { data, error, count } = await query;
@@ -97,9 +72,13 @@ async function fetchGamesPage(filters: GameFiltersState): Promise<{ games: Game[
 }
 
 export default async function JuegosPage({ searchParams }: JuegosPageProps) {
+    const rawMultiplayer = searchParams?.multiplayer;
+    const legacyMultiplayer = normalizeLegacyShowMultiplayer(searchParams?.showMultiplayer);
+    const multiplayerParam = typeof rawMultiplayer === 'undefined' ? legacyMultiplayer : rawMultiplayer;
+
     const filters: GameFiltersState = {
         genreIds: parseGenreIdsParam(searchParams?.genres),
-        multiplayerOnly: parseMultiplayerParam(searchParams?.multiplayer)
+        multiplayerFilter: parseMultiplayerParam(multiplayerParam)
     };
 
     const [genres, initialData] = await Promise.all([
@@ -107,26 +86,23 @@ export default async function JuegosPage({ searchParams }: JuegosPageProps) {
         fetchGamesPage(filters)
     ]);
 
-    const initialQueryString = (() => {
-        const provided = stringifySearchParams(searchParams);
-        return provided || buildFiltersQueryString(filters);
-    })();
+    const initialQueryString = buildFiltersQueryString(filters);
 
     return (
-        <section className="container mx-auto px-4 py-16 md:py-24">
-            <header className="mb-12 text-center">
+        <section className="container mx-auto px-4 pb-10 pt-20 md:py-24">
+            <div className="mb-12 text-center">
                 <h1 className="text-3xl font-semibold tracking-tight text-gray-900 md:text-4xl">Juegos disponibles</h1>
                 <p className="mt-4 text-base text-gray-600 md:text-lg">
                     Descubrí experiencias inmersivas y títulos imprescindibles para tu casco de realidad virtual.
                 </p>
-            </header>
+            </div>
 
             <GameBrowser
                 initialGames={initialData.games}
                 initialTotal={initialData.total}
                 genres={genres}
                 initialGenreIds={filters.genreIds}
-                initialMultiplayerOnly={filters.multiplayerOnly}
+                initialMultiplayerFilter={filters.multiplayerFilter}
                 initialQueryString={initialQueryString}
                 pageSize={PAGE_SIZE}
             />
