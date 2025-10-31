@@ -1,5 +1,6 @@
 'use client';
 
+import type { ChangeEvent } from 'react';
 import type { GameFiltersProps, Genre } from '@/types/allTypes';
 
 type FilterPillProps = {
@@ -38,12 +39,35 @@ export function GameFilters({
     genres,
     selectedGenreIds,
     multiplayerFilter,
+    searchValue,
     onToggleGenre,
     onResetGenres,
-    onSelectMultiplayerFilter
+    onSelectMultiplayerFilter,
+    onSearchChange
 }: GameFiltersProps) {
+    const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+        onSearchChange(event.target.value);
+    };
+
     return (
         <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-3">
+                <label className="text-sm font-semibold uppercase tracking-wider text-gray-500" htmlFor="games-search">
+                    Buscar juegos
+                </label>
+                <input
+                    id="games-search"
+                    type="search"
+                    value={searchValue}
+                    onChange={handleSearchChange}
+                    placeholder="Ingresá el nombre del juego"
+                    className="w-full rounded-full border border-gray-200 px-5 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/40 lg:w-2/5"
+                    autoComplete="off"
+                    spellCheck={false}
+                />
+                <p className="text-xs text-gray-500">El buscador se activa a partir de dos letras.</p>
+            </div>
+
             <div className="flex flex-col gap-3">
                 <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-500">Géneros</h2>
                 <div className="flex flex-wrap items-center gap-3">

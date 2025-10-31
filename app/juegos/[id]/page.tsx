@@ -5,7 +5,13 @@ import { notFound } from 'next/navigation';
 import { cache } from 'react';
 import { supabaseClient } from '@/lib/supabase/client';
 import { Game, GameFiltersState, PageProps } from '@/types/allTypes';
-import { buildFiltersQueryString, normalizeLegacyShowMultiplayer, parseGenreIdsParam, parseMultiplayerParam } from '@/lib/juegos/filters';
+import {
+    buildFiltersQueryString,
+    normalizeLegacyShowMultiplayer,
+    parseGenreIdsParam,
+    parseMultiplayerParam,
+    parseSearchParam
+} from '@/lib/juegos/filters';
 import { normalizeGame } from '@/lib/juegos/normalizers';
 
 async function fetchGameById(rawId: string): Promise<Game | null> {
@@ -103,7 +109,8 @@ export default async function GamePage({ params, searchParams }: PageProps) {
 
     const filtersFromParams: GameFiltersState = {
         genreIds: parseGenreIdsParam(searchParamsValue?.genres),
-        multiplayerFilter: parseMultiplayerParam(multiplayerParam)
+        multiplayerFilter: parseMultiplayerParam(multiplayerParam),
+        searchTerm: parseSearchParam(searchParamsValue?.search)
     };
 
     const filtersQuery = buildFiltersQueryString(filtersFromParams);
@@ -113,8 +120,6 @@ export default async function GamePage({ params, searchParams }: PageProps) {
         <section className="container mx-auto px-4 py-16 md:py-24">
             <div className="mb-8">
                 <Link
-                    //Todo fix
-                    // @ts-ignore
                     href={backHref}
                     className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
                 >

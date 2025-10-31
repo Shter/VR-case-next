@@ -11,7 +11,8 @@ import {
     buildFiltersQueryString,
     normalizeLegacyShowMultiplayer,
     parseGenreIdsParam,
-    parseMultiplayerParam
+    parseMultiplayerParam,
+    parseSearchParam
 } from '@/lib/juegos/filters';
 import { normalizeGame } from '@/lib/juegos/normalizers';
 
@@ -23,6 +24,7 @@ export function GameBrowser({
     genres,
     initialGenreIds,
     initialMultiplayerFilter,
+    initialSearchTerm,
     initialQueryString,
     pageSize = DEFAULT_PAGE_SIZE
 }: GameBrowserProps) {
@@ -35,14 +37,17 @@ export function GameBrowser({
     const [error, setError] = useState<string | null>(null);
     const [filters, setFilters] = useState<GameFiltersState>(() => ({
         genreIds: [...initialGenreIds],
-        multiplayerFilter: initialMultiplayerFilter
+        multiplayerFilter: initialMultiplayerFilter,
+        searchTerm: initialSearchTerm
     }));
+    const [searchInput, setSearchInput] = useState<string>(initialSearchTerm);
 
     const latestRequestIdRef = useRef(0);
     const lastSyncedQueryRef = useRef(initialQueryString ?? '');
     const latestFiltersRef = useRef<GameFiltersState>({
         genreIds: [...initialGenreIds],
-        multiplayerFilter: initialMultiplayerFilter
+        multiplayerFilter: initialMultiplayerFilter,
+        searchTerm: initialSearchTerm
     });
 
     const hasMore = games.length < total;
@@ -91,6 +96,10 @@ export function GameBrowser({
             query = query.eq('multiplayer', true);
         } else if (filtersToApply.multiplayerFilter === 'solo') {
             query = query.eq('multiplayer', false);
+        }
+
+        if (filtersToApply.searchTerm.trim().length >= 2) {
+            query = query.ilike('name', `%${filtersToApply.searchTerm.trim()}%`);
         }
 
         const { data, error: fetchError, count } = await query;
@@ -191,8 +200,37 @@ export function GameBrowser({
         }
 
         setFilters(nextFilters);
-        void applyFilters(nextFilters);
+            void applyFilters(nextFilters);
     }, [applyFilters, filters]);
+
+    useEffect(() => {
+        if (typeof window === 'undefined') {
+            return;
+        }
+
+        const trimmed = searchInput.trim();
+        const resolved = trimmed.length >= 2 ? trimmed : '';
+
+        if (resolved === filters.searchTerm) {
+            return;
+        }
+
+        const timeoutId = window.setTimeout(() => {
+            const nextFilters: GameFiltersState = {
+                ...filters,
+                searchTerm: resolved
+            };
+
+            if (areFiltersEqual(filters, nextFilters)) {
+                return;
+            }
+
+            setFilters(nextFilters);
+            void applyFilters(nextFilters);
+        }, 300);
+
+        return () => window.clearTimeout(timeoutId);
+    }, [applyFilters, filters, searchInput]);
 
     const handleLoadMore = useCallback(async () => {
         if (!hasMore || isLoading || isLoadingMore) {
@@ -246,16 +284,18 @@ export function GameBrowser({
 
             const nextFilters: GameFiltersState = {
                 genreIds: parseGenreIdsParam(params.get('genres') ?? undefined),
-                multiplayerFilter: parseMultiplayerParam(multiplayerParam)
+                multiplayerFilter: parseMultiplayerParam(multiplayerParam),
+                searchTerm: parseSearchParam(params.get('search') ?? undefined)
             };
 
-        lastSyncedQueryRef.current = buildFiltersQueryString(nextFilters);
+            lastSyncedQueryRef.current = buildFiltersQueryString(nextFilters);
 
-        if (areFiltersEqual(latestFiltersRef.current, nextFilters)) {
-            return;
-        }
+            if (areFiltersEqual(latestFiltersRef.current, nextFilters)) {
+                return;
+            }
 
             setFilters(nextFilters);
+            setSearchInput(nextFilters.searchTerm);
             void applyFilters(nextFilters, { shouldUpdateHistory: false });
         };
 
@@ -272,9 +312,11 @@ export function GameBrowser({
                 genres={genres}
                 selectedGenreIds={filters.genreIds}
                 multiplayerFilter={filters.multiplayerFilter}
+                searchValue={searchInput}
                 onToggleGenre={handleToggleGenre}
                 onResetGenres={handleResetGenres}
                 onSelectMultiplayerFilter={handleSelectMultiplayerFilter}
+                onSearchChange={setSearchInput}
             />
 
             {error ? (

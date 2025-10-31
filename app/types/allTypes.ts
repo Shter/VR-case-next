@@ -141,6 +141,7 @@ export type Genre = {
 export type GameFiltersState = {
     genreIds: number[];
     multiplayerFilter: 'all' | 'multiplayer' | 'solo';
+    searchTerm: string;
 };
 
 export type GameBrowserProps = {
@@ -149,6 +150,7 @@ export type GameBrowserProps = {
     genres: Genre[];
     initialGenreIds: number[];
     initialMultiplayerFilter: 'all' | 'multiplayer' | 'solo';
+    initialSearchTerm: string;
     initialQueryString: string;
     pageSize?: number;
 };
@@ -157,9 +159,11 @@ export type GameFiltersProps = {
     genres: Genre[];
     selectedGenreIds: number[];
     multiplayerFilter: 'all' | 'multiplayer' | 'solo';
+    searchValue: string;
     onToggleGenre: (genreId: number) => void;
     onResetGenres: () => void;
     onSelectMultiplayerFilter: (value: 'all' | 'multiplayer' | 'solo') => void;
+    onSearchChange: (value: string) => void;
 };
 
 export type GamesGridProps = {

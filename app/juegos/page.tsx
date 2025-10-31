@@ -2,7 +2,13 @@ import type { Metadata } from 'next';
 import { supabaseClient } from '@/lib/supabase/client';
 import { GameBrowser } from './components/GameBrowser';
 import type { Game, GameFiltersState, Genre, JuegosPageProps } from '@/types/allTypes';
-import { buildFiltersQueryString, normalizeLegacyShowMultiplayer, parseGenreIdsParam, parseMultiplayerParam } from '@/lib/juegos/filters';
+import {
+    buildFiltersQueryString,
+    normalizeLegacyShowMultiplayer,
+    parseGenreIdsParam,
+    parseMultiplayerParam,
+    parseSearchParam
+} from '@/lib/juegos/filters';
 import { normalizeGame } from '@/lib/juegos/normalizers';
 
 const PAGE_SIZE = 6;
@@ -58,6 +64,10 @@ async function fetchGamesPage(filters: GameFiltersState): Promise<{ games: Game[
         query = query.eq('multiplayer', false);
     }
 
+    if (filters.searchTerm.trim().length >= 2) {
+        query = query.ilike('name', `%${filters.searchTerm.trim()}%`);
+    }
+
     const { data, error, count } = await query;
 
     if (error) {
@@ -78,7 +88,8 @@ export default async function JuegosPage({ searchParams }: JuegosPageProps) {
 
     const filters: GameFiltersState = {
         genreIds: parseGenreIdsParam(searchParams?.genres),
-        multiplayerFilter: parseMultiplayerParam(multiplayerParam)
+        multiplayerFilter: parseMultiplayerParam(multiplayerParam),
+        searchTerm: parseSearchParam(searchParams?.search)
     };
 
     const [genres, initialData] = await Promise.all([
@@ -91,8 +102,8 @@ export default async function JuegosPage({ searchParams }: JuegosPageProps) {
     return (
         <section className="container mx-auto px-4 pb-10 pt-20 md:py-24">
             <div className="mb-12 text-center">
-                <h1 className="text-3xl font-semibold tracking-tight text-gray-900 md:text-4xl">Juegos disponibles</h1>
-                <p className="mt-4 text-base text-gray-600 md:text-lg">
+                <h1 className="text-4xl md:text-5xl font-extrabold mb-6 md:mb-8">Juegos disponibles</h1>
+                <p className="text-lg opacity-90">
                     Descubrí experiencias inmersivas y títulos imprescindibles para tu casco de realidad virtual.
                 </p>
             </div>
@@ -103,6 +114,7 @@ export default async function JuegosPage({ searchParams }: JuegosPageProps) {
                 genres={genres}
                 initialGenreIds={filters.genreIds}
                 initialMultiplayerFilter={filters.multiplayerFilter}
+                initialSearchTerm={filters.searchTerm}
                 initialQueryString={initialQueryString}
                 pageSize={PAGE_SIZE}
             />

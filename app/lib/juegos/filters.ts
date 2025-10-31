@@ -48,7 +48,7 @@ export function parseMultiplayerParam(raw: RawParam): 'all' | 'multiplayer' | 's
     return 'all';
 }
 
-export function buildFiltersQueryString({ genreIds, multiplayerFilter }: GameFiltersState): string {
+export function buildFiltersQueryString({ genreIds, multiplayerFilter, searchTerm }: GameFiltersState): string {
     const params = new URLSearchParams();
 
     if (genreIds.length > 0) {
@@ -59,6 +59,10 @@ export function buildFiltersQueryString({ genreIds, multiplayerFilter }: GameFil
         params.set('multiplayer', 'true');
     } else if (multiplayerFilter === 'solo') {
         params.set('multiplayer', 'false');
+    }
+
+    if (searchTerm.trim().length >= 2) {
+        params.set('search', searchTerm.trim());
     }
 
     return params.toString();
@@ -73,7 +77,9 @@ export function areGenreListsEqual(a: number[], b: number[]): boolean {
 }
 
 export function areFiltersEqual(a: GameFiltersState, b: GameFiltersState): boolean {
-    return a.multiplayerFilter === b.multiplayerFilter && areGenreListsEqual(a.genreIds, b.genreIds);
+    return a.multiplayerFilter === b.multiplayerFilter
+        && areGenreListsEqual(a.genreIds, b.genreIds)
+        && a.searchTerm === b.searchTerm;
 }
 
 export function normalizeLegacyShowMultiplayer(raw: RawParam): RawParam {
@@ -89,4 +95,20 @@ export function normalizeLegacyShowMultiplayer(raw: RawParam): RawParam {
     }
 
     return undefined;
+}
+
+export function parseSearchParam(raw: RawParam): string {
+    if (!raw) {
+        return '';
+    }
+
+    const first = Array.isArray(raw) ? raw[0] : raw;
+
+    if (typeof first !== 'string') {
+        return '';
+    }
+
+    const trimmed = first.trim();
+
+    return trimmed.length >= 2 ? trimmed : '';
 }
