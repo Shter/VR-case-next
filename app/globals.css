@@ -22,6 +22,14 @@ html, body { @apply bg-light text-dark antialiased; }
 .btn--ghost { background: white; color: var(--color-dark); }
 .btn--ghost:hover { background: white; color: var(--color-dark); }
 
+:root {
+  --header-offset: 70px;
+}
+
+section[id] {
+  scroll-margin-top: var(--header-offset);
+}
+
 .hero-bg {
   @apply min-h-[100vh] flex items-center justify-center text-center text-white py-24;
 }
