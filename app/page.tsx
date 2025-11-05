@@ -24,15 +24,19 @@ export default function Page() {
             <About />
             <Features />
 
-            <div className="container grid grid-cols-1 gap-10 md:grid-cols-2 md:grid-flow-col md:gap-16 py-10 md:py-16">
-                <Contact />
-                <PricingTeaser />
-            </div>
+            <section id="contact">
+                <div className="container grid grid-cols-1 gap-10 md:grid-cols-2 md:grid-flow-col md:gap-16 py-10 md:py-16">
+                    <Contact />
+                    <PricingTeaser />
+                </div>
+            </section>
 
-            <div className="container flex flex-col gap-12 lg:flex-row bg-white py-10 md:py-16">
-                <Faq />
-                <Gallery />
-            </div>
+            <section id="faq-gallery" className="bg-white">
+                <div className="container flex flex-col gap-12 lg:flex-row py-10 md:py-16">
+                    <Faq />
+                    <Gallery />
+                </div>
+            </section>
         </>
     );
 }
