@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Link      from 'next/link';
+import Link from 'next/link';
 import { asset } from '@/lib/site';
 
 export function Hero() {
@@ -12,7 +12,7 @@ export function Hero() {
         alt="Experiencia VR en Buenos Aires"
         fill
         priority
-        className="absolute inset-0 h-full w-full object-cover"
+        className="absolute inset-0 h-full w-full object-cover object-[30%_center] md:object-center"
       />
       <div className="absolute inset-0 bg-[rgba(26,26,46,0.76)]" aria-hidden="true" />
 

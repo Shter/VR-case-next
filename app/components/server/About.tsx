@@ -1,7 +1,6 @@
 import Image from 'next/image';
-import Link           from 'next/link';
-import { AboutVideo } from '@/components/client/AboutVideo';
-import { asset }      from '@/lib/site';
+import Link from 'next/link';
+import { asset } from '@/lib/site';
 
 export function About() {
     return (
@@ -35,7 +34,6 @@ export function About() {
                     <p>
                         Querés ver las tarifas ahora? <Link href="/alquiler" className="text-accent font-bold hover:underline">Revisá los planes de alquiler</Link> o contactanos para una propuesta a medida
                     </p>
-
                 </div>
             </div>
         </section>
