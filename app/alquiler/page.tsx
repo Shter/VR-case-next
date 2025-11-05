@@ -1,6 +1,6 @@
-import { JsonLd }  from '@/components/server/JsonLd';
+import { JsonLd } from '@/components/server/JsonLd';
 import { Pricing } from '@/components/server/Pricing';
-import { asset }   from '@/lib/site';
+import { asset } from '@/lib/site';
 import { pricingBreadcrumbLd, pricingRentalLd } from '@/lib/structured';
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -31,6 +31,7 @@ export default function Page() {
         <>
             <JsonLd data={pricingBreadcrumbLd()} />
             <JsonLd data={pricingRentalLd()} />
+
             <div className="container pt-24">
                 <div className="text-center">
                     <h1 className="text-4xl md:text-5xl font-extrabold mb-6 md:mb-8">
@@ -60,6 +61,7 @@ export default function Page() {
 
                     <div className="space-y-4 rounded-2xl bg-gray-200  p-8 shadow-soft">
                         <h2 className="text-2xl font-semibold">Cómo elegir el plan ideal</h2>
+
                         <p>
                             Para demos breves o stands itinerantes recomendamos la modalidad por 2 a 4 horas. Los
                             eventos corporativos y activaciones de marketing suelen funcionar mejor con el plan diario,
@@ -68,9 +70,11 @@ export default function Page() {
 
                         <p>
                             Si necesitás asistencia presencial o mayor cantidad de visores,&nbsp;
+
                             <Link href="/#contact" className="text-accent font-bold hover:underline">
                                 escribinos
                             </Link>
+
                             &nbsp;para preparar un paquete personalizado
                         </p>
                     </div>

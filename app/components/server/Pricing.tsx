@@ -1,9 +1,9 @@
-import offersData       from "@/data/pricing.json";
-import type { Offer }   from "@/types/allTypes";
+import type { Offer } from "@/types/allTypes";
 import { PriceSection } from "@/components/server/PriceSection";
+import { pricingItems } from '@/app/constants'
 
 export function Pricing() {
-    const offers = offersData as Offer[];
+    const offers = pricingItems as Offer[];
     const oneHeadset = offers.filter((offer) => offer.headsets === 1);
     const twoHeadset = offers.filter((offer) => offer.headsets === 2);
 

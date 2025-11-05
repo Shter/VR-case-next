@@ -7,6 +7,7 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Image from 'next/image';
 import { FaqGalleryLightboxProps } from '@/types/allTypes';
+import { asset } from '@/lib/site'
 
 export function FaqGalleryPhotoViewer({
     images,
@@ -149,7 +150,7 @@ export function FaqGalleryPhotoViewer({
                         }}
                     >
                         <Image
-                            src={activeImage.src}
+                            src={asset(activeImage.src)}
                             alt={activeImage.alt}
                             width={containerDimensions.width}
                             height={containerDimensions.height}

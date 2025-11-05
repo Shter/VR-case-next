@@ -1,5 +1,6 @@
-import Image             from "next/image";
+import Image from "next/image";
 import { featuresItems } from "@/app/constants";
+import { asset } from "@/lib/site";
 
 export function Features() {
     return (
@@ -11,7 +12,7 @@ export function Features() {
                     {featuresItems.map((it) => (
                         <div key={it.title} className="fade-in-up flex flex-col items-center text-center bg-white p-8 rounded-2xl shadow-soft hover:-translate-y-1 transition">
                             <Image
-                                src={it.img}
+                                src={asset(it.img)}
                                 alt={it.title}
                                 width={96}
                                 height={96}

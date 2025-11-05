@@ -1,12 +1,11 @@
 import Image from 'next/image';
-import Link           from 'next/link';
-import { AboutVideo } from '@/components/client/AboutVideo';
-import { asset }      from '@/lib/site';
+import Link from 'next/link';
+import { asset } from '@/lib/site';
 
 export function About() {
     return (
         <section id="about" className="py-10 md:py-16 bg-white">
-            <div className="container grid gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)_auto] md:items-stretch">
+            <div className="container grid gap-6 md:gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)_auto] md:items-stretch">
                 <div className="flex order-2 md:order-1 md:self-stretch">
                     <div className="relative w-full overflow-hidden rounded-2xl border-2 border-dark aspect-4/3 md:aspect-auto md:h-full md:max-h-[600px]">
                         <Image
@@ -35,10 +34,7 @@ export function About() {
                     <p>
                         Querés ver las tarifas ahora? <Link href="/alquiler" className="text-accent font-bold hover:underline">Revisá los planes de alquiler</Link> o contactanos para una propuesta a medida
                     </p>
-
                 </div>
-
-                <AboutVideo referenceSelector="#about-content" />
             </div>
         </section>
     );
