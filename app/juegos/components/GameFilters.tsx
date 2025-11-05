@@ -50,8 +50,8 @@ export function GameFilters({
     };
 
     return (
-        <div className="flex flex-col gap-8">
-            <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:gap-10">
+            <div className="flex flex-col gap-2 lg:w-2/5">
                 <label className="text-sm font-semibold uppercase tracking-wider text-gray-500" htmlFor="games-search">
                     Buscar juegos
                 </label>
@@ -61,16 +61,16 @@ export function GameFilters({
                     value={searchValue}
                     onChange={handleSearchChange}
                     placeholder="Ingresá el nombre del juego"
-                    className="w-full rounded-full border border-gray-200 px-5 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/40 lg:w-2/5"
+                    className="w-full rounded-full border border-gray-200 px-5 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/40"
                     autoComplete="off"
                     spellCheck={false}
                 />
                 <p className="text-xs text-gray-500">El buscador se activa a partir de dos letras.</p>
             </div>
 
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-2 lg:flex-1">
                 <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-500">Géneros</h2>
-                <div className="flex flex-wrap items-center gap-3">
+                <div className="flex flex-wrap gap-3">
                     <FilterPill
                         isActive={selectedGenreIds.length === 0}
                         onClick={onResetGenres}
@@ -90,16 +90,18 @@ export function GameFilters({
                 </div>
             </div>
 
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-col gap-2 lg:w-1/4">
                 <span className="text-sm font-semibold uppercase tracking-wider text-gray-500">Multijugador</span>
-                {MULTIPLAYER_OPTIONS.map((option) => (
-                    <FilterPill
-                        key={option.value}
-                        isActive={multiplayerFilter === option.value}
-                        onClick={() => onSelectMultiplayerFilter(option.value)}
-                        label={option.label}
-                    />
-                ))}
+                <div className="flex flex-wrap gap-3">
+                    {MULTIPLAYER_OPTIONS.map((option) => (
+                        <FilterPill
+                            key={option.value}
+                            isActive={multiplayerFilter === option.value}
+                            onClick={() => onSelectMultiplayerFilter(option.value)}
+                            label={option.label}
+                        />
+                    ))}
+                </div>
             </div>
         </div>
     );

@@ -307,17 +307,19 @@ export function GameBrowser({
     }, [applyFilters, initialQueryString]);
 
     return (
-        <div className="flex flex-col gap-12">
-            <GameFilters
-                genres={genres}
-                selectedGenreIds={filters.genreIds}
-                multiplayerFilter={filters.multiplayerFilter}
-                searchValue={searchInput}
-                onToggleGenre={handleToggleGenre}
-                onResetGenres={handleResetGenres}
-                onSelectMultiplayerFilter={handleSelectMultiplayerFilter}
-                onSearchChange={setSearchInput}
-            />
+        <div className="flex flex-col gap-14">
+            <div className="rounded-3xl border border-gray-200 bg-white px-6 py-6 shadow-soft lg:px-10 lg:py-8">
+                <GameFilters
+                    genres={genres}
+                    selectedGenreIds={filters.genreIds}
+                    multiplayerFilter={filters.multiplayerFilter}
+                    searchValue={searchInput}
+                    onToggleGenre={handleToggleGenre}
+                    onResetGenres={handleResetGenres}
+                    onSelectMultiplayerFilter={handleSelectMultiplayerFilter}
+                    onSearchChange={setSearchInput}
+                />
+            </div>
 
             {error ? (
                 <div className="rounded-2xl border border-red-200 bg-red-50 px-6 py-4 text-sm text-red-700">
