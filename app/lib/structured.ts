@@ -1,4 +1,4 @@
-import offersData from '@/data/pricing.json';
+import { pricingItems } from '@/app/constants';
 import type { Offer } from '@/types/allTypes';
 import { absoluteAsset, site } from '@/lib/site';
 
@@ -56,7 +56,7 @@ const contactPoints = [
 ];
 
 function getOffers() {
-    return (offersData as Offer[]).map((offer) => {
+    return (pricingItems as Offer[]).map((offer) => {
         const headsetsLabel = offer.headsets === 1 ? "1 Meta Quest 3" : `${offer.headsets} Meta Quest 3`;
 
         return {
