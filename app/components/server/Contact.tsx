@@ -3,6 +3,35 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import { asset } from '@/lib/site';
 
+const contactButtonBaseSx = {
+    color        : 'white',
+    borderRadius : '9999px',
+    px           : 3,
+    py           : 1.5,
+    fontWeight   : 600,
+    textTransform: 'none',
+    boxShadow    : '0 10px 20px rgba(0, 0, 0, 0.15)',
+    transition   : 'transform 0.2s ease, box-shadow 0.2s ease',
+    display      : 'inline-flex',
+    width        : {xs: '100%', md: 260},
+    alignItems   : 'center',
+    gap          : 1.5,
+};
+
+const contactButtonHoverSx = {
+    boxShadow: '0 12px 24px rgba(0, 0, 0, 0.18)',
+    transform: 'translateY(-2px)',
+};
+
+const contactButtonSx = (backgroundColor: string, hoverBackgroundColor: string) => ({
+    ...contactButtonBaseSx,
+    backgroundColor,
+    '&:hover': {
+        ...contactButtonHoverSx,
+        backgroundColor: hoverBackgroundColor,
+    },
+});
+
 export function Contact() {
     return (
         <div className="flex flex-col h-full border-4 rounded-2xl border-secondary text-center py-6 px-6 md:px-10">
@@ -29,26 +58,7 @@ export function Contact() {
                     variant="contained"
                     disableElevation
                     aria-label="Contactar por WhatsApp"
-                    sx={{
-                        backgroundColor: "var(--color-accent)",
-                        color          : "white",
-                        borderRadius   : "9999px",
-                        px             : 3,
-                        py             : 1.5,
-                        fontWeight     : 600,
-                        textTransform  : "none",
-                        boxShadow      : "0 10px 20px rgba(0, 0, 0, 0.15)",
-                        transition     : "transform 0.2s ease, box-shadow 0.2s ease",
-                        display        : "inline-flex",
-                        width          : {xs: "100%", md: 260},
-                        alignItems     : "center",
-                        gap            : 1.5,
-                        '&:hover'      : {
-                            backgroundColor: "var(--color-accent)",
-                            boxShadow      : "0 12px 24px rgba(0, 0, 0, 0.18)",
-                            transform      : "translateY(-2px)",
-                        },
-                    }}
+                    sx={contactButtonSx('var(--color-accent)', 'var(--color-accent)')}
                 >
                     <Image src={asset('/icons/whatsapp.svg')} alt="WhatsApp" width={40} height={40} priority/>
                     <span className="text-lg">WhatsApp</span>
@@ -62,26 +72,7 @@ export function Contact() {
                     variant="contained"
                     disableElevation
                     aria-label="Contactar por Instagram"
-                    sx={{
-                        backgroundColor: "color-mix(in srgb, #1B449E 90%, transparent)",
-                        color          : "white",
-                        borderRadius   : "9999px",
-                        px             : 3,
-                        py             : 1.5,
-                        fontWeight     : 600,
-                        textTransform  : "none",
-                        boxShadow      : "0 10px 20px rgba(0, 0, 0, 0.15)",
-                        transition     : "transform 0.2s ease, box-shadow 0.2s ease",
-                        display        : "inline-flex",
-                        width          : {xs: "100%", md: 260},
-                        alignItems     : "center",
-                        gap            : 1.5,
-                        '&:hover'      : {
-                            backgroundColor: "var(--color-primary)",
-                            boxShadow      : "0 12px 24px rgba(0, 0, 0, 0.18)",
-                            transform      : "translateY(-2px)",
-                        },
-                    }}
+                    sx={contactButtonSx('color-mix(in srgb, #1B449E 90%, transparent)', 'var(--color-primary)')}
                 >
                     <Image src={asset('/icons/instagram.svg')} alt="Instagram" width={40} height={40}/>
                     <span className="text-lg">Instagram</span>

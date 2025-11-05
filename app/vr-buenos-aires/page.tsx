@@ -158,10 +158,6 @@ export default function VRBuenosAiresPage() {
               <Link href="/alquiler" className="text-accent font-bold hover:underline">Consultá</Link> los precios o
               la disponibilidad en la fecha de tu evento
           </p>
-
-          <p>
-
-          </p>
         </div>
 
         <div className="mt-4 md:mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-8">
