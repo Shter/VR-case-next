@@ -24,7 +24,7 @@ export function Footer() {
                         <li><Link href="/#about">Sobre nosotros</Link></li>
                         <li><Link href="/#features">Ventajas</Link></li>
                         <li><Link href="/#faq-gallery">FAQ/Gallery</Link></li>
-                        <li><Link href="/alquiler">Precios</Link></li>
+                        <li><Link href="/alquiler#price">Precios</Link></li>
                     </ul>
                 </div>
                 <div>
@@ -59,7 +59,7 @@ export function Footer() {
             <div className="container mt-10 border-t border-white/10 pt-5 text-center text-white/70">
                 © {new Date().getFullYear()} VR.CASE Todos los derechos reservados
                 <a
-                    href="https://github.com/Shter"
+                    href="https://www.linkedin.com/in/pavel-aliseika-756975151"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="mt-2 block text-sm uppercase tracking-wide text-secondary transition hover:text-white"

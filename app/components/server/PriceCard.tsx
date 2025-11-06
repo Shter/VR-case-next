@@ -3,7 +3,7 @@ import type { PriceCardProps } from "@/types/allTypes";
 
 export function PriceCard({ offer }: PriceCardProps) {
     return (
-        <div className="card-glass text-white text-center xs:p-2">
+        <div className="card-glass">
             <h3 className="text-xl font-semibold mb-2">{offer.title}</h3>
 
             <div className="text-secondary text-5xl font-extrabold mb-1">

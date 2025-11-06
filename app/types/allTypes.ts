@@ -14,6 +14,11 @@ export type Offer = {
     plusUnit?: string;
 };
 
+export type PricingOfferGroups = {
+    oneHeadset: Offer[];
+    twoHeadsets: Offer[];
+};
+
 type NavHref = Route | UrlObject;
 
 export type NavItem = {

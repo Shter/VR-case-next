@@ -1,9 +1,9 @@
 import type { Route } from "next";
 import type { UrlObject } from "url";
-import { FaqGalleryItem, GalleryImage, NavItem, Offer } from '@/types/allTypes';
+import { FaqGalleryItem, GalleryImage, NavItem, PricingOfferGroups } from '@/types/allTypes';
 
 export const navItems: NavItem[] = [
-    { href: { pathname: "/", hash: "home" } satisfies UrlObject, label: "Principal" },
+    { href: "/" satisfies Route, label: "Principal" },
     { href: "/vr-buenos-aires" satisfies Route, label: "VR Buenos Aires" },
     { href: { pathname: "/", hash: "about" } satisfies UrlObject, label: "Sobre nosotros" },
     { href: { pathname: "/", hash: "features" } satisfies UrlObject, label: "Ventajas" },
@@ -113,65 +113,69 @@ export const galleryImages: GalleryImage[] = [
     },
 ];
 
-export const pricingItems : Offer[] = [
-    {
-        id: "2h-2",
-        rentLimit: "De 2 a 4 horas de experiencia",
-        title: "VR por 2 horas",
-        headsets: 2,
-        period: "2h",
-        price: 35000,
-        plusPrice: 16000,
-        plusUnit: "hora"
-    },
-    {
-        id: "day-2",
-        rentLimit: "Desde 1 dia",
-        title: "VR por dia",
-        headsets: 2,
-        period: "day",
-        price: 100000,
-        plusPrice: 40000,
-        plusUnit: "dia"
-    },
-    {
-        id: "week-2",
-        rentLimit: "Desde 1 semana",
-        title: "VR por semana",
-        headsets: 2,
-        period: "week",
-        price: 380000,
-        plusPrice: 140000,
-        plusUnit: "semana"
-    },
-    {
-        id: "2h-1",
-        rentLimit: "De 2 a 4 horas de experiencia",
-        title: "VR por 2 horas",
-        headsets: 1,
-        period: "2h",
-        price: 20000,
-        plusPrice: 7000,
-        plusUnit: "hora"
-    },
-    {
-        id: "day-1",
-        rentLimit: "Desde 1 dia",
-        title: "VR por dia",
-        headsets: 1,
-        period: "day",
-        price: 55000,
-        plusPrice: 35000,
-        plusUnit: "dia"
-    },
-    {
-        id: "week-1",
-        rentLimit: "Desde 1 semana",
-        title: "VR por semana",
-        headsets: 1,
-        period: "week",
-        price: 220000,
-        plusPrice: 100000,
-        plusUnit: "semana"
-    }
-];
+export const pricingItems: PricingOfferGroups = {
+    oneHeadset : [
+        {
+            id       : "2h-1",
+            rentLimit: "De 2 a 4 horas de experiencia",
+            title    : "VR por 2 horas",
+            headsets : 1,
+            period   : "2h",
+            price    : 20000,
+            plusPrice: 7000,
+            plusUnit : "hora"
+        },
+        {
+            id       : "day-1",
+            rentLimit: "Desde 1 dia",
+            title    : "VR por dia",
+            headsets : 1,
+            period   : "day",
+            price    : 55000,
+            plusPrice: 35000,
+            plusUnit : "dia"
+        },
+        {
+            id       : "week-1",
+            rentLimit: "Desde 1 semana",
+            title    : "VR por semana",
+            headsets : 1,
+            period   : "week",
+            price    : 220000,
+            plusPrice: 100000,
+            plusUnit : "semana"
+        }
+    ],
+    twoHeadsets: [
+        {
+            id       : "2h-2",
+            rentLimit: "De 2 a 4 horas de experiencia",
+            title    : "VR por 2 horas",
+            headsets : 2,
+            period   : "2h",
+            price    : 35000,
+            plusPrice: 16000,
+            plusUnit : "hora"
+        },
+        {
+            id       : "day-2",
+            rentLimit: "Desde 1 dia",
+            title    : "VR por dia",
+            headsets : 2,
+            period   : "day",
+            price    : 100000,
+            plusPrice: 40000,
+            plusUnit : "dia"
+        },
+        {
+            id       : "week-2",
+            rentLimit: "Desde 1 semana",
+            title    : "VR por semana",
+            headsets : 2,
+            period   : "week",
+            price    : 380000,
+            plusPrice: 140000,
+            plusUnit : "semana"
+        }
+    ]
+}

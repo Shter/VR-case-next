@@ -58,7 +58,7 @@ nav ul li a:hover::after {
   width: 100%;
 }
 
-.card-glass { @apply rounded-2xl border border-white/20 bg-white/15 backdrop-blur p-2 md:p-8 shadow; }
+.card-glass { @apply rounded-2xl border border-white/20 bg-white/15 backdrop-blur px-2 py-3  md:p-8 shadow text-white text-center ; }
 
 .modal-backdrop { @apply fixed inset-0 z-50 hidden items-center justify-center bg-black/70; }
 .modal-backdrop[data-open="true"] { @apply flex; }
