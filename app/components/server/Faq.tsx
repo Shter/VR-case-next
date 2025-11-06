@@ -34,7 +34,7 @@ export function Faq() {
                                     id={`faq-panel-${item.id}`}
                                     role="region"
                                     aria-labelledby={labelId}
-                                    className="max-h-0 overflow-hidden px-5 text-sm leading-relaxed transition-all duration-300 peer-checked:max-h-96 peer-checked:pb-4 peer-checked:pt-2 peer-checked:opacity-100"
+                                    className="max-h-0 overflow-hidden px-5 text-sm leading-relaxed transition-all duration-300 peer-checked:max-h-96 peer-checked:pb-4 peer-checked:pt-2 peer-checked:opacity-100 text-left"
                                 >
                                     {item.answer}
                                 </div>

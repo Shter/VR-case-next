@@ -85,9 +85,9 @@ export default function Page() {
 
             <section className="container mb-12">
                 <div className="space-y-2">
-                    <div className="flex flex-col gap-1 md:flex-row md:items-center md:gap-3">
+                    <div className="flex flex-col gap-1 text-center md:text-left md:flex-row md:items-center md:gap-3">
                         <h2 className="text-2xl font-semibold">Beneficios de alquilar con</h2>
-                        <span className="header-logo font-bold text-xl text-center">VR<span className="text-secondary">.CASE</span></span>
+                        <span className="header-logo font-bold text-xl">VR<span className="text-secondary">.CASE</span></span>
                     </div>
 
                     <p>

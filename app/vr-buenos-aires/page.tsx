@@ -83,7 +83,7 @@ export default function VRBuenosAiresPage() {
 
                 <div className="space-y-8 mb-8">
                     <div className="pt-6">
-                        <h2 className="text-2xl font-semibold mb-4">Nuestros servicios de alquiler de VR</h2>
+                        <h2 className="text-2xl text-center md:text-left font-semibold mb-4">Nuestros servicios de alquiler de VR</h2>
 
                         <p className="mb-6">
                             Diseñamos propuestas llave en mano para activaciones en retail, eventos corporativos,
@@ -167,8 +167,9 @@ export default function VRBuenosAiresPage() {
                 </div>
 
                 <div className="rounded-2xl pt-6">
-                    <h2 className="text-2xl font-semibold mb-4">VR Buenos Aires: tu puerta de entrada a la realidad
-                        virtual</h2>
+                    <h2 className="text-2xl font-semibold mb-4">
+                        VR Buenos Aires: tu puerta de entrada a la realidad virtual
+                    </h2>
 
                     <p className="mb-4">
                         Somos más que un servicio de alquiler: acompañamos a tu equipo durante todo el proceso, desde la
@@ -176,9 +177,8 @@ export default function VRBuenosAiresPage() {
                         previa hasta el retiro coordinado. Nos encargamos del onboarding de los invitados y la
                         asistencia técnica
                         in situ. La aventura está a un clic de distancia.&nbsp;
-                        <Link href="/alquiler" className="text-accent font-bold hover:underline">Consultá</Link> los
-                        precios o
-                        la disponibilidad en la fecha de tu evento
+                        <Link href="/#contact" className="text-accent font-bold hover:underline">Consultá</Link> los
+                        precios o la disponibilidad en la fecha de tu evento
                     </p>
                 </div>
 
