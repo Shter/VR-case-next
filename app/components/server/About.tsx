@@ -20,7 +20,7 @@ export function About() {
                 </div>
 
                 <div id="about-content" className="space-y-4 h-fit order-1 md:order-2 md:self-stretch md:flex md:flex-col md:justify-center">
-                    <h2 className="text-3xl md:text-4xl font-bold">
+                    <h2 className="text-3xl md:text-4xl text-center md:text-left font-bold">
                         Alquiler de realidad virtual con setup completo en Buenos Aires
                     </h2>
                     <p>
