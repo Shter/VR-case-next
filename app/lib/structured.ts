@@ -9,11 +9,9 @@ const sameAsLinks = [
 
 const baseAddress = {
     "@type": "PostalAddress",
-    streetAddress: "Av. Cabildo 1200",
     addressLocality: "Buenos Aires",
     addressRegion: "CABA",
-    addressCountry: "AR",
-    postalCode: "1426"
+    addressCountry: "AR"
 };
 
 const geoCoordinates = {
@@ -56,8 +54,11 @@ const contactPoints = [
 ];
 
 function getOffers() {
-    return (pricingItems as Offer[]).map((offer) => {
-        const headsetsLabel = offer.headsets === 1 ? "1 Meta Quest 3" : `${offer.headsets} Meta Quest 3`;
+    const offerGroups = Object.values(pricingItems) as Offer[][];
+    const offers = offerGroups.reduce<Offer[]>((acc, group) => acc.concat(group), []);
+
+    return offers.map((offer) => {
+        const headsetsLabel = `${offer.headsets} Meta Quest 3`;
 
         return {
             "@type": "Offer",
