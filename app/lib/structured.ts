@@ -59,10 +59,31 @@ function getOffers() {
 
     return offers.map((offer) => {
         const headsetsLabel = `${offer.headsets} Meta Quest 3`;
+        const offerId = `${site.url}/alquiler#offer-${offer.id}`;
+        const productId = `${site.url}/alquiler#product-${offer.id}`;
+
+        const itemOffered = {
+            "@type": "Product",
+            "@id": productId,
+            name: `Alquiler ${headsetsLabel}`,
+            brand: { "@type": "Brand", name: "Meta Quest" },
+            category: "Realidad virtual",
+            offers: {
+                "@type": "Offer",
+                "@id": offerId,
+                priceCurrency: "ARS",
+                price: offer.price,
+                availability: "https://schema.org/InStock",
+                url: `${site.url}/alquiler#${offer.id}`,
+                eligibleCustomerType: "https://schema.org/Consumer",
+                eligibleRegion: serviceArea,
+                seller: { "@id": `${site.url}/#rental-service` }
+            }
+        };
 
         return {
             "@type": "Offer",
-            "@id": `${site.url}/alquiler#offer-${offer.id}`,
+            "@id": offerId,
             name: `${offer.title} (${headsetsLabel})`,
             description: offer.rentLimit,
             priceCurrency: "ARS",
@@ -71,13 +92,7 @@ function getOffers() {
             url: `${site.url}/alquiler#${offer.id}`,
             eligibleCustomerType: "https://schema.org/Consumer",
             eligibleRegion: serviceArea,
-            itemOffered: {
-                "@type": "Product",
-                "@id": `${site.url}/alquiler#product-${offer.id}`,
-                name: `Alquiler ${headsetsLabel}`,
-                brand: { "@type": "Brand", name: "Meta Quest" },
-                category: "Realidad virtual"
-            },
+            itemOffered,
             seller: { "@id": `${site.url}/#rental-service` },
             ...(offer.plusPrice
                 ? {
