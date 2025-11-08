@@ -136,7 +136,6 @@ function getOffers() {
             "@id": productId,
             name: `Alquiler ${headsetsLabel}`,
             description: createProductDescription(offer),
-            brand: { "@type": "Brand", name: "Meta Quest" },
             category: "Realidad virtual",
             sku: offer.id,
             image: [resolveProductImage(offer.headsets)],
