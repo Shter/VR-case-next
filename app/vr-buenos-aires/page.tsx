@@ -7,7 +7,7 @@ import { asset } from '@/lib/site';
 import { vrBuenosAiresBreadcrumbLd, vrServiceLd } from '@/lib/structured';
 
 export const metadata: Metadata = {
-    title: "VR Buenos Aires — Alquiler de lentes VR Meta Quest 3",
+    title: " Realidad virtual en Buenos Aires (VR Buenos Aires) — Alquiler realidad virtual VR Meta Quest 3",
     description:
         "Lentes VR Meta Quest 3 en Buenos Aires (VR Argentina) para eventos, fiestas y empresas. Envío, instalación y soporte incluidos.",
     keywords: [
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     openGraph: {
         type: "website",
         locale: "es_AR",
-        title: "VR Buenos Aires — Alquiler de lentes VR Meta Quest 3 | VR.CASE",
+        title: "VR Buenos Aires | Realidad Virtual Buenos Aires",
         description:
             "Alquila lentes VR Meta Quest 3 en Buenos Aires. Ideal para eventos, fiestas y corporativos. Envío y soporte incluidos.",
         url: "/vr-buenos-aires",
@@ -46,14 +46,16 @@ export default function VRBuenosAiresPage() {
                 <JsonLd data={vrServiceLd()}/>
 
                 <h1 className="text-4xl md:text-5xl font-extrabold mb-6 text-center">
-                    VR Buenos Aires: alquiler de Meta Quest 3 para eventos
+                    VR Buenos Aires: realidad virtual para eventos con Meta Quest 3
                 </h1>
 
                 <p className="text-lg mb-6">
                     Llevamos experiencias de realidad virtual premium a empresas, agencias y particulares en Buenos
-                    Aires. Entregamos los headsets Meta Quest 3 configurados, guiamos la instalación en el lugar y
-                    brindamos soporte para que cada sesión sea un éxito
+                    Aires. Somos tu aliado de realidad virtual Buenos Aires para eventos, fiestas y activaciones que
+                    buscan impacto inmediato. Entregamos los headsets Meta Quest 3 configurados, guiamos la instalación
+                    en el lugar y brindamos soporte para que cada sesión sea un éxito
                 </p>
+
                 <p className="text-lg mb-6">
                     Cubrimos toda la Ciudad Autónoma de Buenos Aires y zona norte. Desde lanzamientos de marca hasta
                     cumpleaños, diseñamos la biblioteca de juegos y aplicaciones según la audiencia para garantizar
@@ -83,7 +85,7 @@ export default function VRBuenosAiresPage() {
 
                 <div className="space-y-8 mb-8">
                     <div className="pt-6">
-                        <h2 className="text-2xl text-center md:text-left font-semibold mb-4">Nuestros servicios de alquiler de VR</h2>
+                        <h2 className="text-2xl text-center md:text-left font-semibold mb-4">Realidad virtual Buenos Aires: nuestros servicios de alquiler de VR</h2>
 
                         <p className="mb-6">
                             Diseñamos propuestas llave en mano para activaciones en retail, eventos corporativos,
