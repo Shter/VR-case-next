@@ -1,6 +1,9 @@
 import { faqItems } from "@/app/constants";
 
 export function Faq() {
+    const labelClass = "relative rounded-xl flex cursor-pointer items-center gap-4 px-5 py-4 pr-14 text-left text-base font-semibold text-dark transition-colors peer-checked:bg-secondary after:absolute after:right-5 after:flex after:h-8 after:w-8 after:items-center after:justify-center after:rounded-full after:border after:text-sm after:font-semibold after:text-dark/70 after:content-['+'] peer-checked:after:border-transparent peer-checked:after:bg-accent peer-checked:after:text-black peer-checked:after:content-['-']";
+    const itemClass = "max-h-0 overflow-hidden px-5 text-sm leading-relaxed transition-all duration-300 peer-checked:max-h-96 peer-checked:pb-4 peer-checked:pt-2 peer-checked:opacity-100 text-left";
+
     return (
         <aside className="flex w-full flex-col text-center lg:w-[45%] lg:max-h-[680px] lg:overflow-y-auto">
             <h2 className="pb-5 text-3xl font-bold text-dark md:text-4xl">
@@ -25,7 +28,7 @@ export function Faq() {
                                 <label
                                     id={labelId}
                                     htmlFor={inputId}
-                                    className="relative rounded-xl flex cursor-pointer items-center gap-4 px-5 py-4 pr-14 text-left text-base font-semibold text-dark transition-colors peer-checked:bg-secondary after:absolute after:right-5 after:flex after:h-8 after:w-8 after:items-center after:justify-center after:rounded-full after:border after:text-sm after:font-semibold after:text-dark/70 after:content-['+'] peer-checked:after:border-transparent peer-checked:after:bg-accent peer-checked:after:text-black peer-checked:after:content-['-']"
+                                    className={labelClass}
                                 >
                                     {item.question}
                                 </label>
@@ -34,7 +37,7 @@ export function Faq() {
                                     id={`faq-panel-${item.id}`}
                                     role="region"
                                     aria-labelledby={labelId}
-                                    className="max-h-0 overflow-hidden px-5 text-sm leading-relaxed transition-all duration-300 peer-checked:max-h-96 peer-checked:pb-4 peer-checked:pt-2 peer-checked:opacity-100 text-left"
+                                    className={itemClass}
                                 >
                                     {item.answer}
                                 </div>

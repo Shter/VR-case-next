@@ -46,7 +46,9 @@ export default function Page() {
                 </div>
             </div>
 
-            <section className="container mt-8">
+            <Pricing />
+
+            <section className="container mb-8">
                 <div className="grid gap-8 lg:grid-cols-2">
                     <div className="space-y-4 rounded-2xl bg-gray-200 p-8 shadow-soft">
                         <h2 className="text-2xl font-semibold">Qué incluye cada alquiler</h2>
@@ -80,8 +82,6 @@ export default function Page() {
                     </div>
                 </div>
             </section>
-
-            <Pricing />
 
             <section className="container mb-12">
                 <div className="space-y-2">

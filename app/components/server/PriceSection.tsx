@@ -1,5 +1,5 @@
 import type { PriceSectionProps } from "@/types/allTypes";
-import { PriceCard }              from "@/components/server/PriceCard";
+import { PriceCard } from "@/components/server/PriceCard";
 
 export function PriceSection({ title, offers }: PriceSectionProps) {
     return (
