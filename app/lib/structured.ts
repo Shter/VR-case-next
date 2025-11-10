@@ -130,6 +130,17 @@ function getOffers() {
         const headsetsLabel = `${offer.headsets} Meta Quest 3`;
         const offerId = `${site.url}/alquiler#offer-${offer.id}`;
         const productId = `${site.url}/alquiler#product-${offer.id}`;
+        const offerUrl = `${site.url}/alquiler#${offer.id}`;
+
+        const offerSummary = {
+            "@type": "Offer",
+            "@id": offerId,
+            priceCurrency: "ARS",
+            price: offer.price,
+            availability: "https://schema.org/InStock",
+            url: offerUrl,
+            seller: { "@id": `${site.url}/#rental-service` }
+        };
 
         const itemOffered = {
             "@type": "Product",
@@ -139,7 +150,7 @@ function getOffers() {
             category: "Realidad virtual",
             sku: offer.id,
             image: [resolveProductImage(offer.headsets)],
-            offers: { "@id": offerId }
+            offers: offerSummary
         };
 
         return {
@@ -150,7 +161,7 @@ function getOffers() {
             priceCurrency: "ARS",
             price: offer.price,
             availability: "https://schema.org/InStock",
-            url: `${site.url}/alquiler#${offer.id}`,
+            url: offerUrl,
             eligibleCustomerType: "https://schema.org/Consumer",
             eligibleRegion: serviceArea,
             itemOffered,
