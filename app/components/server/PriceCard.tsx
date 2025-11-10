@@ -1,4 +1,4 @@
-import { ReserveDialog }       from "@/components/client/ReserveDialog";
+import { ReserveDialog } from "@/components/client/ReserveDialog";
 import type { PriceCardProps } from "@/types/allTypes";
 
 export function PriceCard({ offer }: PriceCardProps) {

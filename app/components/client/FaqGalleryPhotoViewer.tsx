@@ -19,6 +19,7 @@ export function FaqGalleryPhotoViewer({
     const totalImages = images.length;
     const activeImage = images[currentIndex];
     const hasNavigation = totalImages > 1;
+    const iconButtonClass = 'absolute xs:!p-0 md:p-4 top-1/2 z-10 -translate-y-1/2 transform rounded-full border border-white/40 bg-white/10 text-white transition hover:scale-105 hover:bg-white/20'
     const [viewportSize, setViewportSize] = useState<{ width: number; height: number }>(() => {
         if (typeof window === 'undefined') {
             return { width: 0, height: 0 };
@@ -135,7 +136,7 @@ export function FaqGalleryPhotoViewer({
                     {hasNavigation && (
                         <IconButton
                             aria-label="Ver imagen anterior"
-                            className="absolute xs:!p-0 md:p-4 top-1/2 z-10 -translate-y-1/2 transform rounded-full border border-white/40 bg-white/10 text-white transition hover:scale-105 hover:bg-white/20"
+                            className={iconButtonClass}
                             size="large"
                             onClick={handleShowPrevious}
                         >
@@ -155,7 +156,6 @@ export function FaqGalleryPhotoViewer({
                             width={containerDimensions.width}
                             height={containerDimensions.height}
                             className="h-full w-full object-contain"
-                            sizes="(min-width: 1536px) 70vw, (min-width: 1280px) 75vw, (min-width: 1024px) 80vw, 90vw"
                             priority
                         />
                     </div>
@@ -163,7 +163,7 @@ export function FaqGalleryPhotoViewer({
                     {hasNavigation && (
                         <IconButton
                             aria-label="Ver imagen siguiente"
-                            className="absolute xs:!p-0 md:p-4 top-1/2 z-10 -translate-y-1/2 transform rounded-full border border-white/40 bg-white/10 text-white transition hover:scale-105 hover:bg-white/20"
+                            className={iconButtonClass}
                             size="large"
                             onClick={handleShowNext}
                         >

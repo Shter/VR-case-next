@@ -1,7 +1,7 @@
 import { Route } from "next";
-import { UrlObject }        from "url";
+import { UrlObject } from "url";
 import { ReactElement, ReactNode } from "react";
-import { DialogProps }      from "@mui/material/Dialog";
+import { DialogProps } from "@mui/material/Dialog";
 
 export type Offer = {
     id: string;
@@ -60,10 +60,6 @@ export type ReservePlanDialogTriggerProps = {
     offerId: string;
     buttonLabel?: string;
     description?: string;
-};
-
-export type AboutVideoProps = {
-    referenceSelector: string;
 };
 
 export type GalleryImage = {
