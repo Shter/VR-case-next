@@ -179,3 +179,5 @@ export const pricingItems: PricingOfferGroups = {
         }
     ]
 }
+
+export const defaultEvents = ["mousedown", "touchstart"];
