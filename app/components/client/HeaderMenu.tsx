@@ -2,7 +2,7 @@
 
 import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
-import { isValidElement, useRef, useState } from 'react';
+import { MouseEvent, isValidElement, useRef, useState } from 'react';
 import type { HeaderMenuProps }                        from '@/types/allTypes';
 import useClickAwayHeader from '@/lib/hooks/useClickAway';
 
@@ -15,7 +15,18 @@ export function HeaderMenu({ children }: HeaderMenuProps) {
         setOpen(false);
     });
 
+    const handleNavClick = (event: MouseEvent<HTMLDivElement>) => {
+        if (!open) {
+            return;
+        }
 
+        const target = event.target as HTMLElement | null;
+        const link = target?.closest('a');
+
+        if (link) {
+            setOpen(false);
+        }
+    };
 
     const navNode = isValidElement(children) ? children : null;
     const baseClasses = 'fixed md:static top-0 right-0 h-screen md:h-auto max-w-xs md:max-w-none bg-dark md:bg-transparent mt-14 md:mt-0 pt-6 md:pt-0 px-8 md:px-0 transition-all z-50 md:z-auto';
@@ -35,7 +46,7 @@ export function HeaderMenu({ children }: HeaderMenuProps) {
             <div
                 ref={wrapperRef}
                 className={baseClasses + translateClasses}
-                onClick={() => setOpen(false)}
+                onClick={handleNavClick}
             >
                 {navNode}
             </div>
