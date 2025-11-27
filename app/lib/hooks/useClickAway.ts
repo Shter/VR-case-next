@@ -1,11 +1,11 @@
 import { useEffect, useRef } from "react";
 import type { RefObject } from "react";
-import { defaultEvents } from '@/app/constants'
+import { defaultEvents } from "@/app/constants";
 
-const useClickAwayHeader = <E extends Event = Event>(
+const useClickAwayHeader = (
     ref: RefObject<HTMLElement | null>,
-    onClickAway: (event: E) => void,
-    events: string[] = defaultEvents,
+    onClickAway: (event: Event) => void,
+    events: Array<keyof WindowEventMap> = defaultEvents,
 ) => {
     const savedCallback = useRef(onClickAway);
 
@@ -14,9 +14,17 @@ const useClickAwayHeader = <E extends Event = Event>(
     }, [onClickAway]);
 
     useEffect(() => {
-        const handler = (event: any) => {
-            const { current: el } = ref;
-            el && !el.contains(event.target) && savedCallback.current(event);
+        const handler: EventListener = event => {
+            const element = ref.current;
+            const target = event.target;
+
+            if (!element || !(target instanceof Node)) {
+                return;
+            }
+
+            if (!element.contains(target)) {
+                savedCallback.current(event);
+            }
         };
 
         for (const eventName of events) {
