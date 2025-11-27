@@ -3,6 +3,7 @@ import { Header } from '@/components/server/Header';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter'
 import { asset, site } from '@/lib/site';
 import { Metadata } from 'next';
+import { Analytics } from '@vercel/analytics/react';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -55,6 +56,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
                     <Header/>
                     <main className="flex-1">{children}</main>
                     <Footer/>
+                    <Analytics />
                 </body>
             </AppRouterCacheProvider>
         </html>
