@@ -1,19 +1,24 @@
 "use client";
 
-import CloseIcon from '@mui/icons-material/Close';
-import MenuIcon from '@mui/icons-material/Menu';
-import { MouseEvent, isValidElement, useRef, useState } from 'react';
-import type { HeaderMenuProps }                        from '@/types/allTypes';
-import useClickAwayHeader from '@/lib/hooks/useClickAway';
+import MenuIcon from "@mui/icons-material/Menu";
+import { MouseEvent, isValidElement, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import type { HeaderMenuProps } from "@/types/allTypes";
+import useClickAwayHeader from "@/lib/hooks/useClickAway";
+import CloseIcon from "@mui/icons-material/Close"
 
 export function HeaderMenu({ children }: HeaderMenuProps) {
     const [open, setOpen] = useState(false);
     const wrapperRef = useRef<HTMLDivElement | null>(null);
     const toggleRef = useRef<HTMLButtonElement | null>(null);
+    const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
+    const closeMenu = () => setOpen(false);
 
-    useClickAwayHeader(wrapperRef, () => {
-        setOpen(false);
-    });
+    useEffect(() => {
+        setPortalContainer(document.body);
+    }, []);
+
+    useClickAwayHeader(wrapperRef, closeMenu);
 
     const handleNavClick = (event: MouseEvent<HTMLDivElement>) => {
         if (!open) {
@@ -24,7 +29,7 @@ export function HeaderMenu({ children }: HeaderMenuProps) {
         const link = target?.closest('a');
 
         if (link) {
-            setOpen(false);
+            closeMenu();
         }
     };
 
@@ -33,23 +38,35 @@ export function HeaderMenu({ children }: HeaderMenuProps) {
     const translateClasses = open ? ' translate-x-0' : ' translate-x-full md:translate-x-0';
 
     return (
-        <div className="flex items-center">
-            <button
-                className="md:hidden cursor-pointer"
-                onClick={() => setOpen(value => !value)}
-                aria-label={open ? 'Close menu' : 'Open menu'}
-                ref={toggleRef}
-            >
-                {open ? <CloseIcon /> : <MenuIcon />}
-            </button>
+        <>
+            {open && portalContainer
+                ? createPortal(
+                    <div
+                        className="md:hidden fixed inset-0 bg-black/60 backdrop-blur-[2px] z-40"
+                        onClick={closeMenu}
+                    />,
+                    portalContainer,
+                )
+                : null}
 
-            <div
-                ref={wrapperRef}
-                className={baseClasses + translateClasses}
-                onClick={handleNavClick}
-            >
-                {navNode}
+            <div className="flex items-center">
+                <button
+                    className="md:hidden cursor-pointer"
+                    onClick={() => setOpen(value => !value)}
+                    aria-label={open ? 'Close menu' : 'Open menu'}
+                    ref={toggleRef}
+                >
+                    {open ? <CloseIcon /> : <MenuIcon />}
+                </button>
+
+                <div
+                    ref={wrapperRef}
+                    className={baseClasses + translateClasses}
+                    onClick={handleNavClick}
+                >
+                    {navNode}
+                </div>
             </div>
-        </div>
+        </>
     );
 }
