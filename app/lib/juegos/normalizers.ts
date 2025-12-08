@@ -36,11 +36,15 @@ function sanitizeGenreList(raw: unknown): number[] {
 }
 
 export function normalizeGame(raw: Game): Game {
+    const legacyImage = (raw as Game & { imageg_url?: string; imageUrl?: string }).imageg_url
+        ?? (raw as Game & { imageg_url?: string; imageUrl?: string }).imageUrl
+        ?? raw.image_url;
+
     return {
         id: raw.id,
         name: sanitizeString(raw.name),
         description: sanitizeString(raw.description),
-        image_url: sanitizeString(raw.image_url),
+        image_url: sanitizeString(legacyImage),
         controls: sanitizeString(raw.controls),
         multiplayer: raw.multiplayer === true,
         multiplayer_instructions: sanitizeString(raw.multiplayer_instructions),

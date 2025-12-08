@@ -1,6 +1,6 @@
 import { Route } from "next";
 import { UrlObject }        from "url";
-import { ReactElement, ReactNode } from "react";
+import { ReactElement, ReactNode, MouseEvent } from "react";
 import { DialogProps }      from "@mui/material/Dialog";
 
 export type Offer = {
@@ -144,6 +144,57 @@ export type GameFiltersState = {
     searchTerm: string;
 };
 
+export type GameCatalogMultiplayerOption = {
+    value: 'all' | 'multiplayer' | 'solo';
+    label: string;
+};
+
+export type GameCatalogCopy = {
+    search: {
+        label: string;
+        placeholder: string;
+        helperText?: string;
+    };
+    genres: {
+        label: string;
+        allLabel: string;
+        fallbackPrefix: string;
+    };
+    multiplayer: {
+        label: string;
+        options: GameCatalogMultiplayerOption[];
+    };
+    emptyState: string;
+    loadingLabel: string;
+    loadMoreLabel: string;
+    loadMoreLoadingLabel: string;
+    fetchErrorMessage: string;
+    loadMoreErrorMessage: string;
+    card: {
+        fallbackNamePrefix: string;
+        fallbackCoverLabel: string;
+        ctaLabel: string;
+    };
+};
+
+export type GameDetailsCopy = {
+    fallbackNamePrefix: string;
+    tagline: string;
+    descriptionHeading: string;
+    descriptionPlaceholder: string;
+    controlsHeading: string;
+    controlsPlaceholder: string;
+    multiplayerInstructionsHeading: string;
+    multiplayerInstructionsPlaceholder: string;
+    multiplayerBadgeLabel: string;
+    soloBadgeLabel: string;
+    closeLabel: string;
+    backButtonLabel: string;
+    errorDescription: string;
+    retryLabel: string;
+    loadingLabel: string;
+};
+
 export type GameBrowserProps = {
     initialGames: Game[];
     initialTotal: number;
@@ -153,6 +204,11 @@ export type GameBrowserProps = {
     initialSearchTerm: string;
     initialQueryString: string;
     pageSize?: number;
+    copy: GameCatalogCopy;
+    detailBasePath: string;
+    onGameCardNavigate?: (game: Game, href: string, event: MouseEvent<HTMLAnchorElement>) => void;
+    onFiltersQueryChange?: (queryString: string) => void;
+    onVisibleGamesChange?: (games: Game[]) => void;
 };
 
 export type GameFiltersProps = {
@@ -164,6 +220,7 @@ export type GameFiltersProps = {
     onResetGenres: () => void;
     onSelectMultiplayerFilter: (value: 'all' | 'multiplayer' | 'solo') => void;
     onSearchChange: (value: string) => void;
+    copy: GameCatalogCopy;
 };
 
 export type GamesGridProps = {
@@ -173,11 +230,17 @@ export type GamesGridProps = {
     hasMore: boolean;
     filtersQueryString: string;
     onLoadMore: () => void;
+    detailBasePath: string;
+    copy: GameCatalogCopy;
+    onGameCardNavigate?: (game: Game, href: string, event: MouseEvent<HTMLAnchorElement>) => void;
 };
 
 export type GameCardProps = {
     game: Game;
     queryString: string;
+    detailBasePath: string;
+    copy: GameCatalogCopy;
+    onNavigate?: (game: Game, href: string, event: MouseEvent<HTMLAnchorElement>) => void;
 };
 
 export type JuegosPageProps = {
@@ -189,4 +252,25 @@ export type PageProps = {
         id: string;
     };
     searchParams?: Record<string, string | string[] | undefined>;
+};
+
+export type GameDetailsDialogProps = {
+    open: boolean;
+    game: Game | null;
+    isLoading: boolean;
+    error: string | null;
+    copy: GameDetailsCopy;
+    onClose: () => void;
+    onRetry?: () => void;
+    backHref?: string;
+};
+
+export type GamesCatalogClientProps = GameBrowserProps & {
+    detailsCopy: GameDetailsCopy;
+};
+
+export type StandaloneGameDialogProps = {
+    game: Game;
+    copy: GameDetailsCopy;
+    backHref: string;
 };

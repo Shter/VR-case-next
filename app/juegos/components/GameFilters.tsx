@@ -1,7 +1,7 @@
 'use client';
 
 import type { ChangeEvent } from 'react';
-import type { GameFiltersProps, Genre } from '@/types/allTypes';
+import type { GameFiltersProps } from '@/types/allTypes';
 
 type FilterPillProps = {
     isActive: boolean;
@@ -25,16 +25,6 @@ function FilterPill({ isActive, onClick, label }: FilterPillProps) {
     );
 }
 
-function formatGenreName(genre: Genre): string {
-    return genre.name.trim().length > 0 ? genre.name : `Género #${genre.id}`;
-}
-
-const MULTIPLAYER_OPTIONS: Array<{ value: 'all' | 'multiplayer' | 'solo'; label: string }> = [
-    { value: 'all', label: 'Todos' },
-    { value: 'multiplayer', label: 'Multijugador' },
-    { value: 'solo', label: 'Un jugador' }
-];
-
 export function GameFilters({
     genres,
     selectedGenreIds,
@@ -43,7 +33,8 @@ export function GameFilters({
     onToggleGenre,
     onResetGenres,
     onSelectMultiplayerFilter,
-    onSearchChange
+    onSearchChange,
+    copy
 }: GameFiltersProps) {
     const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
         onSearchChange(event.target.value);
@@ -53,37 +44,41 @@ export function GameFilters({
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:gap-10">
             <div className="flex flex-col gap-2 lg:w-2/5">
                 <label className="text-sm font-semibold uppercase tracking-wider text-gray-500" htmlFor="games-search">
-                    Buscar juegos
+                    {copy.search.label}
                 </label>
                 <input
                     id="games-search"
                     type="search"
                     value={searchValue}
                     onChange={handleSearchChange}
-                    placeholder="Ingresá el nombre del juego"
+                    placeholder={copy.search.placeholder}
                     className="w-full rounded-full border border-gray-200 px-5 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/40"
                     autoComplete="off"
                     spellCheck={false}
                 />
-                <p className="text-xs text-gray-500">El buscador se activa a partir de dos letras.</p>
+                {copy.search.helperText ? (
+                    <p className="text-xs text-gray-500">{copy.search.helperText}</p>
+                ) : null}
             </div>
 
             <div className="flex flex-col gap-2 lg:flex-1">
-                <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-500">Géneros</h2>
+                <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-500">{copy.genres.label}</h2>
                 <div className="flex flex-wrap gap-3">
                     <FilterPill
                         isActive={selectedGenreIds.length === 0}
                         onClick={onResetGenres}
-                        label="Todos"
+                        label={copy.genres.allLabel}
                     />
                     {genres.map((genre) => {
                         const isActive = selectedGenreIds.includes(genre.id);
+                        const label = genre.name?.trim().length ? genre.name : `${copy.genres.fallbackPrefix} ${genre.id}`;
+
                         return (
                             <FilterPill
                                 key={genre.id}
                                 isActive={isActive}
                                 onClick={() => onToggleGenre(genre.id)}
-                                label={formatGenreName(genre)}
+                                label={label}
                             />
                         );
                     })}
@@ -91,9 +86,9 @@ export function GameFilters({
             </div>
 
             <div className="flex flex-col gap-2 lg:w-1/4">
-                <span className="text-sm font-semibold uppercase tracking-wider text-gray-500">Multijugador</span>
+                <span className="text-sm font-semibold uppercase tracking-wider text-gray-500">{copy.multiplayer.label}</span>
                 <div className="flex flex-wrap gap-3">
-                    {MULTIPLAYER_OPTIONS.map((option) => (
+                    {copy.multiplayer.options.map((option) => (
                         <FilterPill
                             key={option.value}
                             isActive={multiplayerFilter === option.value}

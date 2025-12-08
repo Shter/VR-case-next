@@ -1,7 +1,5 @@
 import type { Metadata } from 'next';
-import { supabaseClient } from '@/lib/supabase/client';
-import { GameBrowser } from './components/GameBrowser';
-import type { Game, GameFiltersState, Genre, JuegosPageProps } from '@/types/allTypes';
+import type { GameFiltersState, JuegosPageProps } from '@/types/allTypes';
 import {
     buildFiltersQueryString,
     normalizeLegacyShowMultiplayer,
@@ -9,106 +7,59 @@ import {
     parseMultiplayerParam,
     parseSearchParam
 } from '@/lib/juegos/filters';
-import { normalizeGame } from '@/lib/juegos/normalizers';
+import { fetchGamesPage, fetchGenres } from '@/lib/games/queries';
+import { GAME_CATALOG_COPY_JUEGOS, GAME_DETAILS_COPY_JUEGOS } from '@/data/gameCatalogCopy';
+import { GamesCatalogClient } from '@/app/juegos/components/GamesCatalogClient';
 
 const PAGE_SIZE = 6;
 
 export const metadata: Metadata = {
-    title: 'Juegos',
-    description: 'Explora la colección de juegos disponibles para experimentar realidad virtual.'
+    title: 'Realidad virtual Buenos Aires: catálogo VR.CASE',
+    description: 'Explorá el catálogo VR.CASE de realidad virtual en Buenos Aires: buscá juegos, filtrá por género y descubrí experiencias con Meta Quest.',
+    keywords: [
+        'realidad virtual buenos aires',
+        'juegos realidad virtual',
+        'meta quest buenos aires',
+        'catalogo vr case'
+    ],
+    alternates: { canonical: '/juegos' }
 };
 
-async function fetchGenres(): Promise<Genre[]> {
-    const { data, error } = await supabaseClient
-        .from('genres')
-        .select('id, name')
-        .order('name', { ascending: true });
-
-    if (error) {
-        console.error('[supabase] failed to fetch genres', error);
-        throw new Error('No fue posible cargar los géneros disponibles.');
-    }
-
-    return (data ?? [])
-        .map((item) => {
-            const parsedId = typeof item.id === 'number'
-                ? item.id
-                : Number.parseInt(String(item.id), 10);
-
-            if (Number.isNaN(parsedId)) {
-                return null;
-            }
-
-            return {
-                id: parsedId,
-                name: typeof item.name === 'string' ? item.name : `Género #${item.id}`
-            } satisfies Genre;
-        })
-        .filter((genre): genre is Genre => genre !== null);
-}
-
-async function fetchGamesPage(filters: GameFiltersState): Promise<{ games: Game[]; total: number }> {
-    let query = supabaseClient
-        .from('games')
-        .select('id, name, description, image_url, controls, multiplayer, multiplayer_instructions, genre', { count: 'exact' })
-        .order('name', { ascending: true })
-        .range(0, PAGE_SIZE - 1);
-
-    if (filters.genreIds.length > 0) {
-        query = query.overlaps('genre', filters.genreIds);
-    }
-
-    if (filters.multiplayerFilter === 'multiplayer') {
-        query = query.eq('multiplayer', true);
-    } else if (filters.multiplayerFilter === 'solo') {
-        query = query.eq('multiplayer', false);
-    }
-
-    if (filters.searchTerm.trim().length >= 2) {
-        query = query.ilike('name', `%${filters.searchTerm.trim()}%`);
-    }
-
-    const { data, error, count } = await query;
-
-    if (error) {
-        console.error('[supabase] failed to fetch games', error);
-        throw new Error('No pudimos obtener la lista de juegos.');
-    }
-
-    const games = (data ?? []).map((item) => normalizeGame(item as Game));
-    const total = typeof count === 'number' ? count : games.length;
-
-    return { games, total };
-}
-
 export default async function JuegosPage({ searchParams }: JuegosPageProps) {
-    const rawMultiplayer = searchParams?.multiplayer;
-    const legacyMultiplayer = normalizeLegacyShowMultiplayer(searchParams?.showMultiplayer);
+    const searchParamsValue = await searchParams;
+    const rawMultiplayer = searchParamsValue?.multiplayer;
+    const legacyMultiplayer = normalizeLegacyShowMultiplayer(searchParamsValue?.showMultiplayer);
     const multiplayerParam = typeof rawMultiplayer === 'undefined' ? legacyMultiplayer : rawMultiplayer;
 
     const filters: GameFiltersState = {
-        genreIds: parseGenreIdsParam(searchParams?.genres),
+        genreIds: parseGenreIdsParam(searchParamsValue?.genres),
         multiplayerFilter: parseMultiplayerParam(multiplayerParam),
-        searchTerm: parseSearchParam(searchParams?.search)
+        searchTerm: parseSearchParam(searchParamsValue?.search)
     };
 
     const [genres, initialData] = await Promise.all([
         fetchGenres(),
-        fetchGamesPage(filters)
+        fetchGamesPage(filters, PAGE_SIZE)
     ]);
+
+    console.log(2, genres, initialData);
 
     const initialQueryString = buildFiltersQueryString(filters);
 
     return (
-        <section className="container mx-auto px-4 pb-10 pt-20 md:py-24">
-            <div className="mb-12 text-center">
-                <h1 className="text-4xl md:text-5xl font-extrabold mb-6 md:mb-8">Juegos disponibles</h1>
-                <p className="text-lg opacity-90">
-                    Descubrí experiencias inmersivas y títulos imprescindibles para tu casco de realidad virtual.
+        <section className="container mx-auto px-4 pb-12 pt-20 md:py-24">
+            <div className="mb-12 flex flex-col items-center gap-4 text-center">
+                <p className="text-sm font-semibold uppercase tracking-[0.3em] text-primary">Realidad virtual Buenos Aires</p>
+                <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 md:text-5xl">
+                    Catálogo VR.CASE de juegos y experiencias
+                </h1>
+                <p className="max-w-2xl text-base text-gray-600">
+                    Buscá experiencias listas para Meta Quest, filtrá por género o modo multijugador y compartí
+                    la ficha /juegos/:id con tu equipo para abrir el pop-up informativo al instante.
                 </p>
             </div>
 
-            <GameBrowser
+            <GamesCatalogClient
                 initialGames={initialData.games}
                 initialTotal={initialData.total}
                 genres={genres}
@@ -117,6 +68,9 @@ export default async function JuegosPage({ searchParams }: JuegosPageProps) {
                 initialSearchTerm={filters.searchTerm}
                 initialQueryString={initialQueryString}
                 pageSize={PAGE_SIZE}
+                copy={GAME_CATALOG_COPY_JUEGOS}
+                detailBasePath="/juegos"
+                detailsCopy={GAME_DETAILS_COPY_JUEGOS}
             />
         </section>
     );

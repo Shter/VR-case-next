@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import type { MouseEvent } from 'react';
 import { usePathname } from 'next/navigation';
 import { supabaseClient } from '@/lib/supabase/client';
 import { GameFilters } from './GameFilters';
@@ -26,7 +27,12 @@ export function GameBrowser({
     initialMultiplayerFilter,
     initialSearchTerm,
     initialQueryString,
-    pageSize = DEFAULT_PAGE_SIZE
+    pageSize = DEFAULT_PAGE_SIZE,
+    copy,
+    detailBasePath,
+    onGameCardNavigate,
+    onFiltersQueryChange,
+    onVisibleGamesChange
 }: GameBrowserProps) {
     const pathname = usePathname();
 
@@ -57,6 +63,18 @@ export function GameBrowser({
         [filters]
     );
 
+    useEffect(() => {
+        if (typeof onFiltersQueryChange === 'function') {
+            onFiltersQueryChange(currentQueryString);
+        }
+    }, [currentQueryString, onFiltersQueryChange]);
+
+    useEffect(() => {
+        if (typeof onVisibleGamesChange === 'function') {
+            onVisibleGamesChange(games);
+        }
+    }, [games, onVisibleGamesChange]);
+
     const updateUrl = useCallback((queryString: string) => {
         const target = queryString ? `${pathname}?${queryString}` : pathname;
 
@@ -81,10 +99,7 @@ export function GameBrowser({
 
         let query = supabaseClient
             .from('games')
-            .select(
-                'id, name, description, image_url, controls, multiplayer, multiplayer_instructions, genre',
-                { count: 'exact' }
-            )
+            .select('*', { count: 'exact' })
             .order('name', { ascending: true })
             .range(rangeStart, rangeEnd);
 
@@ -145,15 +160,15 @@ export function GameBrowser({
                 return;
             }
 
-            console.error('[juegos] failed to load games', fetchError);
-            setError('No pudimos cargar los juegos. Por favor, intentá nuevamente.');
+            console.error('[game-browser] failed to load games', fetchError);
+            setError(copy.fetchErrorMessage);
         } finally {
             if (latestRequestIdRef.current === requestId) {
                 setIsLoading(false);
                 setIsLoadingMore(false);
             }
         }
-    }, [fetchGames, updateUrl]);
+    }, [copy.fetchErrorMessage, fetchGames, updateUrl]);
 
     const handleToggleGenre = useCallback((genreId: number) => {
         const isActive = filters.genreIds.includes(genreId);
@@ -200,7 +215,7 @@ export function GameBrowser({
         }
 
         setFilters(nextFilters);
-            void applyFilters(nextFilters);
+        void applyFilters(nextFilters);
     }, [applyFilters, filters]);
 
     useEffect(() => {
@@ -256,14 +271,14 @@ export function GameBrowser({
                 return;
             }
 
-            console.error('[juegos] failed to load more games', fetchError);
-            setError('No pudimos cargar más juegos. Revisá tu conexión e intentá nuevamente.');
+            console.error('[game-browser] failed to load more games', fetchError);
+            setError(copy.loadMoreErrorMessage);
         } finally {
             if (latestRequestIdRef.current === requestId) {
                 setIsLoadingMore(false);
             }
         }
-    }, [fetchGames, filters, games.length, hasMore, isLoading, isLoadingMore]);
+    }, [copy.loadMoreErrorMessage, fetchGames, filters, games.length, hasMore, isLoading, isLoadingMore]);
 
     useEffect(() => {
         latestFiltersRef.current = filters;
@@ -306,6 +321,10 @@ export function GameBrowser({
         };
     }, [applyFilters, initialQueryString]);
 
+    const handleCardNavigate = useCallback((game: Game, href: string, event: MouseEvent<HTMLAnchorElement>) => {
+        onGameCardNavigate?.(game, href, event);
+    }, [onGameCardNavigate]);
+
     return (
         <div className="flex flex-col gap-14">
             <div className="rounded-3xl border border-gray-200 bg-white px-6 py-6 shadow-soft lg:px-10 lg:py-8">
@@ -318,6 +337,7 @@ export function GameBrowser({
                     onResetGenres={handleResetGenres}
                     onSelectMultiplayerFilter={handleSelectMultiplayerFilter}
                     onSearchChange={setSearchInput}
+                    copy={copy}
                 />
             </div>
 
@@ -334,6 +354,9 @@ export function GameBrowser({
                 hasMore={hasMore}
                 filtersQueryString={currentQueryString}
                 onLoadMore={handleLoadMore}
+                detailBasePath={detailBasePath}
+                copy={copy}
+                onGameCardNavigate={handleCardNavigate}
             />
         </div>
     );
