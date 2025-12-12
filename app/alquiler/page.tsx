@@ -33,16 +33,20 @@ export default function Page() {
             <JsonLd data={pricingRentalLd()} />
 
             <div className="container pt-24">
-                <div className="text-center">
+                <div className="flex flex-col text-center">
                     <h1 className="text-4xl md:text-5xl font-extrabold mb-6 md:mb-8">
                         Precios de alquiler de realidad virtual VR en Buenos Aires
                     </h1>
 
-                    <p className="text-lg opacity-90">
+                    <p className="text-lg opacity-90 mb-2 md:mb-4">
                         Elegí entre planes por sesión, día completo o semana y recibí los headsets Meta Quest 3 listos
                         para usar con entrega en Buenos Aires (BA). Todas las tarifas incluyen asesoramiento previo,
                         instalación guiada, soporte remoto durante la experiencia del equipamiento
                     </p>
+
+                    <div className="self-center w-fit border-5 rounded-2xl border-accent text-center py-4 px-4 md:px-6 font-bold">
+                        !!! LOS PRECIOS PARA LOS DÍAS FESTIVOS SE DEBEN CONSULTAR CON EL OPERADOR !!!
+                    </div>
                 </div>
             </div>
 

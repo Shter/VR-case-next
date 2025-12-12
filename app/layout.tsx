@@ -1,6 +1,6 @@
 import { Footer } from '@/components/server/Footer';
 import { Header } from '@/components/server/Header';
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter'
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import { asset, site } from '@/lib/site';
 import { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/react';
