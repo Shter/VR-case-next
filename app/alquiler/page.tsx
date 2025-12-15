@@ -5,6 +5,12 @@ import { pricingBreadcrumbLd, pricingRentalLd } from '@/lib/structured';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
+const AccentNoticeIcon = () => (
+    <span className="inline-flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border-3 border-accent text-accent text-2xl leading-none">
+        !
+    </span>
+);
+
 export const metadata: Metadata = {
     title: "VR Buenos Aires — Precios de alquiler de lentes VR (Meta Quest 3) | VR.CASE",
     description:
@@ -44,8 +50,10 @@ export default function Page() {
                         instalación guiada, soporte remoto durante la experiencia del equipamiento
                     </p>
 
-                    <div className="self-center w-fit border-5 rounded-2xl border-accent text-center py-4 px-4 md:px-6 font-bold">
-                        !!! LOS PRECIOS PARA LOS DÍAS FESTIVOS SE DEBEN CONSULTAR CON EL OPERADOR !!!
+                    <div className="self-center flex items-center gap-4 w-fit border-5 rounded-2xl border-accent text-center py-4 px-4 md:px-6 font-bold">
+                        <AccentNoticeIcon />
+                        <span>LOS PRECIOS PARA LOS DÍAS FESTIVOS SE DEBEN CONSULTAR CON EL OPERADOR</span>
+                        <AccentNoticeIcon />
                     </div>
                 </div>
             </div>

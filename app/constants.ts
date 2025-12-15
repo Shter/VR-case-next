@@ -181,3 +181,6 @@ export const pricingItems: PricingOfferGroups = {
 }
 
 export const defaultEvents: Array<keyof WindowEventMap> = ['mousedown', 'touchstart'];
+
+export const hourlyRentalNotice = 'El alquiler por horas es válido hasta las 20:00.\n' +
+    'Las reservas que finalicen después de las 20:00 se consideran alquiler por día completo.';
