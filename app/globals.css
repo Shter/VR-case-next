@@ -22,6 +22,14 @@ html, body { @apply bg-light text-dark antialiased; }
 .btn--ghost { background: white; color: var(--color-dark); }
 .btn--ghost:hover { background: white; color: var(--color-dark); }
 
+:root {
+  --header-offset: 70px;
+}
+
+section[id] {
+  scroll-margin-top: var(--header-offset);
+}
+
 .hero-bg {
   @apply min-h-[100vh] flex items-center justify-center text-center text-white py-24;
 }
@@ -50,7 +58,7 @@ nav ul li a:hover::after {
   width: 100%;
 }
 
-.card-glass { @apply rounded-2xl border border-white/20 bg-white/15 backdrop-blur p-2 md:p-8 shadow; }
+.card-glass { @apply rounded-2xl border border-white/20 bg-white/15 backdrop-blur px-2 py-3  md:p-8 shadow text-white text-center ; }
 
 .modal-backdrop { @apply fixed inset-0 z-50 hidden items-center justify-center bg-black/70; }
 .modal-backdrop[data-open="true"] { @apply flex; }

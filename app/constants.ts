@@ -1,17 +1,16 @@
 import type { Route } from "next";
 import type { UrlObject } from "url";
-import { asset } from '@/lib/site';
-import { FaqGalleryItem, GalleryImage, NavItem } from '@/types/allTypes';
+import { FaqGalleryItem, GalleryImage, NavItem, PricingOfferGroups } from '@/types/allTypes';
 
 export const navItems: NavItem[] = [
-    { href: { pathname: "/", hash: "home" } satisfies UrlObject, label: "Principal" },
-    { href: "/vr-buenos-aires" satisfies Route, label: "VR Buenos Aires" },
-    { href: { pathname: "/", hash: "about" } satisfies UrlObject, label: "Sobre nosotros" },
-    { href: { pathname: "/", hash: "features" } satisfies UrlObject, label: "Ventajas" },
-    { href: { pathname: "/", hash: "faq-gallery" } satisfies UrlObject, label: "FAQ/Gallery" },
-    { href: "/juegos" satisfies Route, label: "Juegos" },
-    { href: "/alquiler" satisfies Route, label: "Precios" },
-    { href: { pathname: "/", hash: "contact" } satisfies UrlObject, label: "Contactos" },
+    { href: '/' satisfies Route, label: 'Principal' },
+    { href: '/vr-buenos-aires' satisfies Route, label: 'VR Buenos Aires' },
+    { href: { pathname: '/', hash: 'about' } satisfies UrlObject, label: 'Sobre nosotros' },
+    { href: { pathname: '/', hash: 'features' } satisfies UrlObject, label: 'Ventajas' },
+    { href: { pathname: '/', hash: 'faq-gallery' } satisfies UrlObject, label: 'FAQ/Gallery' },
+    { href: '/juegos" satisfies Route, label: "Juegos" },
+    { href: "/alquiler' satisfies Route, label: 'Precios' },
+    { href: { pathname: '/', hash: 'contact' } satisfies UrlObject, label: 'Contactos' },
 ];
 
 export const advantages = [
@@ -49,12 +48,12 @@ export const serviceCards = [
 ];
 
 export const featuresItems = [
-  { img: asset('/images/gamepad.webp'), title: 'Más de 100 juegos', text: 'Una enorme biblioteca de los juegos y aplicaciones VR más populares' },
-  { img: asset('/images/lightning.webp'), title: 'Favorito por su rendimiento', text: 'Pantalla mejorada y procesador para una experiencia fluida' },
-  { img: asset('/images/support.webp'), title: 'Online soporte completo', text: 'Asesoramiento y asistencia durante todo el período de alquiler' },
-  { img: asset('/images/prise.webp'), title: 'Equipo profesional', text: 'Solo dispositivos originales con garantía y mantenimiento' },
-  { img: asset('/images/dron.webp'), title: 'Envío rápido', text: 'Te llevamos el equipo cuando y donde te convenga' },
-  { img: asset('/images/flex.webp'), title: 'Condiciones flexibles', text: 'Desde horas hasta semanas a tarifas competitivas' },
+  { img: '/images/gamepad.webp', title: 'Más de 100 juegos', text: 'Una enorme biblioteca de los juegos y aplicaciones VR más populares' },
+  { img: '/images/lightning.webp', title: 'Favorito por su rendimiento', text: 'Pantalla mejorada y procesador para una experiencia fluida' },
+  { img: '/images/support.webp', title: 'Online soporte completo', text: 'Asesoramiento y asistencia durante todo el período de alquiler' },
+  { img: '/images/prise.webp', title: 'Equipo profesional', text: 'Solo dispositivos originales con garantía y mantenimiento' },
+  { img: '/images/dron.webp', title: 'Envío rápido', text: 'Te llevamos el equipo cuando y donde te convenga' },
+  { img: '/images/flex.webp', title: 'Condiciones flexibles', text: 'Desde horas hasta semanas a tarifas competitivas' },
 ];
 
 export const faqItems: FaqGalleryItem[] = [
@@ -83,7 +82,7 @@ export const faqItems: FaqGalleryItem[] = [
 export const galleryImages: GalleryImage[] = [
     {
         id: 'on-station',
-        src: asset('/images/on-station.webp'),
+        src: '/images/on-station.webp',
         alt: 'Meta Quest 3 en estación',
         caption: 'Entrega con estación',
         width: 1024,
@@ -91,7 +90,7 @@ export const galleryImages: GalleryImage[] = [
     },
     {
         id: 'two-cases',
-        src: asset('/images/on-wood.webp'),
+        src: '/images/on-wood.webp',
         alt: 'Dos estuches de Meta Quest 3 listos para traslado',
         caption: 'Múltiples visores para tu evento',
         width: 860,
@@ -99,7 +98,7 @@ export const galleryImages: GalleryImage[] = [
     },
     {
         id: 'nature',
-        src: asset('/images/on-station-front.webp'),
+        src: '/images/on-station-front.webp',
         alt: 'Persona usando Meta Quest 3 en un ambiente natural',
         caption: 'Soporte permanente para aprovechar la VR',
         width: 1024,
@@ -107,10 +106,82 @@ export const galleryImages: GalleryImage[] = [
     },
     {
         id: 'in-case',
-        src: asset('/images/in-case.webp'),
+        src: '/images/in-case.webp',
         alt: 'Meta Quest 3 dentro de estuche rígido',
         caption: 'Todo ordenado en un estuche de transporte',
         width: 788,
         height: 1182,
     },
 ];
+
+export const pricingItems: PricingOfferGroups = {
+    oneHeadset : [
+        {
+            id       : '2h-1',
+            rentLimit: 'De 2 a 4 horas de experiencia',
+            title    : 'VR por 2 horas',
+            headsets : 1,
+            period   : '2h',
+            price    : 20000,
+            plusPrice: 7000,
+            plusUnit : 'hora'
+        },
+        {
+            id       : 'day-1',
+            rentLimit: 'Desde 1 dia',
+            title    : 'VR por dia',
+            headsets : 1,
+            period   : 'day',
+            price    : 55000,
+            plusPrice: 35000,
+            plusUnit : 'dia'
+        },
+        {
+            id       : 'week-1',
+            rentLimit: 'Desde 1 semana',
+            title    : 'VR por semana',
+            headsets : 1,
+            period   : 'week',
+            price    : 220000,
+            plusPrice: 100000,
+            plusUnit : 'semana'
+        }
+    ],
+    twoHeadsets: [
+        {
+            id       : '2h-2',
+            rentLimit: 'De 2 a 4 horas de experiencia',
+            title    : 'VR por 2 horas',
+            headsets : 2,
+            period   : '2h',
+            price    : 35000,
+            plusPrice: 16000,
+            plusUnit : 'hora'
+        },
+        {
+            id       : 'day-2',
+            rentLimit: 'Desde 1 dia',
+            title    : 'VR por dia',
+            headsets : 2,
+            period   : 'day',
+            price    : 100000,
+            plusPrice: 40000,
+            plusUnit : 'dia'
+        },
+        {
+            id       : 'week-2',
+            rentLimit: 'Desde 1 semana',
+            title    : 'VR por semana',
+            headsets : 2,
+            period   : 'week',
+            price    : 380000,
+            plusPrice: 140000,
+            plusUnit : 'semana'
+        }
+    ]
+}
+
+export const defaultEvents: Array<keyof WindowEventMap> = ['mousedown', 'touchstart'];
+
+export const hourlyRentalNotice = 'El alquiler por horas es válido hasta las 20:00.\n' +
+    'Las reservas que finalicen después de las 20:00 se consideran alquiler por día completo.';

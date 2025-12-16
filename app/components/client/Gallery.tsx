@@ -1,10 +1,11 @@
 'use client';
 
-import Image                      from 'next/image';
-import { useState }      from 'react';
+import Image from 'next/image';
+import { useState } from 'react';
 import clsx                       from 'clsx';
 import { FaqGalleryPhotoViewer }  from '@/components/client/FaqGalleryPhotoViewer';
 import { galleryImages }          from "@/app/constants";
+import { asset }                  from "@/lib/site";
 
 export function Gallery() {
     const containerClass = "grid grid-flow-col auto-cols-[minmax(260px,1fr)] gap-5 overflow-x-auto lg:auto-cols-auto lg:grid-flow-row lg:grid-cols-2 lg:max-h-[680px] lg:overflow-x-hidden lg:overflow-y-auto";
@@ -48,7 +49,7 @@ export function Gallery() {
                             >
                                 <div className="relative h-56 w-full cursor-pointer">
                                     <Image
-                                        src={item.src}
+                                        src={asset(item.src)}
                                         alt={item.alt}
                                         width={item.width}
                                         height={item.height}

@@ -5,20 +5,34 @@ import { useState } from 'react';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
-
-import { AppDialog }                     from '@/components/client/AppDialog';
-import { asset }                         from '@/lib/site';
+import { AppDialog } from '@/components/client/AppDialog';
+import { asset } from '@/lib/site';
 import { ReservePlanDialogTriggerProps } from '@/types/allTypes';
 
 export function ReserveDialog({
     offerId,
     buttonLabel = "Reservar",
-    description = "Elige el canal de contacto para confirmar la reserva del plan.",
+    description = "Elige el canal de contacto para confirmar la reserva del plan",
 }: ReservePlanDialogTriggerProps) {
     const [isDialogOpen, setDialogOpen] = useState(false);
-
     const handleOpenDialog = () => setDialogOpen(true);
     const handleCloseDialog = () => setDialogOpen(false);
+    const buttonSxObj = {
+        backgroundColor: "var(--color-accent)",
+        color: "white",
+        borderRadius: "9999px",
+        px: 3,
+        py: 1.5,
+        fontWeight: 600,
+        textTransform: "none",
+        boxShadow: "0 10px 20px rgba(0, 0, 0, 0.15)",
+        transition: "transform 0.2s ease, box-shadow 0.2s ease",
+        '&:hover': {
+            backgroundColor: "var(--color-accent)",
+            boxShadow: "0 12px 24px rgba(0, 0, 0, 0.18)",
+            transform: "translateY(-2px)",
+        },
+    };
 
     return (
         <>
@@ -26,22 +40,7 @@ export function ReserveDialog({
                 variant="contained"
                 onClick={handleOpenDialog}
                 disableElevation
-                sx={{
-                    backgroundColor: "var(--color-accent)",
-                    color: "white",
-                    borderRadius: "9999px",
-                    px: 3,
-                    py: 1.5,
-                    fontWeight: 600,
-                    textTransform: "none",
-                    boxShadow: "0 10px 20px rgba(0, 0, 0, 0.15)",
-                    transition: "transform 0.2s ease, box-shadow 0.2s ease",
-                    '&:hover': {
-                        backgroundColor: "var(--color-accent)",
-                        boxShadow: "0 12px 24px rgba(0, 0, 0, 0.18)",
-                        transform: "translateY(-2px)",
-                    },
-                }}
+                sx={buttonSxObj}
             >
                 {buttonLabel}
             </Button>

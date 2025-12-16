@@ -1,4 +1,4 @@
-import offersData from '@/data/pricing.json';
+import { pricingItems } from '@/app/constants';
 import type { Offer } from '@/types/allTypes';
 import { absoluteAsset, site } from '@/lib/site';
 
@@ -9,11 +9,9 @@ const sameAsLinks = [
 
 const baseAddress = {
     "@type": "PostalAddress",
-    streetAddress: "Av. Cabildo 1200",
     addressLocality: "Buenos Aires",
     addressRegion: "CABA",
-    addressCountry: "AR",
-    postalCode: "1426"
+    addressCountry: "AR"
 };
 
 const geoCoordinates = {
@@ -55,28 +53,120 @@ const contactPoints = [
     }
 ];
 
+function resolveProductImage(headsets: number) {
+    if (headsets >= 2) {
+        return absoluteAsset('/images/on-wood.webp');
+    }
+
+    return absoluteAsset('/images/in-case.webp');
+}
+
+function createProductDescription(offer: Offer) {
+    const periodLabel =
+        offer.period === '2h'
+            ? 'Sesiones intensivas de 2 a 4 horas'
+            : offer.period === 'day'
+              ? 'Cobertura completa por día'
+              : 'Reserva semanal con soporte extendido';
+
+    return `${offer.title} para ${offer.headsets} visores Meta Quest 3. ${offer.rentLimit}. ${periodLabel}. Incluye entrega coordinada, onboarding guiado y soporte remoto.`;
+}
+
+function createShippingDetails() {
+    return {
+        "@type": "OfferShippingDetails",
+        shippingDestination: {
+            "@type": "DefinedRegion",
+            addressCountry: "AR",
+            addressRegion: "CABA",
+            addressLocality: "Ciudad Autónoma de Buenos Aires"
+        },
+        shippingRate: {
+            "@type": "MonetaryAmount",
+            value: 0,
+            currency: "ARS"
+        },
+        transitTimeLabel: "Entrega coordinada en el día dentro de CABA",
+        deliveryTime: {
+            "@type": "ShippingDeliveryTime",
+            handlingTime: {
+                "@type": "QuantitativeValue",
+                minValue: 0,
+                maxValue: 1,
+                unitCode: "DAY"
+            },
+            transitTime: {
+                "@type": "QuantitativeValue",
+                minValue: 0,
+                maxValue: 1,
+                unitCode: "DAY"
+            }
+        }
+    };
+}
+
+function createMerchantReturnPolicy() {
+    return {
+        "@type": "MerchantReturnPolicy",
+        "@id": `${site.url}/#return-policy`,
+        name: "Política de devoluciones VR.CASE",
+        applicableCountry: "AR",
+        returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+        merchantReturnDays: 1,
+        returnFees: "https://schema.org/FreeReturn",
+        refundType: "https://schema.org/FullRefund",
+        returnMethod: "https://schema.org/ReturnInStore",
+        inStoreReturnsOffered: true
+    };
+}
+
+const merchantReturnPolicy = createMerchantReturnPolicy();
+
 function getOffers() {
-    return (offersData as Offer[]).map((offer) => {
-        const headsetsLabel = offer.headsets === 1 ? "1 Meta Quest 3" : `${offer.headsets} Meta Quest 3`;
+    const offerGroups = Object.values(pricingItems) as Offer[][];
+    const offers = offerGroups.reduce<Offer[]>((acc, group) => acc.concat(group), []);
+
+    return offers.map((offer) => {
+        const headsetsLabel = `${offer.headsets} Meta Quest 3`;
+        const offerId = `${site.url}/alquiler#offer-${offer.id}`;
+        const productId = `${site.url}/alquiler#product-${offer.id}`;
+        const offerUrl = `${site.url}/alquiler#${offer.id}`;
+
+        const offerSummary = {
+            "@type": "Offer",
+            "@id": offerId,
+            priceCurrency: "ARS",
+            price: offer.price,
+            availability: "https://schema.org/InStock",
+            url: offerUrl,
+            seller: { "@id": `${site.url}/#rental-service` }
+        };
+
+        const itemOffered = {
+            "@type": "Product",
+            "@id": productId,
+            name: `Alquiler ${headsetsLabel}`,
+            description: createProductDescription(offer),
+            category: "Realidad virtual",
+            sku: offer.id,
+            image: [resolveProductImage(offer.headsets)],
+            offers: offerSummary
+        };
 
         return {
             "@type": "Offer",
-            "@id": `${site.url}/alquiler#offer-${offer.id}`,
+            "@id": offerId,
             name: `${offer.title} (${headsetsLabel})`,
             description: offer.rentLimit,
             priceCurrency: "ARS",
             price: offer.price,
             availability: "https://schema.org/InStock",
-            url: `${site.url}/alquiler#${offer.id}`,
+            url: offerUrl,
             eligibleCustomerType: "https://schema.org/Consumer",
             eligibleRegion: serviceArea,
-            itemOffered: {
-                "@type": "Product",
-                "@id": `${site.url}/alquiler#product-${offer.id}`,
-                name: `Alquiler ${headsetsLabel}`,
-                brand: { "@type": "Brand", name: "Meta Quest" },
-                category: "Realidad virtual"
-            },
+            itemOffered,
+            shippingDetails: [createShippingDetails()],
+            hasMerchantReturnPolicy: merchantReturnPolicy,
             seller: { "@id": `${site.url}/#rental-service` },
             ...(offer.plusPrice
                 ? {

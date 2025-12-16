@@ -1,7 +1,7 @@
 import { Route } from "next";
-import { UrlObject }        from "url";
+import { UrlObject } from "url";
 import { ReactElement, ReactNode, MouseEvent } from "react";
-import { DialogProps }      from "@mui/material/Dialog";
+import { DialogProps } from "@mui/material/Dialog";
 
 export type Offer = {
     id: string;
@@ -12,6 +12,11 @@ export type Offer = {
     rentLimit: string;
     plusPrice?: number;
     plusUnit?: string;
+};
+
+export type PricingOfferGroups = {
+    oneHeadset: Offer[];
+    twoHeadsets: Offer[];
 };
 
 type NavHref = Route | UrlObject;
@@ -55,10 +60,6 @@ export type ReservePlanDialogTriggerProps = {
     offerId: string;
     buttonLabel?: string;
     description?: string;
-};
-
-export type AboutVideoProps = {
-    referenceSelector: string;
 };
 
 export type GalleryImage = {

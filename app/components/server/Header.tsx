@@ -1,8 +1,8 @@
 import Image from 'next/image';
-import Link                 from 'next/link';
-import { navItems }         from '@/app/constants';
-import { asset }            from '@/lib/site';
-import { HeaderMenu }       from '@/components/client/HeaderMenu';
+import Link from 'next/link';
+import { navItems } from '@/app/constants';
+import { asset } from '@/lib/site';
+import { HeaderMenu } from '@/components/client/HeaderMenu';
 import { HeaderNavigation } from '@/components/server/HeaderNavigation';
 
 export function Header() {

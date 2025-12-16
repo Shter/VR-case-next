@@ -1,7 +1,9 @@
-import { Footer }      from '@/components/server/Footer';
-import { Header }      from '@/components/server/Header';
+import { Footer } from '@/components/server/Footer';
+import { Header } from '@/components/server/Header';
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import { asset, site } from '@/lib/site';
 import { Metadata } from 'next';
+import { Analytics } from '@vercel/analytics/react';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -46,14 +48,17 @@ export const metadata: Metadata = {
     }
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({children}: {children: React.ReactNode}) {
     return (
         <html lang="es-AR">
-        <body className="min-h-screen flex flex-col">
-        <Header/>
-        <main className="flex-1">{children}</main>
-        <Footer/>
-        </body>
+            <AppRouterCacheProvider>
+                <body className="min-h-screen flex flex-col">
+                    <Header/>
+                    <main className="flex-1">{children}</main>
+                    <Footer/>
+                    <Analytics />
+                </body>
+            </AppRouterCacheProvider>
         </html>
     );
 }

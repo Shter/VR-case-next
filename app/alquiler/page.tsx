@@ -1,9 +1,15 @@
-import { JsonLd }  from '@/components/server/JsonLd';
+import { JsonLd } from '@/components/server/JsonLd';
 import { Pricing } from '@/components/server/Pricing';
-import { asset }   from '@/lib/site';
+import { asset } from '@/lib/site';
 import { pricingBreadcrumbLd, pricingRentalLd } from '@/lib/structured';
 import type { Metadata } from 'next';
 import Link from 'next/link';
+
+const AccentNoticeIcon = () => (
+    <span className="inline-flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border-3 border-accent text-accent text-2xl leading-none">
+        !
+    </span>
+);
 
 export const metadata: Metadata = {
     title: "VR Buenos Aires — Precios de alquiler de lentes VR (Meta Quest 3) | VR.CASE",
@@ -31,21 +37,30 @@ export default function Page() {
         <>
             <JsonLd data={pricingBreadcrumbLd()} />
             <JsonLd data={pricingRentalLd()} />
+
             <div className="container pt-24">
-                <div className="text-center">
+                <div className="flex flex-col text-center">
                     <h1 className="text-4xl md:text-5xl font-extrabold mb-6 md:mb-8">
                         Precios de alquiler de realidad virtual VR en Buenos Aires
                     </h1>
 
-                    <p className="text-lg opacity-90">
+                    <p className="text-lg opacity-90 mb-2 md:mb-4">
                         Elegí entre planes por sesión, día completo o semana y recibí los headsets Meta Quest 3 listos
-                        para usar con entrega en Buenos Aires (BA). Todas las tarifas incluyen asesoramiento previo,
+                        para usar con entrega en Buenos Aires (BA) y zona Norte. Todas las tarifas incluyen asesoramiento previo,
                         instalación guiada, soporte remoto durante la experiencia del equipamiento
                     </p>
+
+                    <div className="self-center flex items-center gap-4 w-fit border-5 rounded-2xl border-accent text-center py-4 px-4 md:px-6 font-bold">
+                        <AccentNoticeIcon />
+                        <span>LOS PRECIOS PARA LOS DÍAS FESTIVOS SE DEBEN CONSULTAR CON EL OPERADOR</span>
+                        <AccentNoticeIcon />
+                    </div>
                 </div>
             </div>
 
-            <section className="container mt-8">
+            <Pricing />
+
+            <section className="container mb-8">
                 <div className="grid gap-8 lg:grid-cols-2">
                     <div className="space-y-4 rounded-2xl bg-gray-200 p-8 shadow-soft">
                         <h2 className="text-2xl font-semibold">Qué incluye cada alquiler</h2>
@@ -60,6 +75,7 @@ export default function Page() {
 
                     <div className="space-y-4 rounded-2xl bg-gray-200  p-8 shadow-soft">
                         <h2 className="text-2xl font-semibold">Cómo elegir el plan ideal</h2>
+
                         <p>
                             Para demos breves o stands itinerantes recomendamos la modalidad por 2 a 4 horas. Los
                             eventos corporativos y activaciones de marketing suelen funcionar mejor con el plan diario,
@@ -68,21 +84,21 @@ export default function Page() {
 
                         <p>
                             Si necesitás asistencia presencial o mayor cantidad de visores,&nbsp;
+
                             <Link href="/#contact" className="text-accent font-bold hover:underline">
                                 escribinos
                             </Link>
+
                             &nbsp;para preparar un paquete personalizado
                         </p>
                     </div>
                 </div>
             </section>
 
-            <Pricing />
-
             <section className="container mb-12">
                 <div className="space-y-2">
-                    <div className="flex flex-row items-center">
-                        <h2 className="text-2xl font-semibold">Beneficios de alquilar con&nbsp;</h2>
+                    <div className="flex flex-col gap-1 text-center md:text-left md:flex-row md:items-center md:gap-3">
+                        <h2 className="text-2xl font-semibold">Beneficios de alquilar con</h2>
                         <span className="header-logo font-bold text-xl">VR<span className="text-secondary">.CASE</span></span>
                     </div>
 

@@ -1,81 +1,72 @@
 "use client";
 
-import CloseIcon from '@mui/icons-material/Close';
-import MenuIcon from '@mui/icons-material/Menu';
-import { isValidElement, useEffect, useRef, useState } from 'react';
-import type { HeaderMenuProps }                        from '@/types/allTypes';
+import MenuIcon from "@mui/icons-material/Menu";
+import { MouseEvent, isValidElement, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import type { HeaderMenuProps } from "@/types/allTypes";
+import useClickAwayHeader from "@/lib/hooks/useClickAway";
+import CloseIcon from "@mui/icons-material/Close"
 
 export function HeaderMenu({ children }: HeaderMenuProps) {
     const [open, setOpen] = useState(false);
     const wrapperRef = useRef<HTMLDivElement | null>(null);
     const toggleRef = useRef<HTMLButtonElement | null>(null);
+    const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
+    const closeMenu = () => setOpen(false);
 
     useEffect(() => {
-        if (!open) {
-            return undefined;
-        }
-
-        const handlePointerDown = (event: PointerEvent) => {
-            const target = event.target as Node;
-            const wrapper = wrapperRef.current;
-            const toggle = toggleRef.current;
-
-            if (!wrapper || !toggle) {
-                return;
-            }
-
-            const isInsideMenu = wrapper.contains(target);
-            const isToggle = toggle.contains(target);
-
-            if (!isInsideMenu && !isToggle) {
-                setOpen(false);
-            }
-        };
-
-        document.addEventListener('pointerdown', handlePointerDown);
-        return () => document.removeEventListener('pointerdown', handlePointerDown);
-    }, [open]);
-
-    useEffect(() => {
-        const wrapper = wrapperRef.current;
-
-        if (!wrapper) {
-            return undefined;
-        }
-
-        const handleClick = (event: MouseEvent) => {
-            const target = event.target as HTMLElement | null;
-
-            if (target?.closest('a')) {
-                setOpen(false);
-            }
-        };
-
-        wrapper.addEventListener('click', handleClick);
-        return () => wrapper.removeEventListener('click', handleClick);
+        setPortalContainer(document.body);
     }, []);
+
+    useClickAwayHeader(wrapperRef, closeMenu);
+
+    const handleNavClick = (event: MouseEvent<HTMLDivElement>) => {
+        if (!open) {
+            return;
+        }
+
+        const target = event.target as HTMLElement | null;
+        const link = target?.closest('a');
+
+        if (link) {
+            closeMenu();
+        }
+    };
 
     const navNode = isValidElement(children) ? children : null;
     const baseClasses = 'fixed md:static top-0 right-0 h-screen md:h-auto max-w-xs md:max-w-none bg-dark md:bg-transparent mt-14 md:mt-0 pt-6 md:pt-0 px-8 md:px-0 transition-all z-50 md:z-auto';
     const translateClasses = open ? ' translate-x-0' : ' translate-x-full md:translate-x-0';
 
     return (
-        <div className="flex items-center">
-            <button
-                className="md:hidden cursor-pointer"
-                onClick={() => setOpen(value => !value)}
-                aria-label={open ? 'Close menu' : 'Open menu'}
-                ref={toggleRef}
-            >
-                {open ? <CloseIcon /> : <MenuIcon />}
-            </button>
+        <>
+            {open && portalContainer
+                ? createPortal(
+                    <div
+                        className="md:hidden fixed inset-0 bg-black/60 backdrop-blur-[2px] z-40"
+                        onClick={closeMenu}
+                    />,
+                    portalContainer,
+                )
+                : null}
 
-            <div
-                ref={wrapperRef}
-                className={baseClasses + translateClasses}
-            >
-                {navNode}
+            <div className="flex items-center">
+                <button
+                    className="md:hidden cursor-pointer"
+                    onClick={() => setOpen(value => !value)}
+                    aria-label={open ? 'Close menu' : 'Open menu'}
+                    ref={toggleRef}
+                >
+                    {open ? <CloseIcon /> : <MenuIcon />}
+                </button>
+
+                <div
+                    ref={wrapperRef}
+                    className={baseClasses + translateClasses}
+                    onClick={handleNavClick}
+                >
+                    {navNode}
+                </div>
             </div>
-        </div>
+        </>
     );
 }

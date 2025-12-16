@@ -15,14 +15,7 @@ const videoPrefix = getBlobPrefix('video').replace(/\/$/, '').replace(/^\/+/, ''
 const fallbackContentType = 'application/octet-stream';
 const mimeByExtension: Record<string, string> = {
   webp: 'image/webp',
-  jpg: 'image/jpeg',
-  jpeg: 'image/jpeg',
   png: 'image/png',
-  avif: 'image/avif',
-  gif: 'image/gif',
-  mp4: 'video/mp4',
-  webm: 'video/webm',
-  mov: 'video/quicktime',
 };
 
 function normalizeUploadedAt(value: Date | string): string {
@@ -31,6 +24,7 @@ function normalizeUploadedAt(value: Date | string): string {
   }
 
   const parsed = new Date(value);
+
   return Number.isNaN(parsed.getTime()) ? new Date().toISOString() : parsed.toISOString();
 }
 
@@ -42,6 +36,7 @@ function inferContentType(pathname: string, explicit?: string): string {
   const cleanPath = pathname.split('?')[0];
   const extension = cleanPath.split('.').pop() ?? '';
   const normalizedExtension = extension.toLowerCase();
+
   return mimeByExtension[normalizedExtension] || fallbackContentType;
 }
 
