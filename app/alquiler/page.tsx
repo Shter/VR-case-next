@@ -46,7 +46,7 @@ export default function Page() {
 
                     <p className="text-lg opacity-90 mb-2 md:mb-4">
                         Elegí entre planes por sesión, día completo o semana y recibí los headsets Meta Quest 3 listos
-                        para usar con entrega en Buenos Aires (BA). Todas las tarifas incluyen asesoramiento previo,
+                        para usar con entrega en Buenos Aires (BA) y zona Norte. Todas las tarifas incluyen asesoramiento previo,
                         instalación guiada, soporte remoto durante la experiencia del equipamiento
                     </p>
 
