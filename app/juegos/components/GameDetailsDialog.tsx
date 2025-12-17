@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import { AppDialog } from '@/components/client/AppDialog';
 import type { GameDetailsDialogProps } from '@/types/allTypes';
+import { Route } from "next"
 
 const EXCLUDED_FIELDS = new Set(['id', 'created_at']);
 
@@ -198,7 +199,12 @@ export function GameDetailsDialog({
                                         </dt>
                                         <dd className="text-sm text-gray-800 break-words">
                                             {entry.href ? (
-                                                <Link href={entry.href} target="_blank" rel="noreferrer noopener" className="text-primary underline">
+                                                <Link
+                                                    href={entry.href as Route}
+                                                    target="_blank"
+                                                    rel="noreferrer noopener"
+                                                    className="text-primary underline"
+                                                >
                                                     {entry.value}
                                                 </Link>
                                             ) : (

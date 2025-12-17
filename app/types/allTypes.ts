@@ -295,7 +295,7 @@ export type GameDetailsDialogProps = {
     copy: GameDetailsCopy;
     onClose: () => void;
     onRetry?: () => void;
-    backHref?: string;
+    backHref?: Route;
     preview?: GamePreview;
 };
 
@@ -306,5 +306,5 @@ export type GamesCatalogClientProps = GameBrowserProps & {
 export type StandaloneGameDialogProps = {
     game: Game;
     copy: GameDetailsCopy;
-    backHref: string;
+    backHref: Route;
 };

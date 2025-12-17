@@ -31,7 +31,7 @@ export async function fetchGenres(): Promise<Genre[]> {
                 name: typeof item.name === 'string' ? item.name : `Género #${item.id}`
             } satisfies Genre;
         })
-        .filter((genre: null): genre is Genre => genre !== null);
+        .filter((candidate): candidate is Genre => candidate !== null);
 }
 
 export async function fetchGamesPage(

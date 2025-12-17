@@ -1,3 +1,5 @@
+import type { Route } from 'next';
+
 function normalizeBasePath(basePath: string): string {
     if (!basePath || basePath === '/') {
         return '';
@@ -19,17 +21,17 @@ function withQuery(target: string, queryString?: string): string {
     return `${target}${normalizedQuery}`;
 }
 
-export function buildGameDetailHref(basePath: string, gameId: number | string, queryString?: string): string {
+export function buildGameDetailHref(basePath: string, gameId: number | string, queryString?: string): Route {
     const normalizedBase = normalizeBasePath(basePath);
     const encodedId = encodeURIComponent(String(gameId));
     const targetBase = normalizedBase ? `${normalizedBase}/${encodedId}` : `/${encodedId}`;
 
-    return withQuery(targetBase, queryString);
+    return withQuery(targetBase, queryString) as Route;
 }
 
-export function buildGamesListHref(basePath: string, queryString?: string): string {
+export function buildGamesListHref(basePath: string, queryString?: string): Route {
     const normalizedBase = normalizeBasePath(basePath);
     const targetBase = normalizedBase || '/';
 
-    return withQuery(targetBase, queryString);
+    return withQuery(targetBase, queryString) as Route;
 }
