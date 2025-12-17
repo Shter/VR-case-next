@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { MouseEvent } from 'react';
-import type { Game, GamesCatalogClientProps } from '@/types/allTypes';
+import type { Game, GamePreviewDictionary, GamesCatalogClientProps } from '@/types/allTypes';
 import { buildGameDetailHref, buildGamesListHref } from '@/lib/games/links';
 import { fetchGameClientById } from '@/lib/games/client';
 import { GameDetailsDialog } from './GameDetailsDialog';
@@ -37,6 +37,7 @@ export function GamesCatalogClient({
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isModalLoading, setIsModalLoading] = useState(false);
     const [modalError, setModalError] = useState<string | null>(null);
+    const [previewsByGameId, setPreviewsByGameId] = useState<GamePreviewDictionary>({});
 
     const knownGamesRef = useRef(new Map<string, Game>());
     const pendingIdRef = useRef<string | null>(null);
@@ -167,6 +168,7 @@ export function GamesCatalogClient({
                 onGameCardNavigate={handleCardNavigate}
                 onFiltersQueryChange={setCurrentQueryString}
                 onVisibleGamesChange={cacheGames}
+                onPreviewsChange={setPreviewsByGameId}
             />
 
             <GameDetailsDialog
@@ -178,6 +180,7 @@ export function GamesCatalogClient({
                 onClose={closeModal}
                 onRetry={handleRetry}
                 backHref={listHref}
+                preview={modalGame ? previewsByGameId[toCacheKey(modalGame.id)] : undefined}
             />
         </>
     );

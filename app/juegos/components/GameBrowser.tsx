@@ -6,7 +6,15 @@ import { usePathname } from 'next/navigation';
 import { supabaseClient } from '@/lib/supabase/client';
 import { GameFilters } from './GameFilters';
 import { GamesGrid } from './GamesGrid';
-import type { Game, GameBrowserProps, GameFiltersState } from '@/types/allTypes';
+import type {
+    Game,
+    GameBrowserProps,
+    GameFiltersState,
+    GamePreview,
+    GamePreviewDictionary,
+    GamePreviewRequestItem,
+    GamePreviewsResponse
+} from '@/types/allTypes';
 import {
     areFiltersEqual,
     buildFiltersQueryString,
@@ -16,8 +24,10 @@ import {
     parseSearchParam
 } from '@/lib/juegos/filters';
 import { normalizeGame } from '@/lib/juegos/normalizers';
+import { toGameCacheKey } from '@/lib/games/cache';
 
 const DEFAULT_PAGE_SIZE = 6;
+const PREVIEW_BATCH_LIMIT = 6;
 
 export function GameBrowser({
     initialGames,
@@ -32,7 +42,8 @@ export function GameBrowser({
     detailBasePath,
     onGameCardNavigate,
     onFiltersQueryChange,
-    onVisibleGamesChange
+    onVisibleGamesChange,
+    onPreviewsChange
 }: GameBrowserProps) {
     const pathname = usePathname();
 
@@ -47,6 +58,8 @@ export function GameBrowser({
         searchTerm: initialSearchTerm
     }));
     const [searchInput, setSearchInput] = useState<string>(initialSearchTerm);
+    const [previewsByGameId, setPreviewsByGameId] = useState<GamePreviewDictionary>({});
+    const [isPreviewLoading, setIsPreviewLoading] = useState(false);
 
     const latestRequestIdRef = useRef(0);
     const lastSyncedQueryRef = useRef(initialQueryString ?? '');
@@ -55,8 +68,36 @@ export function GameBrowser({
         multiplayerFilter: initialMultiplayerFilter,
         searchTerm: initialSearchTerm
     });
+    const previewRequestIdRef = useRef(0);
 
     const hasMore = games.length < total;
+
+    const upsertPreviews = useCallback((previews: GamePreview[]) => {
+        if (!previews || previews.length === 0) {
+            return;
+        }
+
+        setPreviewsByGameId((current) => {
+            const next = { ...current };
+            let mutated = false;
+
+            previews.forEach((preview) => {
+                const cacheKey = toGameCacheKey(preview.gameId);
+                const existing = next[cacheKey];
+
+                if (!existing
+                    || existing.posterUrl !== preview.posterUrl
+                    || existing.description !== preview.description
+                    || existing.videoUrl !== preview.videoUrl
+                ) {
+                    next[cacheKey] = preview;
+                    mutated = true;
+                }
+            });
+
+            return mutated ? next : current;
+        });
+    }, []);
 
     const currentQueryString = useMemo(
         () => buildFiltersQueryString(filters),
@@ -74,6 +115,76 @@ export function GameBrowser({
             onVisibleGamesChange(games);
         }
     }, [games, onVisibleGamesChange]);
+
+    useEffect(() => {
+        if (typeof onPreviewsChange === 'function') {
+            onPreviewsChange(previewsByGameId);
+        }
+    }, [onPreviewsChange, previewsByGameId]);
+
+    useEffect(() => {
+        const previewTargets: GamePreviewRequestItem[] = games
+            .filter((game) => typeof game.source_url === 'string' && game.source_url.trim().length > 0)
+            .filter((game) => !previewsByGameId[toGameCacheKey(game.id)])
+            .map((game) => ({
+                id: game.id,
+                sourceUrl: (game.source_url as string).trim()
+            }));
+
+        if (previewTargets.length === 0) {
+            setIsPreviewLoading(false);
+            return undefined;
+        }
+
+        let isSubscribed = true;
+        previewRequestIdRef.current += 1;
+        const requestId = previewRequestIdRef.current;
+        setIsPreviewLoading(true);
+
+        const fetchPreviews = async () => {
+            try {
+                for (let index = 0; index < previewTargets.length; index += PREVIEW_BATCH_LIMIT) {
+                    if (!isSubscribed || previewRequestIdRef.current !== requestId) {
+                        return;
+                    }
+
+                    const chunk = previewTargets.slice(index, index + PREVIEW_BATCH_LIMIT);
+                    const response = await fetch('/api/games/previews', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ games: chunk })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`preview-fetch-failed-${response.status}`);
+                    }
+
+                    const payload = await response.json() as GamePreviewsResponse;
+
+                    if (!isSubscribed || previewRequestIdRef.current !== requestId) {
+                        return;
+                    }
+
+                    upsertPreviews(payload.previews ?? []);
+                }
+            } catch (previewError) {
+                if (previewRequestIdRef.current === requestId) {
+                    console.error('[game-browser] failed to load previews', previewError);
+                }
+            } finally {
+                if (isSubscribed && previewRequestIdRef.current === requestId) {
+                    setIsPreviewLoading(false);
+                }
+            }
+        };
+
+        void fetchPreviews();
+
+        return () => {
+            isSubscribed = false;
+            previewRequestIdRef.current += 1;
+        };
+    }, [games, previewsByGameId, upsertPreviews]);
 
     const updateUrl = useCallback((queryString: string) => {
         const target = queryString ? `${pathname}?${queryString}` : pathname;
@@ -357,6 +468,8 @@ export function GameBrowser({
                 detailBasePath={detailBasePath}
                 copy={copy}
                 onGameCardNavigate={handleCardNavigate}
+                previewsByGameId={previewsByGameId}
+                isPreviewLoading={isPreviewLoading}
             />
         </div>
     );

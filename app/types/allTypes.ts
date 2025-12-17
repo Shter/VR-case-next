@@ -132,6 +132,34 @@ export type Game = {
     multiplayer: boolean | null;
     multiplayer_instructions: string | null;
     genre: number[] | null;
+    source_url?: string | null;
+    created_at?: string | null;
+};
+
+export type GamePreview = {
+    gameId: number | string;
+    posterUrl: string | null;
+    description: string | null;
+    videoUrl: string | null;
+    sourceUrl: string | null;
+    fetchedAt: string;
+};
+
+export type GamePreviewDictionary = Record<string, GamePreview>;
+
+export type GamePreviewRequestItem = {
+    id: number | string;
+    sourceUrl: string;
+};
+
+export type GamePreviewError = {
+    gameId: number | string;
+    message: string;
+};
+
+export type GamePreviewsResponse = {
+    previews: GamePreview[];
+    errors?: GamePreviewError[];
 };
 
 export type Genre = {
@@ -210,6 +238,7 @@ export type GameBrowserProps = {
     onGameCardNavigate?: (game: Game, href: string, event: MouseEvent<HTMLAnchorElement>) => void;
     onFiltersQueryChange?: (queryString: string) => void;
     onVisibleGamesChange?: (games: Game[]) => void;
+    onPreviewsChange?: (previews: GamePreviewDictionary) => void;
 };
 
 export type GameFiltersProps = {
@@ -234,6 +263,8 @@ export type GamesGridProps = {
     detailBasePath: string;
     copy: GameCatalogCopy;
     onGameCardNavigate?: (game: Game, href: string, event: MouseEvent<HTMLAnchorElement>) => void;
+    previewsByGameId: GamePreviewDictionary;
+    isPreviewLoading: boolean;
 };
 
 export type GameCardProps = {
@@ -242,6 +273,7 @@ export type GameCardProps = {
     detailBasePath: string;
     copy: GameCatalogCopy;
     onNavigate?: (game: Game, href: string, event: MouseEvent<HTMLAnchorElement>) => void;
+    preview?: GamePreview;
 };
 
 export type JuegosPageProps = {
@@ -264,6 +296,7 @@ export type GameDetailsDialogProps = {
     onClose: () => void;
     onRetry?: () => void;
     backHref?: string;
+    preview?: GamePreview;
 };
 
 export type GamesCatalogClientProps = GameBrowserProps & {

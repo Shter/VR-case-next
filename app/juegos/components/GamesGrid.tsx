@@ -1,8 +1,10 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import clsx from 'clsx';
 import { GameCard } from './GameCard';
 import type { GamesGridProps } from '@/types/allTypes';
+import { toGameCacheKey } from '@/lib/games/cache';
 
 export function GamesGrid({
     games,
@@ -13,7 +15,9 @@ export function GamesGrid({
     onLoadMore,
     detailBasePath,
     copy,
-    onGameCardNavigate
+    onGameCardNavigate,
+    previewsByGameId,
+    isPreviewLoading
 }: GamesGridProps) {
     const sentinelRef = useRef<HTMLDivElement | null>(null);
 
@@ -47,6 +51,14 @@ export function GamesGrid({
     }, [hasMore, isLoading, isLoadingMore, onLoadMore]);
 
     const showEmptyState = !isLoading && games.length === 0;
+    const pendingPreviewCount = games.filter((game) => {
+        if (!game.source_url) {
+            return false;
+        }
+        const cacheKey = toGameCacheKey(game.id);
+        return !previewsByGameId[cacheKey];
+    }).length;
+    const showPreviewOverlay = isPreviewLoading && pendingPreviewCount > 0;
 
     return (
         <div className="flex flex-col gap-8">
@@ -55,17 +67,34 @@ export function GamesGrid({
                     {copy.emptyState}
                 </p>
             ) : (
-                <div className="grid gap-6 md:grid-cols-3">
-                    {games.map((game) => (
-                        <GameCard
-                            key={String(game.id)}
-                            game={game}
-                            queryString={filtersQueryString}
-                            detailBasePath={detailBasePath}
-                            copy={copy}
-                            onNavigate={onGameCardNavigate}
-                        />
-                    ))}
+                <div className="relative" aria-busy={showPreviewOverlay}>
+                    {showPreviewOverlay ? (
+                        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-white/90 backdrop-blur-sm">
+                            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-gray-200" aria-hidden="true">
+                                <span className="h-4 w-4 animate-spin rounded-full border-2 border-gray-400 border-t-primary" />
+                            </span>
+                            <span className="text-sm font-semibold text-gray-700">{copy.loadingLabel}</span>
+                        </div>
+                    ) : null}
+                    <div
+                        className={clsx(
+                            'grid gap-6 md:grid-cols-3 transition-opacity duration-200',
+                            showPreviewOverlay && 'opacity-0'
+                        )}
+                        aria-hidden={showPreviewOverlay}
+                    >
+                        {games.map((game) => (
+                            <GameCard
+                                key={String(game.id)}
+                                game={game}
+                                queryString={filtersQueryString}
+                                detailBasePath={detailBasePath}
+                                copy={copy}
+                                onNavigate={onGameCardNavigate}
+                                preview={previewsByGameId[toGameCacheKey(game.id)]}
+                            />
+                        ))}
+                    </div>
                 </div>
             )}
 

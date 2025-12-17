@@ -7,6 +7,82 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { AppDialog } from '@/components/client/AppDialog';
 import type { GameDetailsDialogProps } from '@/types/allTypes';
 
+const EXCLUDED_FIELDS = new Set(['id', 'created_at']);
+
+type FieldEntry = {
+    key: string;
+    label: string;
+    value: string;
+    href?: string;
+};
+
+function formatLabel(key: string): string {
+    return key
+        .replace(/_/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .replace(/^(\w)/, (match) => match.toUpperCase());
+}
+
+function formatValue(value: unknown): { display: string; href?: string } {
+    if (value === null || typeof value === 'undefined') {
+        return { display: 'Sin datos' };
+    }
+
+    if (Array.isArray(value)) {
+        if (value.length === 0) {
+            return { display: 'Sin datos' };
+        }
+        return { display: value.map((item) => String(item)).join(', ') };
+    }
+
+    if (typeof value === 'boolean') {
+        return { display: value ? 'Sí' : 'No' };
+    }
+
+    if (typeof value === 'number') {
+        return { display: value.toString() };
+    }
+
+    if (typeof value === 'string') {
+        const trimmed = value.trim();
+        if (!trimmed) {
+            return { display: 'Sin datos' };
+        }
+
+        if (/^https?:\/\//i.test(trimmed)) {
+            return { display: trimmed, href: trimmed };
+        }
+
+        return { display: trimmed };
+    }
+
+    try {
+        return { display: JSON.stringify(value) };
+    } catch {
+        return { display: 'Sin datos' };
+    }
+}
+
+function buildFieldEntries(game: GameDetailsDialogProps['game']): FieldEntry[] {
+    if (!game) {
+        return [];
+    }
+
+    const entries: FieldEntry[] = [];
+
+    Object.entries(game as Record<string, unknown>).forEach(([key, value]) => {
+        if (EXCLUDED_FIELDS.has(key)) {
+            return;
+        }
+
+        const { display, href } = formatValue(value);
+        entries.push({ key, label: formatLabel(key), value: display, href });
+    });
+
+    return entries;
+}
+
 function Section({ title, content }: { title: string; content: string }) {
     return (
         <section className="flex flex-col gap-2">
@@ -24,13 +100,15 @@ export function GameDetailsDialog({
     copy,
     onClose,
     onRetry,
-    backHref
+    backHref,
+    preview
 }: GameDetailsDialogProps) {
     const fallbackTitle = game?.id ? `${copy.fallbackNamePrefix} ${game.id}` : copy.fallbackNamePrefix;
     const title = game?.name ?? fallbackTitle;
-    const coverUrl = game?.image_url ?? null;
+    const coverUrl = preview?.posterUrl ?? null;
+    const description = preview?.description ?? copy.descriptionPlaceholder;
+    const videoUrl = preview?.videoUrl ?? null;
     const isMultiplayer = game?.multiplayer === true;
-
     let bodyContent;
 
     if (isLoading) {
@@ -54,7 +132,18 @@ export function GameDetailsDialog({
     } else if (game) {
         bodyContent = (
             <div className="flex flex-col gap-6">
-                {coverUrl ? (
+                {videoUrl ? (
+                    <div className="overflow-hidden rounded-2xl">
+                        <video
+                            controls
+                            playsInline
+                            poster={coverUrl ?? undefined}
+                            className="h-full w-full"
+                        >
+                            <source src={videoUrl} />
+                        </video>
+                    </div>
+                ) : coverUrl ? (
                     <div className="overflow-hidden rounded-2xl">
                         <Image
                             src={coverUrl}
@@ -76,7 +165,7 @@ export function GameDetailsDialog({
 
                 <Section
                     title={copy.descriptionHeading}
-                    content={game.description ?? copy.descriptionPlaceholder}
+                    content={description}
                 />
 
                 <Section
@@ -90,6 +179,38 @@ export function GameDetailsDialog({
                         content={game.multiplayer_instructions ?? copy.multiplayerInstructionsPlaceholder}
                     />
                 ) : null}
+
+                {(() => {
+                    const fieldEntries = buildFieldEntries(game);
+
+                    if (fieldEntries.length === 0) {
+                        return null;
+                    }
+
+                    return (
+                        <div className="flex flex-col gap-3">
+                            <h3 className="text-base font-semibold text-gray-900">Campos de la tabla</h3>
+                            <dl className="grid gap-3">
+                                {fieldEntries.map((entry) => (
+                                    <div key={entry.key} className="flex flex-col gap-1">
+                                        <dt className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                                            {entry.label}
+                                        </dt>
+                                        <dd className="text-sm text-gray-800 break-words">
+                                            {entry.href ? (
+                                                <Link href={entry.href} target="_blank" rel="noreferrer noopener" className="text-primary underline">
+                                                    {entry.value}
+                                                </Link>
+                                            ) : (
+                                                entry.value
+                                            )}
+                                        </dd>
+                                    </div>
+                                ))}
+                            </dl>
+                        </div>
+                    );
+                })()}
             </div>
         );
     } else {

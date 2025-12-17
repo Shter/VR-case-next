@@ -39,6 +39,9 @@ export function normalizeGame(raw: Game): Game {
     const legacyImage = (raw as Game & { imageg_url?: string; imageUrl?: string }).imageg_url
         ?? (raw as Game & { imageg_url?: string; imageUrl?: string }).imageUrl
         ?? raw.image_url;
+    const listingSource = (raw as Game & { queststore_url?: string; listing_url?: string }).queststore_url
+        ?? (raw as Game & { queststore_url?: string; listing_url?: string }).listing_url
+        ?? raw.source_url;
 
     return {
         id: raw.id,
@@ -48,6 +51,8 @@ export function normalizeGame(raw: Game): Game {
         controls: sanitizeString(raw.controls),
         multiplayer: raw.multiplayer === true,
         multiplayer_instructions: sanitizeString(raw.multiplayer_instructions),
-        genre: sanitizeGenreList(raw.genre)
+        genre: sanitizeGenreList(raw.genre),
+        source_url: sanitizeString(listingSource),
+        created_at: sanitizeString((raw as Game & { created_at?: string }).created_at)
     };
 }

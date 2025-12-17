@@ -10,13 +10,12 @@ function isModifiedEvent(event: MouseEvent<HTMLAnchorElement>): boolean {
     return event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0;
 }
 
-export function GameCard({ game, queryString, detailBasePath, copy, onNavigate }: GameCardProps) {
+export function GameCard({ game, queryString, detailBasePath, copy, onNavigate, preview }: GameCardProps) {
     const name = typeof game.name === 'string' && game.name.trim().length > 0
         ? game.name.trim()
         : `${copy.card.fallbackNamePrefix} ${game.id}`;
-    const coverUrl = typeof game.image_url === 'string' && game.image_url.trim().length > 0
-        ? game.image_url
-        : null;
+    const previewPoster = typeof preview?.posterUrl === 'string' ? preview.posterUrl.trim() : '';
+    const coverUrl = previewPoster.length > 0 ? previewPoster : null;
     const href = buildGameDetailHref(detailBasePath, game.id, queryString);
 
     const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
@@ -32,7 +31,7 @@ export function GameCard({ game, queryString, detailBasePath, copy, onNavigate }
         <Link
             href={href}
             onClick={handleClick}
-            className="group flex h-full flex-col overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-soft transition-shadow hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+            className="group flex h-full flex-col overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-soft transition-shadow hover:shadow-lg focus-visible:outline focus-visible:outline-offset-4 focus-visible:outline-primary"
         >
             <div className="relative h-48 w-full overflow-hidden bg-gray-100">
                 {coverUrl ? (
