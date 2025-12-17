@@ -235,10 +235,10 @@ export type GameBrowserProps = {
     pageSize?: number;
     copy: GameCatalogCopy;
     detailBasePath: string;
-    onGameCardNavigate?: (game: Game, href: string, event: MouseEvent<HTMLAnchorElement>) => void;
-    onFiltersQueryChange?: (queryString: string) => void;
-    onVisibleGamesChange?: (games: Game[]) => void;
-    onPreviewsChange?: (previews: GamePreviewDictionary) => void;
+    onGameCardNavigateAction?: (game: Game, href: string, event: MouseEvent<HTMLAnchorElement>) => void;
+    onFiltersQueryChangeAction?: (queryString: string) => void;
+    onVisibleGamesChangeAction?: (games: Game[]) => void;
+    onPreviewsChangeAction?: (previews: GamePreviewDictionary) => void;
 };
 
 export type GameFiltersProps = {
@@ -262,7 +262,7 @@ export type GamesGridProps = {
     onLoadMore: () => void;
     detailBasePath: string;
     copy: GameCatalogCopy;
-    onGameCardNavigate?: (game: Game, href: string, event: MouseEvent<HTMLAnchorElement>) => void;
+    onGameCardNavigateAction?: (game: Game, href: string, event: MouseEvent<HTMLAnchorElement>) => void;
     previewsByGameId: GamePreviewDictionary;
     isPreviewLoading: boolean;
 };

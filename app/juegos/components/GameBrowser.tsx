@@ -40,10 +40,10 @@ export function GameBrowser({
     pageSize = DEFAULT_PAGE_SIZE,
     copy,
     detailBasePath,
-    onGameCardNavigate,
-    onFiltersQueryChange,
-    onVisibleGamesChange,
-    onPreviewsChange
+    onGameCardNavigateAction,
+    onFiltersQueryChangeAction,
+    onVisibleGamesChangeAction,
+    onPreviewsChangeAction
 }: GameBrowserProps) {
     const pathname = usePathname();
 
@@ -105,22 +105,22 @@ export function GameBrowser({
     );
 
     useEffect(() => {
-        if (typeof onFiltersQueryChange === 'function') {
-            onFiltersQueryChange(currentQueryString);
+        if (typeof onFiltersQueryChangeAction === 'function') {
+            onFiltersQueryChangeAction(currentQueryString);
         }
-    }, [currentQueryString, onFiltersQueryChange]);
+    }, [currentQueryString, onFiltersQueryChangeAction]);
 
     useEffect(() => {
-        if (typeof onVisibleGamesChange === 'function') {
-            onVisibleGamesChange(games);
+        if (typeof onVisibleGamesChangeAction === 'function') {
+            onVisibleGamesChangeAction(games);
         }
-    }, [games, onVisibleGamesChange]);
+    }, [games, onVisibleGamesChangeAction]);
 
     useEffect(() => {
-        if (typeof onPreviewsChange === 'function') {
-            onPreviewsChange(previewsByGameId);
+        if (typeof onPreviewsChangeAction === 'function') {
+            onPreviewsChangeAction(previewsByGameId);
         }
-    }, [onPreviewsChange, previewsByGameId]);
+    }, [onPreviewsChangeAction, previewsByGameId]);
 
     useEffect(() => {
         const previewTargets: GamePreviewRequestItem[] = games
@@ -156,7 +156,8 @@ export function GameBrowser({
                     });
 
                     if (!response.ok) {
-                        throw new Error(`preview-fetch-failed-${response.status}`);
+                        console.error('[game-browser] preview fetch failed', response.status);
+                        break;
                     }
 
                     const payload = await response.json() as GamePreviewsResponse;
@@ -204,7 +205,7 @@ export function GameBrowser({
     const fetchGames = useCallback(async (
         offset: number,
         filtersToApply: GameFiltersState
-    ): Promise<{ games: Game[]; total: number }> => {
+    ): Promise<{ games: Game[]; total: number; error?: Error }> => {
         const rangeStart = offset;
         const rangeEnd = offset + pageSize - 1;
 
@@ -231,7 +232,8 @@ export function GameBrowser({
         const { data, error: fetchError, count } = await query;
 
         if (fetchError) {
-            throw fetchError;
+            console.error('[game-browser] failed to fetch games batch', fetchError);
+            return { games: [], total: 0, error: fetchError };
         }
 
         const normalizedGames = (data ?? []).map((item) => normalizeGame(item as Game));
@@ -257,14 +259,20 @@ export function GameBrowser({
         }
 
         try {
-            const { games: fetchedGames, total: fetchedTotal } = await fetchGames(0, nextFilters);
+            const result = await fetchGames(0, nextFilters);
 
             if (latestRequestIdRef.current !== requestId) {
                 return;
             }
 
-            setGames(fetchedGames);
-            setTotal(fetchedTotal);
+            if (result.error) {
+                console.error('[game-browser] failed to load games', result.error);
+                setError(copy.fetchErrorMessage);
+                return;
+            }
+
+            setGames(result.games);
+            setTotal(result.total);
             latestFiltersRef.current = nextFilters;
         } catch (fetchError) {
             if (latestRequestIdRef.current !== requestId) {
@@ -369,14 +377,20 @@ export function GameBrowser({
         const requestId = latestRequestIdRef.current;
 
         try {
-            const { games: fetchedGames, total: fetchedTotal } = await fetchGames(games.length, filters);
+            const result = await fetchGames(games.length, filters);
 
             if (latestRequestIdRef.current !== requestId) {
                 return;
             }
 
-            setGames((current) => [...current, ...fetchedGames]);
-            setTotal(fetchedTotal);
+            if (result.error) {
+                console.error('[game-browser] failed to load more games', result.error);
+                setError(copy.loadMoreErrorMessage);
+                return;
+            }
+
+            setGames((current) => [...current, ...result.games]);
+            setTotal(result.total);
         } catch (fetchError) {
             if (latestRequestIdRef.current !== requestId) {
                 return;
@@ -433,8 +447,8 @@ export function GameBrowser({
     }, [applyFilters, initialQueryString]);
 
     const handleCardNavigate = useCallback((game: Game, href: string, event: MouseEvent<HTMLAnchorElement>) => {
-        onGameCardNavigate?.(game, href, event);
-    }, [onGameCardNavigate]);
+        onGameCardNavigateAction?.(game, href, event);
+    }, [onGameCardNavigateAction]);
 
     return (
         <div className="flex flex-col gap-14">
@@ -467,7 +481,7 @@ export function GameBrowser({
                 onLoadMore={handleLoadMore}
                 detailBasePath={detailBasePath}
                 copy={copy}
-                onGameCardNavigate={handleCardNavigate}
+                onGameCardNavigateAction={handleCardNavigate}
                 previewsByGameId={previewsByGameId}
                 isPreviewLoading={isPreviewLoading}
             />

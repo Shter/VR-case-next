@@ -165,10 +165,10 @@ export function GamesCatalogClient({
                 {...browserProps}
                 copy={copy}
                 detailBasePath={detailBasePath}
-                onGameCardNavigate={handleCardNavigate}
-                onFiltersQueryChange={setCurrentQueryString}
-                onVisibleGamesChange={cacheGames}
-                onPreviewsChange={setPreviewsByGameId}
+                onGameCardNavigateAction={handleCardNavigate}
+                onFiltersQueryChangeAction={setCurrentQueryString}
+                onVisibleGamesChangeAction={cacheGames}
+                onPreviewsChangeAction={setPreviewsByGameId}
             />
 
             <GameDetailsDialog

@@ -15,7 +15,7 @@ export function GamesGrid({
     onLoadMore,
     detailBasePath,
     copy,
-    onGameCardNavigate,
+    onGameCardNavigateAction,
     previewsByGameId,
     isPreviewLoading
 }: GamesGridProps) {
@@ -90,7 +90,7 @@ export function GamesGrid({
                                 queryString={filtersQueryString}
                                 detailBasePath={detailBasePath}
                                 copy={copy}
-                                onNavigate={onGameCardNavigate}
+                                onNavigate={onGameCardNavigateAction}
                                 preview={previewsByGameId[toGameCacheKey(game.id)]}
                             />
                         ))}
