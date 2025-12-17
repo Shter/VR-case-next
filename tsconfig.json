@@ -14,16 +14,32 @@
     "moduleResolution": "Bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"],
-      "@/app/*": ["app/*"],
-      "@/components/*": ["components/*", "app/components/*"],
-      "@/lib/*": ["lib/*", "app/lib/*"],
-      "@/data/*": ["data/*", "app/data/*"],
-      "@/types/*": ["types/*", "app/types/*"]
+      "@/*": [
+        "./*"
+      ],
+      "@/app/*": [
+        "app/*"
+      ],
+      "@/components/*": [
+        "components/*",
+        "app/components/*"
+      ],
+      "@/lib/*": [
+        "lib/*",
+        "app/lib/*"
+      ],
+      "@/data/*": [
+        "data/*",
+        "app/data/*"
+      ],
+      "@/types/*": [
+        "types/*",
+        "app/types/*"
+      ]
     },
     "allowJs": true,
     "incremental": true,
@@ -37,7 +53,8 @@
     "**/*.ts",
     "**/*.tsx",
     "next-env.d.ts",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"

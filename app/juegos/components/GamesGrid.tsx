@@ -109,7 +109,7 @@ export function GamesGrid({
                         type="button"
                         onClick={onLoadMore}
                         disabled={isLoadingMore}
-                        className="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-60"
+                        className="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-60"
                     >
                         {isLoadingMore ? copy.loadMoreLoadingLabel : copy.loadMoreLabel}
                     </button>
