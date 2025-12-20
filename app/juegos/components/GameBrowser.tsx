@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import type { MouseEvent } from 'react';
 import { usePathname } from 'next/navigation';
 import { supabaseClient } from '@/lib/supabase/client';
@@ -29,6 +29,62 @@ import { toGameCacheKey } from '@/lib/games/cache';
 
 const DEFAULT_PAGE_SIZE = 6;
 const PREVIEW_BATCH_LIMIT = 6;
+const MIN_GRID_LOADING_MS = 1200;
+
+function useMinimumLoadingDelay(isActive: boolean, minimumDurationMs: number, options: { initialActive?: boolean } = {}): boolean {
+    const { initialActive = false } = options;
+    const [isVisible, setIsVisible] = useState(initialActive);
+    const startRef = useRef<number>(initialActive ? Date.now() : 0);
+    const timeoutRef = useRef<number | null>(null);
+
+    useEffect(() => {
+        if (isActive) {
+            startRef.current = Date.now();
+            setIsVisible(true);
+            if (timeoutRef.current) {
+                window.clearTimeout(timeoutRef.current);
+                timeoutRef.current = null;
+            }
+            return;
+        }
+
+        const elapsed = Date.now() - startRef.current;
+        const remaining = Math.max(minimumDurationMs - elapsed, 0);
+
+        if (timeoutRef.current) {
+            window.clearTimeout(timeoutRef.current);
+            timeoutRef.current = null;
+        }
+
+        if (remaining === 0) {
+            setIsVisible(false);
+            return;
+        }
+
+        const timeoutId = window.setTimeout(() => {
+            setIsVisible(false);
+            timeoutRef.current = null;
+        }, remaining);
+
+        timeoutRef.current = timeoutId;
+
+        return () => {
+            window.clearTimeout(timeoutId);
+            if (timeoutRef.current === timeoutId) {
+                timeoutRef.current = null;
+            }
+        };
+    }, [isActive, minimumDurationMs]);
+
+    useEffect(() => () => {
+        if (timeoutRef.current) {
+            window.clearTimeout(timeoutRef.current);
+            timeoutRef.current = null;
+        }
+    }, []);
+
+    return isVisible;
+}
 
 export function GameBrowser({
     initialGames,
@@ -52,6 +108,7 @@ export function GameBrowser({
     const [games, setGames] = useState<Game[]>(() => initialGames.map(normalizeGame));
     const [total, setTotal] = useState<number>(initialTotal);
     const [isLoading, setIsLoading] = useState(false);
+    const isUiLoading = useMinimumLoadingDelay(isLoading, MIN_GRID_LOADING_MS, { initialActive: true });
     const [currentPage, setCurrentPage] = useState<number>(() => Math.max(initialPage ?? 1, 1));
     const [error, setError] = useState<string | null>(null);
     const [filters, setFilters] = useState<GameFiltersState>(() => ({
@@ -62,6 +119,8 @@ export function GameBrowser({
     const [searchInput, setSearchInput] = useState<string>(initialSearchTerm);
     const [previewsByGameId, setPreviewsByGameId] = useState<GamePreviewDictionary>({});
     const [isPreviewLoading, setIsPreviewLoading] = useState(false);
+    const lastRenderedGamesRef = useRef<Game[]>(games);
+    const gridGames = isUiLoading ? lastRenderedGamesRef.current : games;
 
     const latestRequestIdRef = useRef(0);
     const lastSyncedQueryRef = useRef(initialQueryString ?? '');
@@ -111,11 +170,17 @@ export function GameBrowser({
         }
     }, [currentQueryString, onFiltersQueryChangeAction]);
 
+    useLayoutEffect(() => {
+        if (!isUiLoading) {
+            lastRenderedGamesRef.current = games;
+        }
+    }, [games, isUiLoading]);
+
     useEffect(() => {
         if (typeof onVisibleGamesChangeAction === 'function') {
-            onVisibleGamesChangeAction(games);
+            onVisibleGamesChangeAction(gridGames);
         }
-    }, [games, onVisibleGamesChangeAction]);
+    }, [gridGames, onVisibleGamesChangeAction]);
 
     useEffect(() => {
         if (typeof onPreviewsChangeAction === 'function') {
@@ -463,8 +528,9 @@ export function GameBrowser({
             ) : null}
 
             <GamesGrid
-                games={games}
+                games={gridGames}
                 isLoading={isLoading}
+                isUiLoading={isUiLoading}
                 currentPage={currentPage}
                 totalPages={totalPages}
                 totalResults={total}

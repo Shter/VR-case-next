@@ -14,7 +14,7 @@ function FilterPill({ isActive, onClick, label }: FilterPillProps) {
         <button
             type="button"
             onClick={onClick}
-            className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${
+            className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-primary ${
                 isActive
                     ? 'border-primary bg-primary text-white shadow-sm'
                     : 'border-gray-200 bg-white text-gray-700 hover:border-primary hover:text-primary'
@@ -61,7 +61,7 @@ export function GameFilters({
                 ) : null}
             </div>
 
-            <div className="flex flex-col gap-2 lg:flex-1">
+            <div className="flex flex-col gap-2 lg:flex-1 border border-secondary rounded-2xl p-3">
                 <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-500">{copy.genres.label}</h2>
                 <div className="flex flex-wrap gap-3">
                     <FilterPill
@@ -85,7 +85,7 @@ export function GameFilters({
                 </div>
             </div>
 
-            <div className="flex flex-col gap-2 lg:w-1/4">
+            <div className="flex flex-col gap-2 lg:w-1/4 border border-secondary rounded-2xl p-3">
                 <span className="text-sm font-semibold uppercase tracking-wider text-gray-500">{copy.multiplayer.label}</span>
                 <div className="flex flex-wrap gap-3">
                     {copy.multiplayer.options.map((option) => (

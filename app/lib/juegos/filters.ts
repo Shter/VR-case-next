@@ -117,11 +117,6 @@ export function parseSearchParam(raw: RawParam): string {
     }
 
     const first = Array.isArray(raw) ? raw[0] : raw;
-
-    if (typeof first !== 'string') {
-        return '';
-    }
-
     const trimmed = first.trim();
 
     return trimmed.length >= 2 ? trimmed : '';

@@ -261,6 +261,7 @@ export type GameFiltersProps = {
 export type GamesGridProps = {
     games: Game[];
     isLoading: boolean;
+    isUiLoading: boolean;
     currentPage: number;
     totalPages: number;
     totalResults: number;
