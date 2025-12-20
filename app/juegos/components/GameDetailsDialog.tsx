@@ -81,6 +81,8 @@ function buildFieldEntries(game: GameDetailsDialogProps['game']): FieldEntry[] {
         entries.push({ key, label: formatLabel(key), value: display, href });
     });
 
+    console.log(111, entries);
+
     return entries;
 }
 

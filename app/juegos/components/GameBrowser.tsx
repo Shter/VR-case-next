@@ -17,10 +17,11 @@ import type {
 } from '@/types/allTypes';
 import {
     areFiltersEqual,
-    buildFiltersQueryString,
+    buildCatalogQueryString,
     normalizeLegacyShowMultiplayer,
     parseGenreIdsParam,
     parseMultiplayerParam,
+    parsePageParam,
     parseSearchParam
 } from '@/lib/juegos/filters';
 import { normalizeGame } from '@/lib/juegos/normalizers';
@@ -37,6 +38,7 @@ export function GameBrowser({
     initialMultiplayerFilter,
     initialSearchTerm,
     initialQueryString,
+    initialPage = 1,
     pageSize = DEFAULT_PAGE_SIZE,
     copy,
     detailBasePath,
@@ -50,7 +52,7 @@ export function GameBrowser({
     const [games, setGames] = useState<Game[]>(() => initialGames.map(normalizeGame));
     const [total, setTotal] = useState<number>(initialTotal);
     const [isLoading, setIsLoading] = useState(false);
-    const [isLoadingMore, setIsLoadingMore] = useState(false);
+    const [currentPage, setCurrentPage] = useState<number>(() => Math.max(initialPage ?? 1, 1));
     const [error, setError] = useState<string | null>(null);
     const [filters, setFilters] = useState<GameFiltersState>(() => ({
         genreIds: [...initialGenreIds],
@@ -68,9 +70,8 @@ export function GameBrowser({
         multiplayerFilter: initialMultiplayerFilter,
         searchTerm: initialSearchTerm
     });
+    const latestPageRef = useRef<number>(Math.max(initialPage ?? 1, 1));
     const previewRequestIdRef = useRef(0);
-
-    const hasMore = games.length < total;
 
     const upsertPreviews = useCallback((previews: GamePreview[]) => {
         if (!previews || previews.length === 0) {
@@ -100,8 +101,8 @@ export function GameBrowser({
     }, []);
 
     const currentQueryString = useMemo(
-        () => buildFiltersQueryString(filters),
-        [filters]
+        () => buildCatalogQueryString(filters, currentPage),
+        [currentPage, filters]
     );
 
     useEffect(() => {
@@ -203,11 +204,14 @@ export function GameBrowser({
     }, [pathname]);
 
     const fetchGames = useCallback(async (
-        offset: number,
+        pageToLoad: number,
         filtersToApply: GameFiltersState
     ): Promise<{ games: Game[]; total: number; error?: Error }> => {
-        const rangeStart = offset;
-        const rangeEnd = offset + pageSize - 1;
+        const normalizedPage = Number.isFinite(pageToLoad) && pageToLoad > 0
+            ? Math.floor(pageToLoad)
+            : 1;
+        const rangeStart = (normalizedPage - 1) * pageSize;
+        const rangeEnd = rangeStart + pageSize - 1;
 
         let query = supabaseClient
             .from('games')
@@ -244,22 +248,27 @@ export function GameBrowser({
         };
     }, [pageSize]);
 
-    const applyFilters = useCallback(async (
-        nextFilters: GameFiltersState,
+    const loadPage = useCallback(async (
+        pageToLoad: number,
+        filtersToApply: GameFiltersState,
         { shouldUpdateHistory = true }: { shouldUpdateHistory?: boolean } = {}
     ) => {
+        const nextPage = pageToLoad > 0 ? Math.floor(pageToLoad) : 1;
         setError(null);
         setIsLoading(true);
         latestRequestIdRef.current += 1;
         const requestId = latestRequestIdRef.current;
 
+        latestFiltersRef.current = filtersToApply;
+        latestPageRef.current = nextPage;
+
         if (shouldUpdateHistory) {
-            const queryString = buildFiltersQueryString(nextFilters);
+            const queryString = buildCatalogQueryString(filtersToApply, nextPage);
             updateUrl(queryString);
         }
 
         try {
-            const result = await fetchGames(0, nextFilters);
+            const result = await fetchGames(nextPage, filtersToApply);
 
             if (latestRequestIdRef.current !== requestId) {
                 return;
@@ -267,27 +276,34 @@ export function GameBrowser({
 
             if (result.error) {
                 console.error('[game-browser] failed to load games', result.error);
-                setError(copy.fetchErrorMessage);
+                setError(nextPage === 1 ? copy.fetchErrorMessage : copy.pagination.errorMessage);
                 return;
             }
 
             setGames(result.games);
             setTotal(result.total);
-            latestFiltersRef.current = nextFilters;
+            setCurrentPage(nextPage);
         } catch (fetchError) {
             if (latestRequestIdRef.current !== requestId) {
                 return;
             }
 
             console.error('[game-browser] failed to load games', fetchError);
-            setError(copy.fetchErrorMessage);
+            setError(nextPage === 1 ? copy.fetchErrorMessage : copy.pagination.errorMessage);
         } finally {
             if (latestRequestIdRef.current === requestId) {
                 setIsLoading(false);
-                setIsLoadingMore(false);
             }
         }
-    }, [copy.fetchErrorMessage, fetchGames, updateUrl]);
+    }, [copy.fetchErrorMessage, copy.pagination.errorMessage, fetchGames, updateUrl]);
+
+    const applyFilters = useCallback((
+        nextFilters: GameFiltersState,
+        options?: { shouldUpdateHistory?: boolean }
+    ) => {
+        setFilters(nextFilters);
+        void loadPage(1, nextFilters, options);
+    }, [loadPage]);
 
     const handleToggleGenre = useCallback((genreId: number) => {
         const isActive = filters.genreIds.includes(genreId);
@@ -305,7 +321,6 @@ export function GameBrowser({
             return;
         }
 
-        setFilters(nextFilters);
         void applyFilters(nextFilters);
     }, [applyFilters, filters]);
 
@@ -319,7 +334,6 @@ export function GameBrowser({
             genreIds: []
         };
 
-        setFilters(nextFilters);
         void applyFilters(nextFilters);
     }, [applyFilters, filters]);
 
@@ -333,7 +347,6 @@ export function GameBrowser({
             return;
         }
 
-        setFilters(nextFilters);
         void applyFilters(nextFilters);
     }, [applyFilters, filters]);
 
@@ -359,55 +372,25 @@ export function GameBrowser({
                 return;
             }
 
-            setFilters(nextFilters);
             void applyFilters(nextFilters);
         }, 300);
 
         return () => window.clearTimeout(timeoutId);
     }, [applyFilters, filters, searchInput]);
 
-    const handleLoadMore = useCallback(async () => {
-        if (!hasMore || isLoading || isLoadingMore) {
-            return;
-        }
-
-        setIsLoadingMore(true);
-        setError(null);
-        latestRequestIdRef.current += 1;
-        const requestId = latestRequestIdRef.current;
-
-        try {
-            const result = await fetchGames(games.length, filters);
-
-            if (latestRequestIdRef.current !== requestId) {
-                return;
-            }
-
-            if (result.error) {
-                console.error('[game-browser] failed to load more games', result.error);
-                setError(copy.loadMoreErrorMessage);
-                return;
-            }
-
-            setGames((current) => [...current, ...result.games]);
-            setTotal(result.total);
-        } catch (fetchError) {
-            if (latestRequestIdRef.current !== requestId) {
-                return;
-            }
-
-            console.error('[game-browser] failed to load more games', fetchError);
-            setError(copy.loadMoreErrorMessage);
-        } finally {
-            if (latestRequestIdRef.current === requestId) {
-                setIsLoadingMore(false);
-            }
-        }
-    }, [copy.loadMoreErrorMessage, fetchGames, filters, games.length, hasMore, isLoading, isLoadingMore]);
-
     useEffect(() => {
         latestFiltersRef.current = filters;
     }, [filters]);
+
+    const totalPages = Math.max(Math.ceil(total / pageSize), 1);
+
+    const handlePageChange = useCallback((page: number) => {
+        if (page < 1 || page > totalPages || page === currentPage) {
+            return;
+        }
+
+        void loadPage(page, filters);
+    }, [currentPage, filters, loadPage, totalPages]);
 
     useEffect(() => {
         if (typeof window === 'undefined') {
@@ -428,15 +411,22 @@ export function GameBrowser({
                 searchTerm: parseSearchParam(params.get('search') ?? undefined)
             };
 
-            lastSyncedQueryRef.current = buildFiltersQueryString(nextFilters);
+            const resolvedPage = parsePageParam(params.get('page') ?? undefined);
+            lastSyncedQueryRef.current = buildCatalogQueryString(nextFilters, resolvedPage);
 
-            if (areFiltersEqual(latestFiltersRef.current, nextFilters)) {
+            const filtersChanged = !areFiltersEqual(latestFiltersRef.current, nextFilters);
+            const pageChanged = latestPageRef.current !== resolvedPage;
+
+            if (!filtersChanged && !pageChanged) {
                 return;
             }
 
-            setFilters(nextFilters);
-            setSearchInput(nextFilters.searchTerm);
-            void applyFilters(nextFilters, { shouldUpdateHistory: false });
+            if (filtersChanged) {
+                setFilters(nextFilters);
+                setSearchInput(nextFilters.searchTerm);
+            }
+
+            void loadPage(resolvedPage, nextFilters, { shouldUpdateHistory: false });
         };
 
         window.addEventListener('popstate', handlePopState);
@@ -444,14 +434,14 @@ export function GameBrowser({
         return () => {
             window.removeEventListener('popstate', handlePopState);
         };
-    }, [applyFilters, initialQueryString]);
+    }, [initialQueryString, loadPage]);
 
     const handleCardNavigate = useCallback((game: Game, href: string, event: MouseEvent<HTMLAnchorElement>) => {
         onGameCardNavigateAction?.(game, href, event);
     }, [onGameCardNavigateAction]);
 
     return (
-        <div className="flex flex-col gap-14">
+        <div className="flex flex-col gap-6 md:gap-8">
             <div className="rounded-3xl border border-gray-200 bg-white px-6 py-6 shadow-soft lg:px-10 lg:py-8">
                 <GameFilters
                     genres={genres}
@@ -475,10 +465,12 @@ export function GameBrowser({
             <GamesGrid
                 games={games}
                 isLoading={isLoading}
-                isLoadingMore={isLoadingMore}
-                hasMore={hasMore}
+                currentPage={currentPage}
+                totalPages={totalPages}
+                totalResults={total}
+                pageSize={pageSize}
                 filtersQueryString={currentQueryString}
-                onLoadMore={handleLoadMore}
+                onPageChange={handlePageChange}
                 detailBasePath={detailBasePath}
                 copy={copy}
                 onGameCardNavigateAction={handleCardNavigate}

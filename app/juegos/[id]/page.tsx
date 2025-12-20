@@ -2,10 +2,11 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import type { GameFiltersState, PageProps } from '@/types/allTypes';
 import {
-    buildFiltersQueryString,
+    buildCatalogQueryString,
     normalizeLegacyShowMultiplayer,
     parseGenreIdsParam,
     parseMultiplayerParam,
+    parsePageParam,
     parseSearchParam
 } from '@/lib/juegos/filters';
 import { buildGamesListHref } from '@/lib/games/links';
@@ -51,7 +52,8 @@ export default async function JuegoModalPage({ params, searchParams }: PageProps
         searchTerm: parseSearchParam(searchParamsValue?.search)
     };
 
-    const filtersQuery = buildFiltersQueryString(filtersFromParams);
+    const currentPage = parsePageParam(searchParamsValue?.page);
+    const filtersQuery = buildCatalogQueryString(filtersFromParams, currentPage);
     const backHref = buildGamesListHref('/juegos', filtersQuery);
 
     return (

@@ -21,10 +21,14 @@ export const GAME_CATALOG_COPY_JUEGOS: GameCatalogCopy = {
     },
     emptyState: 'No encontramos juegos de realidad virtual con esos filtros en Buenos Aires.',
     loadingLabel: 'Actualizando catálogo…',
-    loadMoreLabel: 'Ver más juegos',
-    loadMoreLoadingLabel: 'Cargando…',
     fetchErrorMessage: 'No pudimos cargar los juegos. Intentá nuevamente.',
-    loadMoreErrorMessage: 'No pudimos cargar más resultados. Revisá tu conexión e intentá otra vez.',
+    pagination: {
+        previousLabel: 'Anterior',
+        nextLabel: 'Siguiente',
+        pageStatusLabel: 'Página {current} de {total}',
+        rangeLabel: 'Mostrando {from}-{to} de {total} juegos',
+        errorMessage: 'No pudimos cargar más resultados. Revisá tu conexión e intentá otra vez.'
+    },
     card: {
         fallbackNamePrefix: 'Juego',
         fallbackCoverLabel: 'Imagen no disponible',

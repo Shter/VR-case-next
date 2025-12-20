@@ -36,15 +36,19 @@ export async function fetchGenres(): Promise<Genre[]> {
 
 export async function fetchGamesPage(
     filters: GameFiltersState,
-    limit: number = DEFAULT_PAGE_LIMIT
+    limit: number = DEFAULT_PAGE_LIMIT,
+    page: number = 1
 ): Promise<{ games: Game[]; total: number }> {
-    const rangeEnd = Math.max(limit - 1, 0);
+    const normalizedLimit = Math.max(limit, 1);
+    const normalizedPage = Number.isFinite(page) && page > 0 ? Math.floor(page) : 1;
+    const rangeStart = (normalizedPage - 1) * normalizedLimit;
+    const rangeEnd = rangeStart + normalizedLimit - 1;
 
     let query = supabaseClient
         .from('games')
         .select('*', { count: 'exact' })
         .order('name', { ascending: true })
-        .range(0, rangeEnd);
+        .range(rangeStart, rangeEnd);
 
     if (filters.genreIds.length > 0) {
         query = query.overlaps('genre', filters.genreIds);

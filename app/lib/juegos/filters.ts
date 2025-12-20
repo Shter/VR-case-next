@@ -68,6 +68,20 @@ export function buildFiltersQueryString({ genreIds, multiplayerFilter, searchTer
     return params.toString();
 }
 
+export function buildCatalogQueryString(filters: GameFiltersState, page: number = 1): string {
+    const baseQuery = buildFiltersQueryString(filters);
+    const params = new URLSearchParams(baseQuery);
+    const normalizedPage = Number.isFinite(page) && page > 1 ? Math.floor(page) : 1;
+
+    if (normalizedPage > 1) {
+        params.set('page', String(normalizedPage));
+    } else {
+        params.delete('page');
+    }
+
+    return params.toString();
+}
+
 export function areGenreListsEqual(a: number[], b: number[]): boolean {
     if (a.length !== b.length) {
         return false;
@@ -111,4 +125,19 @@ export function parseSearchParam(raw: RawParam): string {
     const trimmed = first.trim();
 
     return trimmed.length >= 2 ? trimmed : '';
+}
+
+export function parsePageParam(raw: RawParam, defaultPage: number = 1): number {
+    if (!raw) {
+        return defaultPage;
+    }
+
+    const first = Array.isArray(raw) ? raw[0] : raw;
+    const parsed = Number.parseInt(String(first), 10);
+
+    if (Number.isNaN(parsed) || parsed < 1) {
+        return defaultPage;
+    }
+
+    return parsed;
 }

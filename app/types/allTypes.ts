@@ -195,10 +195,14 @@ export type GameCatalogCopy = {
     };
     emptyState: string;
     loadingLabel: string;
-    loadMoreLabel: string;
-    loadMoreLoadingLabel: string;
     fetchErrorMessage: string;
-    loadMoreErrorMessage: string;
+    pagination: {
+        previousLabel: string;
+        nextLabel: string;
+        pageStatusLabel: string;
+        rangeLabel: string;
+        errorMessage: string;
+    };
     card: {
         fallbackNamePrefix: string;
         fallbackCoverLabel: string;
@@ -232,6 +236,7 @@ export type GameBrowserProps = {
     initialMultiplayerFilter: 'all' | 'multiplayer' | 'solo';
     initialSearchTerm: string;
     initialQueryString: string;
+    initialPage?: number;
     pageSize?: number;
     copy: GameCatalogCopy;
     detailBasePath: string;
@@ -256,10 +261,12 @@ export type GameFiltersProps = {
 export type GamesGridProps = {
     games: Game[];
     isLoading: boolean;
-    isLoadingMore: boolean;
-    hasMore: boolean;
+    currentPage: number;
+    totalPages: number;
+    totalResults: number;
+    pageSize: number;
     filtersQueryString: string;
-    onLoadMore: () => void;
+    onPageChange: (page: number) => void;
     detailBasePath: string;
     copy: GameCatalogCopy;
     onGameCardNavigateAction?: (game: Game, href: string, event: MouseEvent<HTMLAnchorElement>) => void;
