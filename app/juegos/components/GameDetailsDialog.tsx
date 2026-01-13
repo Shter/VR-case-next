@@ -101,8 +101,8 @@ export function GameDetailsDialog({
     isLoading,
     error,
     copy,
-    onClose,
-    onRetry,
+    onCloseAction,
+    onRetryAction,
     backHref,
     preview
 }: GameDetailsDialogProps) {
@@ -125,8 +125,8 @@ export function GameDetailsDialog({
         bodyContent = (
             <div className="flex flex-col items-center gap-4 py-6 text-center">
                 <p className="text-base text-gray-700">{error}</p>
-                {onRetry ? (
-                    <Button variant="contained" color="primary" onClick={onRetry}>
+                {onRetryAction ? (
+                    <Button variant="contained" color="primary" onClick={onRetryAction}>
                         {copy.retryLabel}
                     </Button>
                 ) : null}
@@ -238,7 +238,7 @@ export function GameDetailsDialog({
     return (
         <AppDialog
             open={open}
-            onCloseAction={onClose}
+            onCloseAction={onCloseAction}
             title={title}
             description={copy.tagline}
             closeLabel={copy.closeLabel}

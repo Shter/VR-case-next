@@ -251,10 +251,10 @@ export type GameFiltersProps = {
     selectedGenreIds: number[];
     multiplayerFilter: 'all' | 'multiplayer' | 'solo';
     searchValue: string;
-    onToggleGenre: (genreId: number) => void;
-    onResetGenres: () => void;
-    onSelectMultiplayerFilter: (value: 'all' | 'multiplayer' | 'solo') => void;
-    onSearchChange: (value: string) => void;
+    onToggleGenreAction: (genreId: number) => void;
+    onResetGenresAction: () => void;
+    onSelectMultiplayerFilterAction: (value: 'all' | 'multiplayer' | 'solo') => void;
+    onSearchChangeAction: (value: string) => void;
     copy: GameCatalogCopy;
 };
 
@@ -267,7 +267,7 @@ export type GamesGridProps = {
     totalResults: number;
     pageSize: number;
     filtersQueryString: string;
-    onPageChange: (page: number) => void;
+    onPageChangeAction: (page: number) => void;
     detailBasePath: string;
     copy: GameCatalogCopy;
     onGameCardNavigateAction?: (game: Game, href: string, event: MouseEvent<HTMLAnchorElement>) => void;
@@ -280,7 +280,7 @@ export type GameCardProps = {
     queryString: string;
     detailBasePath: string;
     copy: GameCatalogCopy;
-    onNavigate?: (game: Game, href: string, event: MouseEvent<HTMLAnchorElement>) => void;
+    onNavigateAction?: (game: Game, href: string, event: MouseEvent<HTMLAnchorElement>) => void;
     preview?: GamePreview;
 };
 
@@ -301,8 +301,8 @@ export type GameDetailsDialogProps = {
     isLoading: boolean;
     error: string | null;
     copy: GameDetailsCopy;
-    onClose: () => void;
-    onRetry?: () => void;
+    onCloseAction: () => void;
+    onRetryAction?: () => void;
     backHref?: Route;
     preview?: GamePreview;
 };

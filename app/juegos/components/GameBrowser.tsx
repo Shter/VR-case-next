@@ -513,10 +513,10 @@ export function GameBrowser({
                     selectedGenreIds={filters.genreIds}
                     multiplayerFilter={filters.multiplayerFilter}
                     searchValue={searchInput}
-                    onToggleGenre={handleToggleGenre}
-                    onResetGenres={handleResetGenres}
-                    onSelectMultiplayerFilter={handleSelectMultiplayerFilter}
-                    onSearchChange={setSearchInput}
+                    onToggleGenreAction={handleToggleGenre}
+                    onResetGenresAction={handleResetGenres}
+                    onSelectMultiplayerFilterAction={handleSelectMultiplayerFilter}
+                    onSearchChangeAction={setSearchInput}
                     copy={copy}
                 />
             </div>
@@ -536,7 +536,7 @@ export function GameBrowser({
                 totalResults={total}
                 pageSize={pageSize}
                 filtersQueryString={currentQueryString}
-                onPageChange={handlePageChange}
+                onPageChangeAction={handlePageChange}
                 detailBasePath={detailBasePath}
                 copy={copy}
                 onGameCardNavigateAction={handleCardNavigate}

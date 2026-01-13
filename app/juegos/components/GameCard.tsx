@@ -10,7 +10,7 @@ function isModifiedEvent(event: MouseEvent<HTMLAnchorElement>): boolean {
     return event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0;
 }
 
-export function GameCard({ game, queryString, detailBasePath, copy, onNavigate, preview }: GameCardProps) {
+export function GameCard({ game, queryString, detailBasePath, copy, onNavigateAction, preview }: GameCardProps) {
     const name = typeof game.name === 'string' && game.name.trim().length > 0
         ? game.name.trim()
         : `${copy.card.fallbackNamePrefix} ${game.id}`;
@@ -19,12 +19,12 @@ export function GameCard({ game, queryString, detailBasePath, copy, onNavigate, 
     const href = buildGameDetailHref(detailBasePath, game.id, queryString);
 
     const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
-        if (!onNavigate || isModifiedEvent(event)) {
+        if (!onNavigateAction || isModifiedEvent(event)) {
             return;
         }
 
         event.preventDefault();
-        onNavigate(game, href, event);
+        onNavigateAction(game, href, event);
     };
 
     return (

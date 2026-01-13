@@ -25,7 +25,7 @@ export function StandaloneGameDialog({ game, copy, backHref }: StandaloneGameDia
             isLoading={false}
             error={null}
             copy={copy}
-            onClose={handleClose}
+            onCloseAction={handleClose}
             backHref={backHref}
         />
     );

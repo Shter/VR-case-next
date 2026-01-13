@@ -36,7 +36,7 @@ export function GamesGrid({
     totalResults,
     pageSize,
     filtersQueryString,
-    onPageChange,
+    onPageChangeAction,
     detailBasePath,
     copy,
     onGameCardNavigateAction,
@@ -154,14 +154,14 @@ export function GamesGrid({
         if (safeCurrentPage <= 1) {
             return;
         }
-        onPageChange(safeCurrentPage - 1);
+        onPageChangeAction(safeCurrentPage - 1);
     };
 
     const handleNext = () => {
         if (safeCurrentPage >= safeTotalPages) {
             return;
         }
-        onPageChange(safeCurrentPage + 1);
+        onPageChangeAction(safeCurrentPage + 1);
     };
 
     return (
@@ -205,7 +205,7 @@ export function GamesGrid({
                                 queryString={filtersQueryString}
                                 detailBasePath={detailBasePath}
                                 copy={copy}
-                                onNavigate={onGameCardNavigateAction}
+                                onNavigateAction={onGameCardNavigateAction}
                                 preview={previewsByGameId[toGameCacheKey(game.id)]}
                             />
                         ))}

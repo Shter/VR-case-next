@@ -30,14 +30,14 @@ export function GameFilters({
     selectedGenreIds,
     multiplayerFilter,
     searchValue,
-    onToggleGenre,
-    onResetGenres,
-    onSelectMultiplayerFilter,
-    onSearchChange,
+    onToggleGenreAction,
+    onResetGenresAction,
+    onSelectMultiplayerFilterAction,
+    onSearchChangeAction,
     copy
 }: GameFiltersProps) {
     const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
-        onSearchChange(event.target.value);
+        onSearchChangeAction(event.target.value);
     };
 
     return (
@@ -66,7 +66,7 @@ export function GameFilters({
                 <div className="flex flex-wrap gap-3">
                     <FilterPill
                         isActive={selectedGenreIds.length === 0}
-                        onClick={onResetGenres}
+                        onClick={onResetGenresAction}
                         label={copy.genres.allLabel}
                     />
                     {genres.map((genre) => {
@@ -77,7 +77,7 @@ export function GameFilters({
                             <FilterPill
                                 key={genre.id}
                                 isActive={isActive}
-                                onClick={() => onToggleGenre(genre.id)}
+                                onClick={() => onToggleGenreAction(genre.id)}
                                 label={label}
                             />
                         );
@@ -92,7 +92,7 @@ export function GameFilters({
                         <FilterPill
                             key={option.value}
                             isActive={multiplayerFilter === option.value}
-                            onClick={() => onSelectMultiplayerFilter(option.value)}
+                            onClick={() => onSelectMultiplayerFilterAction(option.value)}
                             label={option.label}
                         />
                     ))}

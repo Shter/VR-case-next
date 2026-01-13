@@ -177,8 +177,8 @@ export function GamesCatalogClient({
                 isLoading={isModalLoading}
                 error={modalError}
                 copy={detailsCopy}
-                onClose={closeModal}
-                onRetry={handleRetry}
+                onCloseAction={closeModal}
+                onRetryAction={handleRetry}
                 backHref={listHref}
                 preview={modalGame ? previewsByGameId[toCacheKey(modalGame.id)] : undefined}
             />
