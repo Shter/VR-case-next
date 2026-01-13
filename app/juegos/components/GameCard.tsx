@@ -50,12 +50,13 @@ export function GameCard({ game, queryString, detailBasePath, copy, onNavigate, 
                 )}
             </div>
 
-            <div className="flex flex-1 flex-col gap-3 p-6">
-                <h3 className="text-lg font-semibold text-gray-900">{name}</h3>
-                <span className="mt-auto inline-flex items-center text-sm font-semibold text-primary">
-                    {copy.card.ctaLabel}
-                    <span aria-hidden className="ml-1">→</span>
-                </span>
+            <div className="flex flex-1 flex-col gap-4 p-6">
+                <div className="flex items-start justify-between gap-3">
+                    <h3 className="flex-1 text-lg font-semibold text-gray-900 self-center">{name}</h3>
+                    <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-primary text-lg text-primary transition group-hover:bg-primary group-hover:text-white">
+                        <span aria-hidden>→</span>
+                    </span>
+                </div>
             </div>
         </Link>
     );
