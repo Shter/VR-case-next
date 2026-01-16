@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import type { StandaloneGameDialogProps } from '@/types/allTypes';
 import { GameDetailsDialog } from './GameDetailsDialog';
 
-export function StandaloneGameDialog({ game, copy, backHref }: StandaloneGameDialogProps) {
+export function StandaloneGameDialog({ game, copy, backHref, genres }: StandaloneGameDialogProps) {
     const router = useRouter();
     const [open, setOpen] = useState(true);
 
@@ -25,6 +25,7 @@ export function StandaloneGameDialog({ game, copy, backHref }: StandaloneGameDia
             isLoading={false}
             error={null}
             copy={copy}
+            genres={genres}
             onCloseAction={handleClose}
             backHref={backHref}
         />

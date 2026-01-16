@@ -10,7 +10,7 @@ import {
     parseSearchParam
 } from '@/lib/juegos/filters';
 import { buildGamesListHref } from '@/lib/games/links';
-import { getGameById } from '@/lib/games/queries';
+import { fetchGenres, getGameById } from '@/lib/games/queries';
 import { StandaloneGameDialog } from '@/app/juegos/components/StandaloneGameDialog';
 import { GAME_DETAILS_COPY_JUEGOS } from '@/data/gameCatalogCopy';
 
@@ -35,7 +35,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function JuegoModalPage({ params, searchParams }: PageProps) {
     const paramsValue = await params;
-    const game = await getGameById(paramsValue.id);
+    const [genres, game] = await Promise.all([
+        fetchGenres(),
+        getGameById(paramsValue.id)
+    ]);
 
     if (!game) {
         notFound();
@@ -58,7 +61,7 @@ export default async function JuegoModalPage({ params, searchParams }: PageProps
 
     return (
         <div className="container mx-auto px-4 py-16">
-            <StandaloneGameDialog game={game} copy={GAME_DETAILS_COPY_JUEGOS} backHref={backHref} />
+            <StandaloneGameDialog game={game} copy={GAME_DETAILS_COPY_JUEGOS} backHref={backHref} genres={genres} />
         </div>
     );
 }

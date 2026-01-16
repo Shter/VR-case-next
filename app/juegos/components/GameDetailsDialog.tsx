@@ -6,7 +6,6 @@ import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import { AppDialog } from '@/components/client/AppDialog';
 import type { GameDetailsDialogProps } from '@/types/allTypes';
-import { Route } from "next"
 
 const EXCLUDED_FIELDS = new Set(['id', 'created_at']);
 
@@ -81,9 +80,37 @@ function buildFieldEntries(game: GameDetailsDialogProps['game']): FieldEntry[] {
         entries.push({ key, label: formatLabel(key), value: display, href });
     });
 
-    console.log(111, entries);
-
     return entries;
+}
+
+function resolveGenreValue(
+    genreIds: number[] | null | undefined,
+    genres: GameDetailsDialogProps['genres'],
+    fallbackPrefix: string
+): string | null {
+    if (!Array.isArray(genreIds) || genreIds.length === 0) {
+        return null;
+    }
+
+    const lookup = new Map<number, string>();
+
+    genres.forEach((genre) => {
+        const trimmed = genre.name?.trim();
+        if (trimmed) {
+            lookup.set(genre.id, trimmed);
+        }
+    });
+
+    const labels = genreIds
+        .map((id) => lookup.get(id) ?? `${fallbackPrefix} ${id}`)
+        .map((label) => label.trim())
+        .filter((label) => label.length > 0);
+
+    if (labels.length === 0) {
+        return null;
+    }
+
+    return labels.join(', ');
 }
 
 function Section({ title, content }: { title: string; content: string }) {
@@ -101,6 +128,7 @@ export function GameDetailsDialog({
     isLoading,
     error,
     copy,
+    genres,
     onCloseAction,
     onRetryAction,
     backHref,
@@ -133,6 +161,11 @@ export function GameDetailsDialog({
             </div>
         );
     } else if (game) {
+        const genreContent = resolveGenreValue(game.genre, genres, copy.genreFallbackPrefix) ?? copy.genrePlaceholder;
+        const multiplayerContent = typeof game.multiplayer === 'boolean'
+            ? (game.multiplayer ? copy.multiplayerBadgeLabel : copy.soloBadgeLabel)
+            : copy.multiplayerUnknownLabel;
+
         bodyContent = (
             <div className="flex flex-col gap-6">
                 {videoUrl ? (
@@ -160,12 +193,6 @@ export function GameDetailsDialog({
                     </div>
                 ) : null}
 
-                <div className="flex flex-wrap gap-2">
-                    <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
-                        {isMultiplayer ? copy.multiplayerBadgeLabel : copy.soloBadgeLabel}
-                    </span>
-                </div>
-
                 <Section
                     title={copy.descriptionHeading}
                     content={description}
@@ -176,49 +203,22 @@ export function GameDetailsDialog({
                     content={game.controls ?? copy.controlsPlaceholder}
                 />
 
+                <Section
+                    title={copy.genreHeading}
+                    content={genreContent}
+                />
+
+                <Section
+                    title={copy.multiplayerHeading}
+                    content={multiplayerContent}
+                />
+
                 {isMultiplayer ? (
                     <Section
                         title={copy.multiplayerInstructionsHeading}
                         content={game.multiplayer_instructions ?? copy.multiplayerInstructionsPlaceholder}
                     />
                 ) : null}
-
-                {(() => {
-                    const fieldEntries = buildFieldEntries(game);
-
-                    if (fieldEntries.length === 0) {
-                        return null;
-                    }
-
-                    return (
-                        <div className="flex flex-col gap-3">
-                            <h3 className="text-base font-semibold text-gray-900">Campos de la tabla</h3>
-                            <dl className="grid gap-3">
-                                {fieldEntries.map((entry) => (
-                                    <div key={entry.key} className="flex flex-col gap-1">
-                                        <dt className="text-xs font-semibold uppercase tracking-wide text-gray-500">
-                                            {entry.label}
-                                        </dt>
-                                        <dd className="text-sm text-gray-800 break-words">
-                                            {entry.href ? (
-                                                <Link
-                                                    href={entry.href as Route}
-                                                    target="_blank"
-                                                    rel="noreferrer noopener"
-                                                    className="text-primary underline"
-                                                >
-                                                    {entry.value}
-                                                </Link>
-                                            ) : (
-                                                entry.value
-                                            )}
-                                        </dd>
-                                    </div>
-                                ))}
-                            </dl>
-                        </div>
-                    );
-                })()}
             </div>
         );
     } else {
@@ -240,7 +240,6 @@ export function GameDetailsDialog({
             open={open}
             onCloseAction={onCloseAction}
             title={title}
-            description={copy.tagline}
             closeLabel={copy.closeLabel}
             actions={actions}
         >

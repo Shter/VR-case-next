@@ -67,6 +67,7 @@ export function AppDialog({
           </IconButton>
         </DialogTitle>
       ) : null}
+
       <DialogContent
         sx={{
           display: 'flex',
@@ -80,6 +81,7 @@ export function AppDialog({
         ) : null}
         {children}
       </DialogContent>
+
       {actions ? (
         <DialogActions
           sx={{

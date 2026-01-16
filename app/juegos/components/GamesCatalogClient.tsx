@@ -32,7 +32,8 @@ export function GamesCatalogClient({
     detailsCopy,
     ...browserProps
 }: GamesCatalogClientProps) {
-    const [currentQueryString, setCurrentQueryString] = useState(browserProps.initialQueryString ?? '');
+    const { genres, initialQueryString, ...browserPropsRest } = browserProps;
+    const [currentQueryString, setCurrentQueryString] = useState(initialQueryString ?? '');
     const [modalGame, setModalGame] = useState<Game | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isModalLoading, setIsModalLoading] = useState(false);
@@ -162,7 +163,9 @@ export function GamesCatalogClient({
     return (
         <>
             <GameBrowser
-                {...browserProps}
+                {...browserPropsRest}
+                genres={genres}
+                initialQueryString={initialQueryString}
                 copy={copy}
                 detailBasePath={detailBasePath}
                 onGameCardNavigateAction={handleCardNavigate}
@@ -177,6 +180,7 @@ export function GamesCatalogClient({
                 isLoading={isModalLoading}
                 error={modalError}
                 copy={detailsCopy}
+                genres={genres}
                 onCloseAction={closeModal}
                 onRetryAction={handleRetry}
                 backHref={listHref}

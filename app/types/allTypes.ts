@@ -212,15 +212,19 @@ export type GameCatalogCopy = {
 
 export type GameDetailsCopy = {
     fallbackNamePrefix: string;
-    tagline: string;
     descriptionHeading: string;
     descriptionPlaceholder: string;
     controlsHeading: string;
     controlsPlaceholder: string;
+    genreHeading: string;
+    genrePlaceholder: string;
+    genreFallbackPrefix: string;
+    multiplayerHeading: string;
     multiplayerInstructionsHeading: string;
     multiplayerInstructionsPlaceholder: string;
     multiplayerBadgeLabel: string;
     soloBadgeLabel: string;
+    multiplayerUnknownLabel: string;
     closeLabel: string;
     backButtonLabel: string;
     errorDescription: string;
@@ -301,6 +305,7 @@ export type GameDetailsDialogProps = {
     isLoading: boolean;
     error: string | null;
     copy: GameDetailsCopy;
+    genres: Genre[];
     onCloseAction: () => void;
     onRetryAction?: () => void;
     backHref?: Route;
@@ -315,4 +320,5 @@ export type StandaloneGameDialogProps = {
     game: Game;
     copy: GameDetailsCopy;
     backHref: Route;
+    genres: Genre[];
 };
