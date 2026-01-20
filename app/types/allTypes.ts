@@ -312,13 +312,13 @@ export type GameDetailsDialogProps = {
     preview?: GamePreview;
 };
 
-export type GamesCatalogClientProps = GameBrowserProps & {
-    detailsCopy: GameDetailsCopy;
-};
+export type GamesCatalogClientProps = GameBrowserProps
+    & {detailsCopy: GameDetailsCopy};
 
 export type StandaloneGameDialogProps = {
     game: Game;
     copy: GameDetailsCopy;
     backHref: Route;
     genres: Genre[];
+    preview?: GamePreview | null;
 };
