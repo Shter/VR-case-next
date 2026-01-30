@@ -1,4 +1,5 @@
 import type { Game } from '@/types/allTypes';
+import { sanitizeDescriptionText } from '@/lib/text/sanitizers';
 
 function sanitizeString(value: unknown): string | null {
     if (typeof value !== 'string') {
@@ -46,7 +47,7 @@ export function normalizeGame(raw: Game): Game {
     return {
         id: raw.id,
         name: sanitizeString(raw.name),
-        description: sanitizeString(raw.description),
+        description: sanitizeDescriptionText(raw.description),
         image_url: sanitizeString(legacyImage),
         controls: sanitizeString(raw.controls),
         multiplayer: raw.multiplayer === true,

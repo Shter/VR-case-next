@@ -1,4 +1,5 @@
 import { load } from 'cheerio';
+import { sanitizeDescriptionText } from '@/lib/text/sanitizers';
 
 export type QuestStorePreviewResult = {
     posterUrl: string | null;
@@ -96,7 +97,7 @@ function extractDescription($: ReturnType<typeof load>): string | null {
         return null;
     }
 
-    return collected.join('\n\n');
+    return sanitizeDescriptionText(collected.join('\n\n'));
 }
 
 function extractVideoUrl($: ReturnType<typeof load>, fallbackBase: string): string | null {
