@@ -121,8 +121,8 @@ export const pricingItems: PricingOfferGroups = {
             title    : 'VR por 2 horas',
             headsets : 1,
             period   : '2h',
-            price    : 20000,
-            plusPrice: 7000,
+            price    : 25000,
+            plusPrice: 9000,
             plusUnit : 'hora'
         },
         {
@@ -131,8 +131,8 @@ export const pricingItems: PricingOfferGroups = {
             title    : 'VR por dia',
             headsets : 1,
             period   : 'day',
-            price    : 55000,
-            plusPrice: 35000,
+            price    : 60000,
+            plusPrice: 40000,
             plusUnit : 'dia'
         },
         {
@@ -141,8 +141,8 @@ export const pricingItems: PricingOfferGroups = {
             title    : 'VR por semana',
             headsets : 1,
             period   : 'week',
-            price    : 220000,
-            plusPrice: 100000,
+            price    : 230000,
+            plusPrice: 150000,
             plusUnit : 'semana'
         }
     ],
@@ -153,8 +153,8 @@ export const pricingItems: PricingOfferGroups = {
             title    : 'VR por 2 horas',
             headsets : 2,
             period   : '2h',
-            price    : 35000,
-            plusPrice: 16000,
+            price    : 42000,
+            plusPrice: 18000,
             plusUnit : 'hora'
         },
         {
@@ -163,8 +163,8 @@ export const pricingItems: PricingOfferGroups = {
             title    : 'VR por dia',
             headsets : 2,
             period   : 'day',
-            price    : 100000,
-            plusPrice: 40000,
+            price    : 110000,
+            plusPrice: 55000,
             plusUnit : 'dia'
         },
         {
@@ -173,8 +173,8 @@ export const pricingItems: PricingOfferGroups = {
             title    : 'VR por semana',
             headsets : 2,
             period   : 'week',
-            price    : 380000,
-            plusPrice: 140000,
+            price    : 399000,
+            plusPrice: 170000,
             plusUnit : 'semana'
         }
     ]
