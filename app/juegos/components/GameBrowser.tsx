@@ -30,61 +30,7 @@ import { toGameCacheKey } from '@/lib/games/cache';
 const DEFAULT_PAGE_SIZE = 6;
 const PREVIEW_BATCH_LIMIT = 6;
 const MIN_GRID_LOADING_MS = 1200;
-
-function useMinimumLoadingDelay(isActive: boolean, minimumDurationMs: number, options: { initialActive?: boolean } = {}): boolean {
-    const { initialActive = false } = options;
-    const [isVisible, setIsVisible] = useState(initialActive);
-    const startRef = useRef<number>(initialActive ? Date.now() : 0);
-    const timeoutRef = useRef<number | null>(null);
-
-    useEffect(() => {
-        if (isActive) {
-            startRef.current = Date.now();
-            setIsVisible(true);
-            if (timeoutRef.current) {
-                window.clearTimeout(timeoutRef.current);
-                timeoutRef.current = null;
-            }
-            return;
-        }
-
-        const elapsed = Date.now() - startRef.current;
-        const remaining = Math.max(minimumDurationMs - elapsed, 0);
-
-        if (timeoutRef.current) {
-            window.clearTimeout(timeoutRef.current);
-            timeoutRef.current = null;
-        }
-
-        if (remaining === 0) {
-            setIsVisible(false);
-            return;
-        }
-
-        const timeoutId = window.setTimeout(() => {
-            setIsVisible(false);
-            timeoutRef.current = null;
-        }, remaining);
-
-        timeoutRef.current = timeoutId;
-
-        return () => {
-            window.clearTimeout(timeoutId);
-            if (timeoutRef.current === timeoutId) {
-                timeoutRef.current = null;
-            }
-        };
-    }, [isActive, minimumDurationMs]);
-
-    useEffect(() => () => {
-        if (timeoutRef.current) {
-            window.clearTimeout(timeoutRef.current);
-            timeoutRef.current = null;
-        }
-    }, []);
-
-    return isVisible;
-}
+const getNow = () => (typeof performance !== 'undefined' ? performance.now() : Date.now());
 
 export function GameBrowser({
     initialGames,
@@ -108,7 +54,43 @@ export function GameBrowser({
     const [games, setGames] = useState<Game[]>(() => initialGames.map(normalizeGame));
     const [total, setTotal] = useState<number>(initialTotal);
     const [isLoading, setIsLoading] = useState(false);
-    const isUiLoading = useMinimumLoadingDelay(isLoading, MIN_GRID_LOADING_MS, { initialActive: true });
+    const [isUiLoading, setIsUiLoading] = useState(false);
+    const uiLoadingStartRef = useRef<number | null>(null);
+    const uiLoadingTimeoutRef = useRef<number | null>(null);
+
+    const beginUiLoading = useCallback(() => {
+        if (uiLoadingTimeoutRef.current) {
+            window.clearTimeout(uiLoadingTimeoutRef.current);
+            uiLoadingTimeoutRef.current = null;
+        }
+
+        uiLoadingStartRef.current = getNow();
+        setIsUiLoading(true);
+    }, []);
+
+    const finishUiLoading = useCallback(() => {
+        const start = uiLoadingStartRef.current;
+        const elapsed = typeof start === 'number' ? getNow() - start : MIN_GRID_LOADING_MS;
+        const remaining = Math.max(MIN_GRID_LOADING_MS - elapsed, 0);
+
+        const complete = () => {
+            uiLoadingStartRef.current = null;
+            uiLoadingTimeoutRef.current = null;
+            setIsUiLoading(false);
+        };
+
+        if (remaining <= 0) {
+            complete();
+            return;
+        }
+
+        if (uiLoadingTimeoutRef.current) {
+            window.clearTimeout(uiLoadingTimeoutRef.current);
+        }
+
+        uiLoadingTimeoutRef.current = window.setTimeout(complete, remaining);
+    }, []);
+
     const [currentPage, setCurrentPage] = useState<number>(() => Math.max(initialPage ?? 1, 1));
     const [error, setError] = useState<string | null>(null);
     const [filters, setFilters] = useState<GameFiltersState>(() => ({
@@ -116,6 +98,13 @@ export function GameBrowser({
         multiplayerFilter: initialMultiplayerFilter,
         searchTerm: initialSearchTerm
     }));
+
+    useEffect(() => () => {
+        if (uiLoadingTimeoutRef.current) {
+            window.clearTimeout(uiLoadingTimeoutRef.current);
+        }
+    }, []);
+
     const [searchInput, setSearchInput] = useState<string>(initialSearchTerm);
     const [previewsByGameId, setPreviewsByGameId] = useState<GamePreviewDictionary>({});
     const [isPreviewLoading, setIsPreviewLoading] = useState(false);
@@ -320,6 +309,7 @@ export function GameBrowser({
     ) => {
         const nextPage = pageToLoad > 0 ? Math.floor(pageToLoad) : 1;
         setError(null);
+        beginUiLoading();
         setIsLoading(true);
         latestRequestIdRef.current += 1;
         const requestId = latestRequestIdRef.current;
@@ -358,9 +348,10 @@ export function GameBrowser({
         } finally {
             if (latestRequestIdRef.current === requestId) {
                 setIsLoading(false);
+                finishUiLoading();
             }
         }
-    }, [copy.fetchErrorMessage, copy.pagination.errorMessage, fetchGames, updateUrl]);
+    }, [beginUiLoading, copy.fetchErrorMessage, copy.pagination.errorMessage, fetchGames, finishUiLoading, updateUrl]);
 
     const applyFilters = useCallback((
         nextFilters: GameFiltersState,

@@ -53,41 +53,10 @@ export function GamesGrid({
     }).length;
     const showPreviewOverlay = isPreviewLoading && pendingPreviewCount > 0;
     const showResultsOverlay = isUiLoading || showPreviewOverlay;
-    const containerRef = useRef<HTMLDivElement | null>(null);
     const gridRef = useRef<HTMLDivElement | null>(null);
     const paginationRef = useRef<HTMLDivElement | null>(null);
-    const [frozenHeight, setFrozenHeight] = useState<number | null>(null);
-    const lastRowHeightRef = useRef<number | null>(null);
+    const [lastRowHeight, setLastRowHeight] = useState(MIN_SINGLE_ROW_HEIGHT);
     const [paginationHeight, setPaginationHeight] = useState(DEFAULT_PAGINATION_HEIGHT);
-
-    useLayoutEffect(() => {
-        if (!showResultsOverlay) {
-            if (frozenHeight !== null) {
-                setFrozenHeight(null);
-            }
-            return;
-        }
-
-        const node = containerRef.current;
-        if (!node) {
-            if (frozenHeight === null) {
-                setFrozenHeight(MIN_SINGLE_ROW_HEIGHT);
-            }
-            return;
-        }
-
-        const measured = node.getBoundingClientRect().height;
-        if (!Number.isFinite(measured) || measured <= 0) {
-            if (frozenHeight === null) {
-                setFrozenHeight(MIN_SINGLE_ROW_HEIGHT);
-            }
-            return;
-        }
-
-        if (frozenHeight === null || Math.abs(frozenHeight - measured) > 1) {
-            setFrozenHeight(measured);
-        }
-    }, [showResultsOverlay, frozenHeight]);
 
     useLayoutEffect(() => {
         if (showResultsOverlay || games.length === 0) {
@@ -101,7 +70,8 @@ export function GamesGrid({
 
         const rowHeight = measureSingleRowHeight(node);
         if (rowHeight !== null) {
-            lastRowHeightRef.current = Math.max(rowHeight, MIN_SINGLE_ROW_HEIGHT);
+            const nextHeight = Math.max(rowHeight, MIN_SINGLE_ROW_HEIGHT);
+            setLastRowHeight((current) => (Math.abs(current - nextHeight) > 1 ? nextHeight : current));
         }
     }, [games.length, showResultsOverlay]);
 
@@ -133,19 +103,17 @@ export function GamesGrid({
         }
     }, [paginationHeight, showResultsOverlay, rangeLabel, pageStatusLabel, hasResults, isLoading]);
 
-    const lastRowHeight = Math.max(lastRowHeightRef.current ?? 0, MIN_SINGLE_ROW_HEIGHT);
     const blockHeight = lastRowHeight + paginationHeight;
-    const resolvedEmptyMinHeight = showEmptyState && frozenHeight === null && !showResultsOverlay
+    const resolvedEmptyMinHeight = showEmptyState && !showResultsOverlay
         ? blockHeight
         : null;
-    const frozenStyle = frozenHeight !== null
-        ? { minHeight: frozenHeight }
+    const singleRowSizeStyle = { minHeight: lastRowHeight, maxHeight: lastRowHeight };
+    const blockSizeStyle = { minHeight: blockHeight };
+    const containerStyle = showResultsOverlay
+        ? blockSizeStyle
         : resolvedEmptyMinHeight !== null
             ? { minHeight: resolvedEmptyMinHeight }
             : undefined;
-    const singleRowSizeStyle = { minHeight: lastRowHeight, maxHeight: lastRowHeight };
-    const blockSizeStyle = { minHeight: blockHeight };
-    const containerStyle = showResultsOverlay ? blockSizeStyle : frozenStyle;
     const gridStyle = (showResultsOverlay || showEmptyState)
         ? singleRowSizeStyle
         : undefined;
@@ -167,7 +135,6 @@ export function GamesGrid({
     return (
         <div className="flex flex-col gap-8">
             <div
-                ref={containerRef}
                 className="relative rounded-3xl border border-gray-200 bg-white p-4 md:p-6 shadow-soft"
                 aria-busy={showResultsOverlay && !showEmptyState}
                 style={containerStyle}

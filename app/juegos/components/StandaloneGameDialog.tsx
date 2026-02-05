@@ -1,14 +1,16 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import type { StandaloneGameDialogProps } from '@/types/allTypes';
 import { GameDetailsDialog } from './GameDetailsDialog';
 
 export function StandaloneGameDialog({ game, copy, backHref, genres, preview }: StandaloneGameDialogProps) {
-    const [open, setOpen] = useState(true);
+    const [closedGameId, setClosedGameId] = useState<StandaloneGameDialogProps['game']['id'] | null>(null);
+    const currentGameId = game.id;
+    const open = closedGameId !== currentGameId;
 
     const handleClose = useCallback(() => {
-        setOpen(false);
+        setClosedGameId(currentGameId);
 
         if (typeof window === 'undefined') {
             return;
@@ -22,12 +24,7 @@ export function StandaloneGameDialog({ game, copy, backHref, genres, preview }: 
         }
 
         window.history.replaceState(historyState ?? null, '', backHref);
-    }, [backHref]);
-
-    useEffect(() => {
-        setOpen(true);
-    }, [game]);
-
+    }, [backHref, currentGameId]);
     return (
         <GameDetailsDialog
             open={open}
