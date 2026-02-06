@@ -1,7 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import { AppDialog } from '@/components/client/AppDialog';
@@ -122,6 +121,15 @@ function Section({ title, content }: { title: string; content: string }) {
     );
 }
 
+function SummaryCard({ title, value }: { title: string; value: string }) {
+    return (
+        <div className="flex flex-col gap-1 rounded-2xl border border-gray-200 bg-white/80 px-4 py-4 shadow-sm">
+            <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">{title}</p>
+            <p className="text-base font-semibold text-gray-900">{value}</p>
+        </div>
+    );
+}
+
 export function GameDetailsDialog({
     open,
     game,
@@ -131,7 +139,6 @@ export function GameDetailsDialog({
     genres,
     onCloseAction,
     onRetryAction,
-    backHref,
     preview
 }: GameDetailsDialogProps) {
     const fallbackTitle = game?.id ? `${copy.fallbackNamePrefix} ${game.id}` : copy.fallbackNamePrefix;
@@ -193,6 +200,11 @@ export function GameDetailsDialog({
                     </div>
                 ) : null}
 
+                <div className="grid gap-4 sm:grid-cols-2">
+                    <SummaryCard title={copy.genreHeading} value={genreContent} />
+                    <SummaryCard title={copy.multiplayerHeading} value={multiplayerContent} />
+                </div>
+
                 <Section
                     title={copy.descriptionHeading}
                     content={description}
@@ -201,16 +213,6 @@ export function GameDetailsDialog({
                 <Section
                     title={copy.controlsHeading}
                     content={game.controls ?? copy.controlsPlaceholder}
-                />
-
-                <Section
-                    title={copy.genreHeading}
-                    content={genreContent}
-                />
-
-                <Section
-                    title={copy.multiplayerHeading}
-                    content={multiplayerContent}
                 />
 
                 {isMultiplayer ? (
@@ -227,21 +229,12 @@ export function GameDetailsDialog({
         );
     }
 
-    const actions = backHref
-        ? (
-            <Button component={Link} href={backHref} color="primary" variant="outlined">
-                {copy.backButtonLabel}
-            </Button>
-        )
-        : null;
-
     return (
         <AppDialog
             open={open}
             onCloseAction={onCloseAction}
             title={title}
             closeLabel={copy.closeLabel}
-            actions={actions}
         >
             {bodyContent}
         </AppDialog>
