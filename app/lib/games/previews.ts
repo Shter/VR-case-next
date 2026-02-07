@@ -1,5 +1,5 @@
 import type { Game, GamePreview } from '@/types/allTypes';
-import { fetchQuestStorePreview } from '@/lib/queststore/previews';
+import { fetchExperiencePreview } from '@/lib/experiences/previews';
 
 export async function fetchPreviewForGame(game: Game | null): Promise<GamePreview | null> {
     if (!game || typeof game.source_url !== 'string' || game.source_url.trim().length === 0) {
@@ -7,7 +7,8 @@ export async function fetchPreviewForGame(game: Game | null): Promise<GamePrevie
     }
 
     try {
-        const preview = await fetchQuestStorePreview(game.source_url);
+        const preview = await fetchExperiencePreview(game.source_url);
+
         return {
             gameId: game.id,
             posterUrl: preview.posterUrl,

@@ -40,8 +40,7 @@ export function normalizeGame(raw: Game): Game {
     const legacyImage = (raw as Game & { imageg_url?: string; imageUrl?: string }).imageg_url
         ?? (raw as Game & { imageg_url?: string; imageUrl?: string }).imageUrl
         ?? raw.image_url;
-    const listingSource = (raw as Game & { queststore_url?: string; listing_url?: string }).queststore_url
-        ?? (raw as Game & { queststore_url?: string; listing_url?: string }).listing_url
+    const listingSource = (raw as Game & { listing_url?: string }).listing_url
         ?? raw.source_url;
 
     return {

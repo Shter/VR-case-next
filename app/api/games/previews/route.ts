@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { fetchQuestStorePreview } from '@/lib/queststore/previews';
+import { fetchExperiencePreview } from '@/lib/experiences/previews';
 import type {
     GamePreview,
     GamePreviewError,
@@ -91,7 +91,7 @@ export async function POST(request: Request) {
     }
 
     const settled = await Promise.allSettled(targets.map(async (target) => {
-        const preview = await fetchQuestStorePreview(target.sourceUrl);
+        const preview = await fetchExperiencePreview(target.sourceUrl);
 
         return {
             gameId: target.id,
