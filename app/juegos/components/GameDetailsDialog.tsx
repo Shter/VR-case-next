@@ -47,9 +47,15 @@ function Section({ title, content }: { title: string; content: string }) {
 
 function SummaryCard({ title, value }: { title: string; value: string }) {
     return (
-        <div className="flex flex-col gap-1 rounded-2xl border border-gray-200 bg-white/80 px-4 py-4 shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">{title}</p>
-            <p className="text-base font-semibold text-gray-900">{value}</p>
+        <div className="rounded-2xl border border-gray-200 bg-white/80 px-4 py-4 shadow-sm">
+            <div className="flex w-full flex-row flex-wrap items-baseline justify-between gap-4">
+                <p className="text-base font-semibold uppercase tracking-wide text-gray-400 whitespace-nowrap">
+                    {title}
+                </p>
+                <p className="break-words text-right text-base font-semibold text-gray-900">
+                    {value}
+                </p>
+            </div>
         </div>
     );
 }
