@@ -1,0 +1,1 @@
+export const GAMES_CATALOG_PAGE_SIZE = 6;

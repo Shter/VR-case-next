@@ -1,22 +1,18 @@
-"use client";
+'use client';
 
-import MenuIcon from "@mui/icons-material/Menu";
-import { MouseEvent, isValidElement, useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
-import type { HeaderMenuProps } from "@/types/allTypes";
-import useClickAwayHeader from "@/lib/hooks/useClickAway";
-import CloseIcon from "@mui/icons-material/Close"
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
+import { MouseEvent, isValidElement, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
+import type { HeaderMenuProps } from '@/types/allTypes';
+import useClickAwayHeader from '@/lib/hooks/useClickAway';
 
 export function HeaderMenu({ children }: HeaderMenuProps) {
     const [open, setOpen] = useState(false);
     const wrapperRef = useRef<HTMLDivElement | null>(null);
     const toggleRef = useRef<HTMLButtonElement | null>(null);
-    const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
+    const portalContainer = typeof document === 'undefined' ? null : document.body;
     const closeMenu = () => setOpen(false);
-
-    useEffect(() => {
-        setPortalContainer(document.body);
-    }, []);
 
     useClickAwayHeader(wrapperRef, closeMenu);
 
