@@ -36,6 +36,22 @@ function sanitizeGenreList(raw: unknown): number[] {
     return collected;
 }
 
+function sanitizePlayerCount(value: unknown): number | null {
+    if (typeof value === 'number' && Number.isFinite(value) && value >= 1) {
+        return Math.floor(value);
+    }
+
+    if (typeof value === 'string') {
+        const parsed = Number.parseInt(value, 10);
+
+        if (!Number.isNaN(parsed) && parsed >= 1) {
+            return parsed;
+        }
+    }
+
+    return null;
+}
+
 export function normalizeGame(raw: Game): Game {
     const legacyImage = (raw as Game & { imageg_url?: string; imageUrl?: string }).imageg_url
         ?? (raw as Game & { imageg_url?: string; imageUrl?: string }).imageUrl
@@ -49,7 +65,8 @@ export function normalizeGame(raw: Game): Game {
         description: sanitizeDescriptionText(raw.description),
         image_url: sanitizeString(legacyImage),
         controls: sanitizeString(raw.controls),
-        multiplayer: raw.multiplayer === true,
+        min_players: sanitizePlayerCount(raw.min_players),
+        max_players: sanitizePlayerCount(raw.max_players),
         multiplayer_instructions: sanitizeString(raw.multiplayer_instructions),
         genre: sanitizeGenreList(raw.genre),
         source_url: sanitizeString(listingSource),

@@ -2,6 +2,7 @@ import { cache } from 'react';
 import { supabaseClient } from '@/lib/supabase/client';
 import type { Game, GameFiltersState, Genre } from '@/types/allTypes';
 import { normalizeGame } from '@/lib/juegos/normalizers';
+import { MULTIPLAYER_FILTER_EXPRESSION, SOLO_FILTER_EXPRESSION } from '@/lib/juegos/playerCounts';
 
 const DEFAULT_PAGE_LIMIT = 6;
 
@@ -26,9 +27,11 @@ export async function fetchGenres(): Promise<Genre[]> {
                 return null;
             }
 
+            const candidateName = String(item.name ?? '').trim();
+
             return {
                 id: parsedId,
-                name: typeof item.name === 'string' ? item.name : `Género #${item.id}`
+                name: candidateName.length > 0 ? candidateName : `Género #${parsedId}`
             } satisfies Genre;
         })
         .filter((candidate): candidate is Genre => candidate !== null);
@@ -55,9 +58,9 @@ export async function fetchGamesPage(
     }
 
     if (filters.multiplayerFilter === 'multiplayer') {
-        query = query.eq('multiplayer', true);
+        query = query.or(MULTIPLAYER_FILTER_EXPRESSION);
     } else if (filters.multiplayerFilter === 'solo') {
-        query = query.eq('multiplayer', false);
+        query = query.or(SOLO_FILTER_EXPRESSION);
     }
 
     if (filters.searchTerm.trim().length >= 2) {

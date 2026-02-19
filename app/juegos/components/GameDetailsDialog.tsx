@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import { AppDialog } from '@/components/client/AppDialog';
 import type { GameDetailsDialogProps } from '@/types/allTypes';
+import { formatPlayerCountLabel, isMultiplayerGame } from '@/lib/juegos/playerCounts';
 
 function resolveGenreValue(
     genreIds: number[] | null | undefined,
@@ -76,7 +77,8 @@ export function GameDetailsDialog({
     const coverUrl = preview?.posterUrl ?? null;
     const description = preview?.description ?? copy.descriptionPlaceholder;
     const videoUrl = preview?.videoUrl ?? null;
-    const isMultiplayer = game?.multiplayer === true;
+    const isMultiplayer = isMultiplayerGame(game ?? undefined);
+    const playerCountLabel = formatPlayerCountLabel(game ?? undefined, copy);
     let bodyContent;
 
     if (isLoading) {
@@ -99,9 +101,6 @@ export function GameDetailsDialog({
         );
     } else if (game) {
         const genreContent = resolveGenreValue(game.genre, genres, copy.genreFallbackPrefix) ?? copy.genrePlaceholder;
-        const multiplayerContent = typeof game.multiplayer === 'boolean'
-            ? (game.multiplayer ? copy.multiplayerBadgeLabel : copy.soloBadgeLabel)
-            : copy.multiplayerUnknownLabel;
 
         bodyContent = (
             <div className="flex flex-col gap-6">
@@ -132,7 +131,7 @@ export function GameDetailsDialog({
 
                 <div className="grid gap-4 sm:grid-cols-2">
                     <SummaryCard title={copy.genreHeading} value={genreContent} />
-                    <SummaryCard title={copy.multiplayerHeading} value={multiplayerContent} />
+                    <SummaryCard title={copy.playersHeading} value={playerCountLabel} />
                 </div>
 
                 <Section

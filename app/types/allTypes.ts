@@ -129,7 +129,8 @@ export type Game = {
     description: string | null;
     image_url: string | null;
     controls: string | null;
-    multiplayer: boolean | null;
+    min_players: number | null;
+    max_players: number | null;
     multiplayer_instructions: string | null;
     genre: number[] | null;
     source_url?: string | null;
@@ -219,12 +220,10 @@ export type GameDetailsCopy = {
     genreHeading: string;
     genrePlaceholder: string;
     genreFallbackPrefix: string;
-    multiplayerHeading: string;
+    playersHeading: string;
+    playerCountUnknownLabel: string;
     multiplayerInstructionsHeading: string;
     multiplayerInstructionsPlaceholder: string;
-    multiplayerBadgeLabel: string;
-    soloBadgeLabel: string;
-    multiplayerUnknownLabel: string;
     closeLabel: string;
     backButtonLabel: string;
     errorDescription: string;
