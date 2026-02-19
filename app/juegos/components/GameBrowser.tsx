@@ -26,6 +26,7 @@ import {
 } from '@/lib/juegos/filters';
 import { normalizeGame } from '@/lib/juegos/normalizers';
 import { toGameCacheKey } from '@/lib/games/cache';
+import { MULTIPLAYER_FILTER_EXPRESSION, SOLO_FILTER_EXPRESSION } from '@/lib/juegos/playerCounts';
 
 const DEFAULT_PAGE_SIZE = 6;
 const PREVIEW_BATCH_LIMIT = 6;
@@ -278,9 +279,9 @@ export function GameBrowser({
         }
 
         if (filtersToApply.multiplayerFilter === 'multiplayer') {
-            query = query.eq('multiplayer', true);
+            query = query.or(MULTIPLAYER_FILTER_EXPRESSION);
         } else if (filtersToApply.multiplayerFilter === 'solo') {
-            query = query.eq('multiplayer', false);
+            query = query.or(SOLO_FILTER_EXPRESSION);
         }
 
         if (filtersToApply.searchTerm.trim().length >= 2) {
