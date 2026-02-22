@@ -59,7 +59,7 @@ export function Footer() {
             <div className="container mt-10 border-t border-white/10 pt-5 text-center text-white/70">
                 © {new Date().getFullYear()} VR.CASE Todos los derechos reservados
                 <a
-                    href="https://www.linkedin.com/in/pavel-aliseika-756975151"
+                    href="https://www.linkedin.com/in/pavel-aliseika"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="mt-2 block text-sm uppercase tracking-wide text-secondary transition hover:text-white"
