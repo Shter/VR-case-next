@@ -499,7 +499,7 @@ export function GameBrowser({
 
     return (
         <div className="flex flex-col gap-6 md:gap-8">
-            <div className="rounded-3xl border border-gray-200 bg-white px-6 py-6 shadow-soft lg:px-10 lg:py-8">
+            <div className="rounded-3xl border border-gray-200 bg-white px-6 py-6 text-dark shadow-soft lg:px-10 lg:py-8">
                 <GameFilters
                     genres={genres}
                     selectedGenreIds={filters.genreIds}

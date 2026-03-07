@@ -1,12 +1,12 @@
 import { faqItems } from "@/app/constants";
 
 export function Faq() {
-    const labelClass = "relative rounded-xl flex cursor-pointer items-center gap-4 px-5 py-4 pr-14 text-left text-base font-semibold text-dark transition-colors peer-checked:bg-secondary after:absolute after:right-5 after:flex after:h-8 after:w-8 after:items-center after:justify-center after:rounded-full after:border after:text-sm after:font-semibold after:text-dark/70 after:content-['+'] peer-checked:after:border-transparent peer-checked:after:bg-accent peer-checked:after:text-black peer-checked:after:content-['-']";
-    const itemClass = "max-h-0 overflow-hidden px-5 text-sm leading-relaxed transition-all duration-300 peer-checked:max-h-96 peer-checked:pb-4 peer-checked:pt-2 peer-checked:opacity-100 text-left";
+    const labelClass = "relative flex cursor-pointer items-center gap-4 rounded-xl px-5 py-4 pr-14 text-left text-base font-semibold text-white transition-colors peer-checked:bg-white/10 after:absolute after:right-5 after:flex after:h-8 after:w-8 after:items-center after:justify-center after:rounded-full after:border after:text-sm after:font-semibold after:text-white/80 after:content-['+'] peer-checked:after:border-transparent peer-checked:after:bg-accent peer-checked:after:text-black peer-checked:after:content-['-']";
+    const itemClass = "max-h-0 overflow-hidden px-5 text-left text-sm leading-relaxed text-white/80 transition-all duration-300 peer-checked:max-h-96 peer-checked:pb-4 peer-checked:pt-2 peer-checked:opacity-100";
 
     return (
-        <aside className="flex w-full flex-col text-center lg:w-[45%] lg:max-h-[680px] lg:overflow-y-auto">
-            <h2 className="pb-5 text-3xl font-bold text-dark md:text-4xl">
+        <aside className="flex w-full flex-col text-center text-white lg:w-[45%] lg:max-h-[680px] lg:overflow-y-auto">
+            <h2 className="pb-5 text-3xl font-bold md:text-4xl">
                 Todo lo que querés saber antes de vivir la VR
             </h2>
 
@@ -17,7 +17,7 @@ export function Faq() {
 
                     return (
                         <li key={item.id}>
-                            <div className="rounded-2xl border-2 border-secondary bg-white transition">
+                            <div className="rounded-2xl border border-white/20 bg-white/5 backdrop-blur transition">
                                 <input
                                     type="radio"
                                     name="faq-toggle-group"

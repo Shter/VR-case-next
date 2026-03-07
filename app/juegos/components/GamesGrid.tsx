@@ -135,13 +135,13 @@ export function GamesGrid({
     return (
         <div className="flex flex-col gap-8">
             <div
-                className="relative rounded-3xl border border-gray-200 bg-white p-4 md:p-6 shadow-soft"
+                className="relative rounded-3xl border border-gray-200 bg-white p-4 text-dark md:p-6 shadow-soft"
                 aria-busy={showResultsOverlay && !showEmptyState}
                 style={containerStyle}
             >
                 {showResultsOverlay ? (
                     <div
-                        className="absolute inset-x-0 top-0 z-10 flex flex-col items-center justify-center gap-3 rounded-3xl bg-white/90 backdrop-blur-sm"
+                        className="absolute inset-x-0 top-0 z-10 flex flex-col items-center justify-center gap-3 rounded-3xl bg-white/90 text-dark backdrop-blur-sm"
                         style={blockSizeStyle}
                     >
                         <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-gray-200" aria-hidden="true">
@@ -180,7 +180,7 @@ export function GamesGrid({
 
                 <div
                     ref={paginationRef}
-                    className="mt-5 flex flex-col gap-4 rounded-3xl bg-white/80 p-3 md:flex-row md:items-center md:justify-between md:p-5"
+                    className="mt-5 flex flex-col gap-4 rounded-3xl bg-white/80 p-3 text-dark md:flex-row md:items-center md:justify-between md:p-5"
                 >
                     <p className="text-sm text-gray-600">{rangeLabel}</p>
                     <div className="flex items-center gap-3">

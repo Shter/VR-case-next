@@ -3,7 +3,7 @@ import { PriceCard } from "@/components/server/PriceCard";
 
 export function PriceSection({ title, offers }: PriceSectionProps) {
     return (
-        <div className="bg-primary/90 rounded-2xl p-3 md:p-6 border-4 border-white/20 shadow">
+        <div className="card-glass rounded-2xl p-3 md:p-6 border-4">
             <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 text-white">
                 {title}
             </h2>

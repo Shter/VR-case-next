@@ -31,7 +31,7 @@ export default function Page() {
                 </div>
             </section>
 
-            <section id="faq-gallery" className="bg-white">
+            <section id="faq-gallery">
                 <div className="container flex flex-col gap-12 lg:flex-row py-10 md:py-16">
                     <Faq />
                     <Gallery />

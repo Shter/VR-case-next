@@ -31,7 +31,7 @@ export function GameCard({ game, queryString, detailBasePath, copy, onNavigateAc
         <Link
             href={href}
             onClick={handleClick}
-            className="group flex h-full flex-col overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-soft transition-shadow hover:shadow-lg focus-visible:outline focus-visible:outline-offset-4 focus-visible:outline-primary"
+            className="group flex h-full flex-col overflow-hidden rounded-3xl border border-gray-200 bg-white text-dark shadow-soft transition-shadow hover:shadow-lg focus-visible:outline focus-visible:outline-offset-4 focus-visible:outline-primary"
         >
             <div className="relative h-48 w-full overflow-hidden bg-gray-100">
                 {coverUrl ? (

@@ -13,7 +13,18 @@
   --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-html, body { @apply bg-light text-dark antialiased; }
+html, body {
+  color: #f4f0ff;
+  background-color: #04000f;
+  @apply antialiased;
+}
+
+:root {
+  --retro-sky: #04000f;
+  --retro-horizon: #ff2d95;
+  --retro-grid: #7c4dff;
+  --retro-teal: #00ffe0;
+}
 
 .container { @apply max-w-screen-xl mx-auto px-5; }
 

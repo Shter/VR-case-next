@@ -6,7 +6,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 const AccentNoticeIcon = () => (
-    <span className="inline-flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border-3 border-accent text-accent text-2xl leading-none">
+    <span className="inline-flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border-3 border-accent text-2xl leading-none">
         !
     </span>
 );
@@ -50,7 +50,7 @@ export default function Page() {
                         instalación guiada, soporte remoto durante la experiencia del equipamiento
                     </p>
 
-                    <div className="self-center flex items-center gap-4 w-fit border-5 rounded-2xl border-accent text-center py-4 px-4 md:px-6 font-bold">
+                    <div className="self-center flex items-center gap-4 w-fit rounded-2xl text-center py-4 px-4 md:px-6 font-bold text-accent">
                         <AccentNoticeIcon />
                         <span>LOS PRECIOS PARA LOS DÍAS FESTIVOS SE DEBEN CONSULTAR CON EL OPERADOR</span>
                         <AccentNoticeIcon />
@@ -62,7 +62,7 @@ export default function Page() {
 
             <section className="container mb-8">
                 <div className="grid gap-8 lg:grid-cols-2">
-                    <div className="space-y-4 rounded-2xl bg-gray-200 p-8 shadow-soft">
+                    <div className="space-y-4 rounded-2xl bg-gray-200 p-8 text-dark shadow-soft">
                         <h2 className="text-2xl font-semibold">Qué incluye cada alquiler</h2>
 
                         <ul className="space-y-3 text-base opacity-90">
@@ -73,7 +73,7 @@ export default function Page() {
                         </ul>
                     </div>
 
-                    <div className="space-y-4 rounded-2xl bg-gray-200  p-8 shadow-soft">
+                    <div className="space-y-4 rounded-2xl bg-gray-200  p-8 text-dark shadow-soft">
                         <h2 className="text-2xl font-semibold">Cómo elegir el plan ideal</h2>
 
                         <p>

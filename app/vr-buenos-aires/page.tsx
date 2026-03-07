@@ -63,7 +63,7 @@ export default function VRBuenosAiresPage() {
                 </p>
 
                 <div
-                    className="flex flex-col md:grid md:grid-cols-[1fr_auto] md:justify-between rounded-2xl bg-gray-200 p-8 shadow-soft border-3 border-dark">
+                    className="flex flex-col md:grid md:grid-cols-[1fr_auto] md:justify-between rounded-2xl bg-gray-200 p-8 text-dark shadow-soft border-3 border-dark">
                     <ul className="order-2 md:order-1 md:grid-cols-2 lg:grid-cols-3 md:me-16 md:border-e-3 md:border-dark">
                         {advantages.map(({title, text}) => (
                             <li key={title} className="my-3">
@@ -94,7 +94,7 @@ export default function VRBuenosAiresPage() {
                         </p>
 
                         <div
-                            className="flex flex-col md:grid md:grid-cols-[1fr_auto] rounded-2xl bg-gray-200 p-8 shadow-soft border-3 border-dark">
+                            className="flex flex-col md:grid md:grid-cols-[1fr_auto] rounded-2xl bg-gray-200 p-8 text-dark shadow-soft border-3 border-dark">
                             <Image
                                 src={asset('/images/corporative.webp')}
                                 alt="Experiencias VR configuradas por VR.CASE"
@@ -145,7 +145,7 @@ export default function VRBuenosAiresPage() {
                 </div>
 
                 <div
-                    className="flex flex-col md:grid md:grid-cols-[1fr_auto] rounded-2xl bg-gray-200 p-8 border-3 border-dark">
+                    className="flex flex-col md:grid md:grid-cols-[1fr_auto] rounded-2xl bg-gray-200 p-8 text-dark border-3 border-dark">
                     <div className="order-2 md:order-1 md:me-16 md:border-e-3 md:border-dark mt-6 md:mt-0">
                         <h2 className="text-2xl font-semibold mb-4">Explorá un universo de posibilidades</h2>
                         <ul className="space-y-3">

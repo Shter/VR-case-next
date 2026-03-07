@@ -48,7 +48,7 @@ function Section({ title, content }: { title: string; content: string }) {
 
 function SummaryCard({ title, value }: { title: string; value: string }) {
     return (
-        <div className="rounded-2xl border border-gray-200 bg-white/80 px-4 py-4 shadow-sm">
+        <div className="rounded-2xl border border-gray-200 bg-white/80 px-4 py-4 text-dark shadow-sm">
             <div className="flex w-full flex-row flex-wrap items-baseline justify-between gap-4">
                 <p className="text-base font-semibold uppercase tracking-wide text-gray-400 whitespace-nowrap">
                     {title}
