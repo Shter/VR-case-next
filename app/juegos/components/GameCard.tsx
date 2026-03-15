@@ -31,9 +31,9 @@ export function GameCard({ game, queryString, detailBasePath, copy, onNavigateAc
         <Link
             href={href}
             onClick={handleClick}
-            className="group flex h-full flex-col overflow-hidden rounded-3xl border border-gray-200 bg-white text-dark shadow-soft transition-shadow hover:shadow-lg focus-visible:outline focus-visible:outline-offset-4 focus-visible:outline-primary"
+            className="group flex h-full flex-col overflow-hidden rounded-3xl border border-white/20 bg-white/5 text-white shadow-soft backdrop-blur transition hover:-translate-y-1 focus-visible:outline focus-visible:outline-offset-4 focus-visible:outline-primary/60"
         >
-            <div className="relative h-48 w-full overflow-hidden bg-gray-100">
+            <div className="relative h-48 w-full overflow-hidden border-b border-white/10 bg-white/10">
                 {coverUrl ? (
                     <Image
                         src={coverUrl}
@@ -44,7 +44,7 @@ export function GameCard({ game, queryString, detailBasePath, copy, onNavigateAc
                         unoptimized
                     />
                 ) : (
-                    <div className="flex h-full w-full items-center justify-center text-sm font-medium text-gray-400">
+                    <div className="flex h-full w-full items-center justify-center text-sm font-medium text-white/60">
                         {copy.card.fallbackCoverLabel}
                     </div>
                 )}
@@ -52,8 +52,8 @@ export function GameCard({ game, queryString, detailBasePath, copy, onNavigateAc
 
             <div className="flex flex-1 flex-col gap-4 p-6">
                 <div className="flex items-start justify-between gap-3">
-                    <h3 className="flex-1 text-lg font-semibold text-gray-900 self-center">{name}</h3>
-                    <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-primary text-lg text-primary transition group-hover:bg-primary group-hover:text-white">
+                    <h3 className="flex-1 self-center text-lg font-semibold text-white">{name}</h3>
+                    <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/40 text-lg text-white/80 transition group-hover:border-primary group-hover:bg-primary group-hover:text-white">
                         <span aria-hidden>→</span>
                     </span>
                 </div>

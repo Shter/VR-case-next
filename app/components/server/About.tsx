@@ -7,7 +7,7 @@ export function About() {
         <section id="about" className="py-10 text-white md:py-16">
             <div className="container grid gap-6 md:gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)_auto] md:items-stretch">
                 <div className="flex order-2 md:order-1 md:self-stretch">
-                    <div className="relative aspect-4/3 w-full overflow-hidden rounded-2xl border border-white/30 md:aspect-auto md:h-full md:max-h-[600px]">
+                    <div className="relative aspect-4/3 w-full overflow-hidden rounded-2xl border-4 border-white/30 md:aspect-auto md:h-full md:max-h-[600px]">
                         <Image
                             src={asset('/images/two-cases.webp')}
                             alt="Headsets Meta Quest listos para alquiler en Buenos Aires"

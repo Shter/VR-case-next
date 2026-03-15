@@ -62,7 +62,7 @@ export default function Page() {
 
             <section className="container mb-8">
                 <div className="grid gap-8 lg:grid-cols-2">
-                    <div className="space-y-4 rounded-2xl bg-gray-200 p-8 text-dark shadow-soft">
+                    <div className="card-glass space-y-4 rounded-2xl bg-gray-200 p-8 text-dark shadow-soft">
                         <h2 className="text-2xl font-semibold">Qué incluye cada alquiler</h2>
 
                         <ul className="space-y-3 text-base opacity-90">
@@ -73,7 +73,7 @@ export default function Page() {
                         </ul>
                     </div>
 
-                    <div className="space-y-4 rounded-2xl bg-gray-200  p-8 text-dark shadow-soft">
+                    <div className="card-glass space-y-4 rounded-2xl bg-gray-200  p-8 text-dark shadow-soft">
                         <h2 className="text-2xl font-semibold">Cómo elegir el plan ideal</h2>
 
                         <p>

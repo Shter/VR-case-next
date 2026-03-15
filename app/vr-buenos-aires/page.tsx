@@ -62,9 +62,8 @@ export default function VRBuenosAiresPage() {
                     participación y seguridad
                 </p>
 
-                <div
-                    className="flex flex-col md:grid md:grid-cols-[1fr_auto] md:justify-between rounded-2xl bg-gray-200 p-8 text-dark shadow-soft border-3 border-dark">
-                    <ul className="order-2 md:order-1 md:grid-cols-2 lg:grid-cols-3 md:me-16 md:border-e-3 md:border-dark">
+                <div className="flex flex-col md:grid md:grid-cols-[1fr_auto] md:justify-between rounded-2xl p-8 border-4 bg-white/5 border-white/20 backdrop-blur">
+                    <ul className="order-2 md:order-1 md:grid-cols-2 lg:grid-cols-3">
                         {advantages.map(({title, text}) => (
                             <li key={title} className="my-3">
                                 <h2 className="text-xl font-semibold">{title}</h2>
@@ -78,7 +77,7 @@ export default function VRBuenosAiresPage() {
                         alt="Meta Quest 3 listados para eventos corporativos en Buenos Aires"
                         width={256}
                         height={256}
-                        className="order-1 md:order-2 rounded-xl aspect-square object-cover w-full md:w-auto md:h-full border-3 border-dark"
+                        className="order-1 md:order-2 rounded-xl aspect-square object-cover w-full md:w-auto md:h-full border-4 bg-white/5 border-white/20"
                         sizes="(min-width: 768px) 10rem, 9rem"
                     />
                 </div>
@@ -94,17 +93,17 @@ export default function VRBuenosAiresPage() {
                         </p>
 
                         <div
-                            className="flex flex-col md:grid md:grid-cols-[1fr_auto] rounded-2xl bg-gray-200 p-8 text-dark shadow-soft border-3 border-dark">
+                            className="flex flex-col md:grid md:grid-cols-[1fr_auto] rounded-2xl p-8 border-4 bg-white/5 border-white/20 backdrop-blur">
                             <Image
                                 src={asset('/images/corporative.webp')}
                                 alt="Experiencias VR configuradas por VR.CASE"
                                 width={256}
                                 height={256}
-                                className="order-1 md:order-1 rounded-xl aspect-square object-cover w-full md:w-auto md:h-full border-3 border-dark"
+                                className="order-1 md:order-1 rounded-xl aspect-square object-cover w-full md:w-auto md:h-full border-4 bg-white/5 border-white/20"
                                 sizes="(min-width: 768px) 10rem, 9rem"
                             />
 
-                            <ul className="order-2 md:grid-cols-2 lg:grid-cols-3 md:ps-49 md:border-s-3 md:border-dark">
+                            <ul className="order-2 md:grid-cols-2 lg:grid-cols-3">
                                 {serviceCards.map(({heading, description}) => (
                                     <li key={heading} className="my-3">
                                         <h3 className="text-xl font-semibold">{heading}</h3>
@@ -145,8 +144,8 @@ export default function VRBuenosAiresPage() {
                 </div>
 
                 <div
-                    className="flex flex-col md:grid md:grid-cols-[1fr_auto] rounded-2xl bg-gray-200 p-8 text-dark border-3 border-dark">
-                    <div className="order-2 md:order-1 md:me-16 md:border-e-3 md:border-dark mt-6 md:mt-0">
+                    className="flex flex-col md:grid md:grid-cols-[1fr_auto] rounded-2xl p-8 border-4 bg-white/5 border-white/20">
+                    <div className="order-2 md:order-1 mt-6 md:mt-0">
                         <h2 className="text-2xl font-semibold mb-4">Explorá un universo de posibilidades</h2>
                         <ul className="space-y-3">
                             <li>- Jugá títulos de alta gama como Beat Saber, Superhot VR o Resident Evil 4</li>
@@ -163,7 +162,7 @@ export default function VRBuenosAiresPage() {
                         alt="Equipo de soporte VR listo para asistir"
                         width={224}
                         height={224}
-                        className="order-1 md:order-2 rounded-xl aspect-square object-cover w-full md:w-auto md:h-full border-3 border-dark"
+                        className="order-1 md:order-2 rounded-xl aspect-square object-cover w-full md:w-auto md:h-full border-4 bg-white/5 border-white/20"
                         sizes="(min-width: 768px) 9rem, 8rem"
                     />
                 </div>

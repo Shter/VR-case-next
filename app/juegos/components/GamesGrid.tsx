@@ -135,19 +135,19 @@ export function GamesGrid({
     return (
         <div className="flex flex-col gap-8">
             <div
-                className="relative rounded-3xl border border-gray-200 bg-white p-4 text-dark md:p-6 shadow-soft"
+                className="relative rounded-3xl border border-white/20 bg-white/5 p-4 text-white shadow-soft backdrop-blur md:p-6"
                 aria-busy={showResultsOverlay && !showEmptyState}
                 style={containerStyle}
             >
                 {showResultsOverlay ? (
                     <div
-                        className="absolute inset-x-0 top-0 z-10 flex flex-col items-center justify-center gap-3 rounded-3xl bg-white/90 text-dark backdrop-blur-sm"
+                        className="absolute inset-x-0 top-0 z-10 flex flex-col items-center justify-center gap-3 rounded-3xl border border-white/10 bg-dark/80 text-white backdrop-blur-sm"
                         style={blockSizeStyle}
                     >
-                        <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-gray-200" aria-hidden="true">
-                            <span className="h-4 w-4 animate-spin rounded-full border-2 border-gray-400 border-t-primary" />
+                        <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-white/30" aria-hidden="true">
+                            <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/50 border-t-primary" />
                         </span>
-                        <span className="text-sm font-semibold text-gray-700">{copy.loadingLabel}</span>
+                        <span className="text-sm font-semibold text-white/80">{copy.loadingLabel}</span>
                     </div>
                 ) : null}
 
@@ -156,7 +156,7 @@ export function GamesGrid({
                     className={clsx(
                         'min-h-[240px] transition-opacity duration-200',
                         showEmptyState
-                            ? 'flex flex-col items-center justify-center rounded-2xl border border-dashed border-gray-200 px-6 py-10 text-center text-base text-gray-500'
+                            ? 'flex flex-col items-center justify-center rounded-2xl border border-dashed border-white/30 px-6 py-10 text-center text-base text-white/70'
                             : 'grid gap-6 md:grid-cols-3',
                         showResultsOverlay && 'opacity-0'
                     )}
@@ -180,24 +180,24 @@ export function GamesGrid({
 
                 <div
                     ref={paginationRef}
-                    className="mt-5 flex flex-col gap-4 rounded-3xl bg-white/80 p-3 text-dark md:flex-row md:items-center md:justify-between md:p-5"
+                    className="mt-5 flex flex-col gap-4 rounded-3xl border border-white/15 bg-white/10 p-3 text-white md:flex-row md:items-center md:justify-between md:p-5"
                 >
-                    <p className="text-sm text-gray-600">{rangeLabel}</p>
+                    <p className="text-sm text-white/70">{rangeLabel}</p>
                     <div className="flex items-center gap-3">
                         <button
                             type="button"
                             onClick={handlePrevious}
                             disabled={!hasResults || safeCurrentPage <= 1 || isLoading}
-                            className="inline-flex items-center rounded-full border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition hover:border-primary hover:text-primary disabled:cursor-not-allowed disabled:opacity-50"
+                            className="inline-flex items-center rounded-full border border-white/20 px-4 py-2 text-sm font-medium text-white/80 transition hover:border-white hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
                         >
                             {copy.pagination.previousLabel}
                         </button>
-                        <span className="text-sm font-semibold text-gray-800">{pageStatusLabel}</span>
+                        <span className="text-sm font-semibold text-white">{pageStatusLabel}</span>
                         <button
                             type="button"
                             onClick={handleNext}
                             disabled={!hasResults || safeCurrentPage >= safeTotalPages || isLoading}
-                            className="inline-flex items-center rounded-full border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition hover:border-primary hover:text-primary disabled:cursor-not-allowed disabled:opacity-50"
+                            className="inline-flex items-center rounded-full border border-white/20 px-4 py-2 text-sm font-medium text-white/80 transition hover:border-white hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
                         >
                             {copy.pagination.nextLabel}
                         </button>
