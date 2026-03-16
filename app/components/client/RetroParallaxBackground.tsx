@@ -49,8 +49,11 @@ export function RetroParallaxBackground() {
         scene.fog = new THREE.Fog(0x040014, 70, 320);
 
         const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.set(0, 22, 70);
-        camera.lookAt(new THREE.Vector3(0, 0, -200));
+        const floorOffsetY = -18;
+        const ceilingOffsetY = 88;
+        const walkwayCenterY = (floorOffsetY + ceilingOffsetY) / 2;
+        camera.position.set(0, walkwayCenterY, 70);
+        camera.lookAt(new THREE.Vector3(0, walkwayCenterY, -200));
         const baseCameraRotation = camera.rotation.clone();
 
         const neonPalette = {
@@ -116,8 +119,8 @@ export function RetroParallaxBackground() {
             return container;
         };
 
-        const floorGrid = buildGrid(-18, floorHorizontalLines);
-        const ceilingGrid = buildGrid(88, ceilingHorizontalLines);
+        const floorGrid = buildGrid(floorOffsetY, floorHorizontalLines);
+        const ceilingGrid = buildGrid(ceilingOffsetY, ceilingHorizontalLines);
         const gridGroups = [floorGrid, ceilingGrid];
 
         const createMountainLayer = (offset: number, color: number) => {

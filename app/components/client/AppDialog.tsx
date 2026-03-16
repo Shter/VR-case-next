@@ -32,14 +32,18 @@ export function AppDialog({
       aria-labelledby={resolvedTitleId}
       maxWidth={maxWidth}
       fullWidth={fullWidth}
+      keepMounted
+      TransitionProps={{ timeout: { appear: 0, enter: 0, exit: 150 } }}
       slotProps={{
         paper: {
           sx: {
             borderRadius: '1.5rem',
             border: '1px solid rgba(255, 255, 255, 0.2)',
-            backgroundColor: '#04000f',
+            backgroundColor: 'rgba(255, 255, 255, 0.15)',
             color: '#f4f0ff',
-            boxShadow: '0 30px 80px rgba(0, 0, 0, 0.65)'
+            boxShadow: '0 30px 80px rgba(0, 0, 0, 0.55)',
+            backdropFilter: 'blur(18px)',
+            transition: 'none'
           },
         },
       }}
