@@ -135,7 +135,7 @@ export function GamesGrid({
     return (
         <div className="flex flex-col gap-8">
             <div
-                className="relative rounded-3xl border border-white/20 bg-white/5 p-4 text-white shadow-soft backdrop-blur md:p-6"
+                className="card-glass relative rounded-3xl border border-white/20 bg-white/5 p-4 text-white shadow-soft backdrop-blur md:p-6"
                 aria-busy={showResultsOverlay && !showEmptyState}
                 style={containerStyle}
             >
