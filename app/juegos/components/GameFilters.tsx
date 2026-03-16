@@ -9,16 +9,18 @@ type FilterPillProps = {
     label: string;
 };
 
+const pillBaseClasses =
+    'rounded-full border px-5 py-3 text-sm font-medium transition focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-primary focus-visible:ring-2 focus-visible:ring-primary/40';
+const pillActiveClasses = 'border-primary bg-primary text-white shadow-lg';
+const pillInactiveClasses =
+    'border-white/20 text-white/75 hover:border-white hover:bg-white/10 hover:text-white focus-visible:border-white/70';
+
 function FilterPill({ isActive, onClick, label }: FilterPillProps) {
     return (
         <button
             type="button"
             onClick={onClick}
-            className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-primary ${
-                isActive
-                    ? 'border-primary bg-primary text-white shadow-sm'
-                    : 'border-gray-200 bg-white text-gray-700 hover:border-primary hover:text-primary'
-            }`}
+            className={`${pillBaseClasses} ${isActive ? pillActiveClasses : pillInactiveClasses}`}
         >
             {label}
         </button>
@@ -43,7 +45,7 @@ export function GameFilters({
     return (
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:gap-10">
             <div className="flex flex-col gap-2 lg:w-2/5">
-                <label className="text-sm font-semibold uppercase tracking-wider text-gray-500" htmlFor="games-search">
+                <label className="text-sm font-semibold uppercase tracking-wider" htmlFor="games-search">
                     {copy.search.label}
                 </label>
                 <input
@@ -52,7 +54,7 @@ export function GameFilters({
                     value={searchValue}
                     onChange={handleSearchChange}
                     placeholder={copy.search.placeholder}
-                    className="w-full rounded-full border border-gray-200 px-5 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/40"
+                    className="w-full rounded-full border border-white/20 px-5 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/40"
                     autoComplete="off"
                     spellCheck={false}
                 />
@@ -61,8 +63,8 @@ export function GameFilters({
                 ) : null}
             </div>
 
-            <div className="flex flex-col gap-2 lg:flex-1 border border-secondary rounded-2xl p-3">
-                <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-500">{copy.genres.label}</h2>
+            <div className="flex flex-col gap-2 lg:flex-1 border border-white/20 rounded-2xl p-3">
+                <h2 className="text-sm font-semibold uppercase tracking-wider">{copy.genres.label}</h2>
                 <div className="flex flex-wrap gap-3">
                     <FilterPill
                         isActive={selectedGenreIds.length === 0}
@@ -85,8 +87,8 @@ export function GameFilters({
                 </div>
             </div>
 
-            <div className="flex flex-col gap-2 lg:w-1/4 border border-secondary rounded-2xl p-3">
-                <span className="text-sm font-semibold uppercase tracking-wider text-gray-500">{copy.multiplayer.label}</span>
+            <div className="flex flex-col gap-2 lg:w-1/4 border border-white/20 rounded-2xl p-3">
+                <span className="text-sm font-semibold uppercase tracking-wider">{copy.multiplayer.label}</span>
                 <div className="flex flex-wrap gap-3">
                     {copy.multiplayer.options.map((option) => (
                         <FilterPill

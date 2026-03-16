@@ -34,7 +34,7 @@ const contactButtonSx = (backgroundColor: string, hoverBackgroundColor: string) 
 
 export function Contact() {
     return (
-        <div className="flex flex-col h-full border-4 rounded-2xl border-secondary text-center py-6 px-6 md:px-10">
+        <div className="flex flex-col h-full border-4 rounded-2xl backdrop-blur bg-white/5 border-white/20 text-center py-6 px-6 md:px-10">
             <h2 className="text-3xl md:text-4xl font-extrabold mb-6">
                 Hablemos sobre tu próximo evento de realidad virtual en Buenos Aires
             </h2>

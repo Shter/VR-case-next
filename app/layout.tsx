@@ -4,6 +4,7 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import { asset, site } from '@/lib/site';
 import { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/react';
+import { RetroParallaxBackground } from '@/components/client/RetroParallaxBackground';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -52,11 +53,14 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
     return (
         <html lang="es-AR">
             <AppRouterCacheProvider>
-                <body className="min-h-screen flex flex-col">
-                    <Header/>
-                    <main className="flex-1">{children}</main>
-                    <Footer/>
-                    <Analytics />
+                <body className="relative min-h-screen overflow-x-hidden bg-[#04000f] text-[#f4f0ff]">
+                    <RetroParallaxBackground />
+                    <div className="relative z-10 flex min-h-screen flex-col">
+                        <Header />
+                        <main className="flex-1">{children}</main>
+                        <Footer />
+                        <Analytics />
+                    </div>
                 </body>
             </AppRouterCacheProvider>
         </html>

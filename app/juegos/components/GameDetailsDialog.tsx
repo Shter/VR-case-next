@@ -40,20 +40,20 @@ function resolveGenreValue(
 function Section({ title, content }: { title: string; content: string }) {
     return (
         <section className="flex flex-col gap-2">
-            <h3 className="text-base font-semibold text-gray-900">{title}</h3>
-            <p className="whitespace-pre-line text-sm leading-relaxed text-gray-700">{content}</p>
+            <h3 className="text-base font-semibold text-white">{title}</h3>
+            <p className="whitespace-pre-line text-sm leading-relaxed text-white/80">{content}</p>
         </section>
     );
 }
 
 function SummaryCard({ title, value }: { title: string; value: string }) {
     return (
-        <div className="rounded-2xl border border-gray-200 bg-white/80 px-4 py-4 shadow-sm">
+        <div className="rounded-2xl border border-white/20 bg-white/15 px-4 py-4 text-white backdrop-blur">
             <div className="flex w-full flex-row flex-wrap items-baseline justify-between gap-4">
-                <p className="text-base font-semibold uppercase tracking-wide text-gray-400 whitespace-nowrap">
+                <p className="text-base font-semibold uppercase tracking-wide text-white/70 whitespace-nowrap">
                     {title}
                 </p>
-                <p className="break-words text-right text-base font-semibold text-gray-900">
+                <p className="break-words text-right text-base font-semibold text-white">
                     {value}
                 </p>
             </div>
@@ -83,7 +83,7 @@ export function GameDetailsDialog({
 
     if (isLoading) {
         bodyContent = (
-            <div className="flex flex-col items-center gap-3 py-6 text-sm text-gray-500">
+            <div className="flex flex-col items-center gap-3 py-6 text-sm text-white/70">
                 <CircularProgress size={32} />
                 <span>{copy.loadingLabel}</span>
             </div>
@@ -91,7 +91,7 @@ export function GameDetailsDialog({
     } else if (error) {
         bodyContent = (
             <div className="flex flex-col items-center gap-4 py-6 text-center">
-                <p className="text-base text-gray-700">{error}</p>
+                <p className="text-base text-white/80">{error}</p>
                 {onRetryAction ? (
                     <Button variant="contained" color="primary" onClick={onRetryAction}>
                         {copy.retryLabel}
@@ -103,7 +103,7 @@ export function GameDetailsDialog({
         const genreContent = resolveGenreValue(game.genre, genres, copy.genreFallbackPrefix) ?? copy.genrePlaceholder;
 
         bodyContent = (
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-6 text-white">
                 {videoUrl ? (
                     <div className="overflow-hidden rounded-2xl">
                         <video
@@ -154,7 +154,7 @@ export function GameDetailsDialog({
         );
     } else {
         bodyContent = (
-            <p className="py-6 text-center text-sm text-gray-500">{copy.descriptionPlaceholder}</p>
+            <p className="py-6 text-center text-sm text-white/70">{copy.descriptionPlaceholder}</p>
         );
     }
 

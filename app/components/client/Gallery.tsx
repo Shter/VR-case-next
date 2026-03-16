@@ -44,7 +44,7 @@ export function Gallery() {
                                 type="button"
                                 onClick={() => handlePreviewClick(index)}
                                 className={clsx(
-                                    'group relative flex min-w-[260px] overflow-hidden rounded-2xl border-2 border-dark duration-300 no-scr',
+                                    'group relative flex min-w-[260px] overflow-hidden rounded-2xl border border-white/30 duration-300 no-scr',
                                 )}
                             >
                                 <div className="relative h-56 w-full cursor-pointer">
@@ -77,4 +77,3 @@ export function Gallery() {
         </>
     );
 }
-

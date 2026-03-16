@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useId } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
@@ -7,8 +7,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import IconButton         from '@mui/material/IconButton';
-import { AppDialogProps } from "@/types/allTypes";
+import IconButton from '@mui/material/IconButton';
+import { AppDialogProps } from '@/types/allTypes';
 
 export function AppDialog({
   open,
@@ -32,10 +32,20 @@ export function AppDialog({
       aria-labelledby={resolvedTitleId}
       maxWidth={maxWidth}
       fullWidth={fullWidth}
+      keepMounted
       slotProps={{
+        transition: {
+          timeout: { appear: 0, enter: 0, exit: 150 }
+        },
         paper: {
           sx: {
-            borderRadius: 6,
+            borderRadius: '1.5rem',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+            backgroundColor: 'rgba(255, 255, 255, 0.15)',
+            color: '#f4f0ff',
+            boxShadow: '0 30px 80px rgba(0, 0, 0, 0.55)',
+            backdropFilter: 'blur(18px)',
+            transition: 'none'
           },
         },
       }}
@@ -51,6 +61,7 @@ export function AppDialog({
             pl: 7,
             pt: 4,
             pb: 2,
+            color: '#f4f0ff'
           }}
         >
           {title}
@@ -61,6 +72,7 @@ export function AppDialog({
               position: 'absolute',
               top: 16,
               right: 16,
+              color: '#f4f0ff'
             }}
           >
             <CloseIcon />
@@ -74,10 +86,13 @@ export function AppDialog({
           flexDirection: 'column',
           gap: 3,
           py: 3,
+          color: '#f4f0ff'
         }}
       >
         {description ? (
-          <DialogContentText sx={{ textAlign: 'center' }}>{description}</DialogContentText>
+          <DialogContentText sx={{ textAlign: 'center', color: 'rgba(244, 240, 255, 0.75)' }}>
+            {description}
+          </DialogContentText>
         ) : null}
         {children}
       </DialogContent>
@@ -88,6 +103,7 @@ export function AppDialog({
             justifyContent: 'center',
             gap: 2,
             pb: 3,
+            color: '#f4f0ff'
           }}
         >
           {actions}
