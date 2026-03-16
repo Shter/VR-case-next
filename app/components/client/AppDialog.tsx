@@ -33,8 +33,10 @@ export function AppDialog({
       maxWidth={maxWidth}
       fullWidth={fullWidth}
       keepMounted
-      TransitionProps={{ timeout: { appear: 0, enter: 0, exit: 150 } }}
       slotProps={{
+        transition: {
+          timeout: { appear: 0, enter: 0, exit: 150 }
+        },
         paper: {
           sx: {
             borderRadius: '1.5rem',
