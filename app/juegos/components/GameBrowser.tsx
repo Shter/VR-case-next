@@ -33,6 +33,14 @@ const PREVIEW_BATCH_LIMIT = 6;
 const MIN_GRID_LOADING_MS = 1200;
 const getNow = () => (typeof performance !== 'undefined' ? performance.now() : Date.now());
 
+function isAbortError(error: unknown): boolean {
+    if (typeof DOMException !== 'undefined' && error instanceof DOMException) {
+        return error.name === 'AbortError';
+    }
+
+    return error instanceof Error && error.name === 'AbortError';
+}
+
 export function GameBrowser({
     initialGames,
     initialTotal,
@@ -193,6 +201,7 @@ export function GameBrowser({
         }
 
         let isSubscribed = true;
+        const abortControllers: AbortController[] = [];
         previewRequestIdRef.current += 1;
         const requestId = previewRequestIdRef.current;
         setIsPreviewLoading(true);
@@ -205,10 +214,15 @@ export function GameBrowser({
                     }
 
                     const chunk = previewTargets.slice(index, index + PREVIEW_BATCH_LIMIT);
+                    const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+                    if (controller) {
+                        abortControllers.push(controller);
+                    }
                     const response = await fetch('/api/games/previews', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ games: chunk })
+                        body: JSON.stringify({ games: chunk }),
+                        signal: controller?.signal
                     });
 
                     if (!response.ok) {
@@ -225,7 +239,7 @@ export function GameBrowser({
                     upsertPreviews(payload.previews ?? []);
                 }
             } catch (previewError) {
-                if (previewRequestIdRef.current === requestId) {
+                if (previewRequestIdRef.current === requestId && !isAbortError(previewError)) {
                     console.error('[game-browser] failed to load previews', previewError);
                 }
             } finally {
@@ -240,6 +254,9 @@ export function GameBrowser({
         return () => {
             isSubscribed = false;
             previewRequestIdRef.current += 1;
+            abortControllers.forEach((controller) => {
+                controller.abort();
+            });
         };
     }, [games, previewsByGameId, upsertPreviews]);
 
