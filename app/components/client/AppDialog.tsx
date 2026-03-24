@@ -1,13 +1,13 @@
 'use client';
 
 import { useId } from 'react';
-import CloseIcon from '@mui/icons-material/Close';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
+import { CloseIconGlyph } from '@/components/client/icons';
 import { AppDialogProps } from '@/types/allTypes';
 
 export function AppDialog({
@@ -75,7 +75,7 @@ export function AppDialog({
               color: '#f4f0ff'
             }}
           >
-            <CloseIcon />
+            <CloseIconGlyph width={24} height={24} />
           </IconButton>
         </DialogTitle>
       ) : null}

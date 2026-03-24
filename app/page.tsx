@@ -7,7 +7,7 @@ import { Contact }       from "@/components/server/Contact";
 import { JsonLd }                                          from "@/components/server/JsonLd";
 import { homeBreadcrumbLd, homeRentalLd, pricingRentalLd } from "@/lib/structured";
 import { Faq } from "@/components/server/Faq";
-import { Gallery } from "@/components/client/Gallery";
+import { Gallery } from "@/components/server/Gallery";
 
 export const metadata: Metadata = {
     alternates: { canonical: "/", languages: { "es-AR": "/" } }

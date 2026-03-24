@@ -15,6 +15,57 @@ const REQUEST_HEADERS: HeadersInit = {
     'accept-language': 'es-ES,es;q=0.9,en;q=0.8',
     referer: 'https://www.meta.com/'
 };
+const PREVIEW_CACHE_TTL_MS = 15 * 60 * 1000;
+const PREVIEW_CACHE_LIMIT = 64;
+type CachedPreviewEntry = {
+    value: ExperiencePreviewResult;
+    expiresAt: number;
+};
+const previewCache = new Map<string, CachedPreviewEntry>();
+const inflightPreviewRequests = new Map<string, Promise<ExperiencePreviewResult>>();
+
+function pruneCache(now: number): void {
+    if (previewCache.size === 0) {
+        return;
+    }
+
+    for (const [key, entry] of previewCache) {
+        if (entry.expiresAt <= now) {
+            previewCache.delete(key);
+        }
+    }
+
+    while (previewCache.size > PREVIEW_CACHE_LIMIT) {
+        const oldestKey = previewCache.keys().next().value;
+        if (typeof oldestKey === 'undefined') {
+            break;
+        }
+        previewCache.delete(oldestKey);
+    }
+}
+
+function getCachedPreview(targetUrl: string): ExperiencePreviewResult | null {
+    const cached = previewCache.get(targetUrl);
+
+    if (!cached) {
+        return null;
+    }
+
+    if (cached.expiresAt <= Date.now()) {
+        previewCache.delete(targetUrl);
+        return null;
+    }
+
+    return cached.value;
+}
+
+function setCachedPreview(targetUrl: string, value: ExperiencePreviewResult): void {
+    previewCache.set(targetUrl, {
+        value,
+        expiresAt: Date.now() + PREVIEW_CACHE_TTL_MS
+    });
+    pruneCache(Date.now());
+}
 
 type JsonLdNode = Record<string, unknown>;
 
@@ -321,28 +372,52 @@ function parseMetaExperiencePreview(html: string, requestUrl: string): Experienc
 
 export async function fetchExperiencePreview(rawUrl: string): Promise<ExperiencePreviewResult> {
     const targetUrl = normalizeTargetUrl(rawUrl);
-    const response = await fetch(targetUrl, {
-        method: 'GET',
-        cache: 'no-store',
-        headers: REQUEST_HEADERS,
-        next: { revalidate: 0 }
-    });
+    const cached = getCachedPreview(targetUrl);
 
-    const html = await response.text();
-
-    if (!response.ok && response.status !== 400) {
-        throw new Error(`experience-fetch-failed-${response.status}`);
+    if (cached) {
+        return cached;
     }
 
-    if (response.status === 400) {
-        console.warn('[experiences] upstream 400, attempting parse', targetUrl);
+    const inflight = inflightPreviewRequests.get(targetUrl);
+
+    if (inflight) {
+        return inflight;
     }
 
-    const preview = parseMetaExperiencePreview(html, targetUrl);
+    const requestPromise = (async () => {
+        const response = await fetch(targetUrl, {
+            method: 'GET',
+            cache: 'no-store',
+            headers: REQUEST_HEADERS,
+            next: { revalidate: 0 }
+        });
 
-    if (!preview.posterUrl && !preview.description && !preview.videoUrl) {
-        throw new Error(`experience-empty-response-${response.status}`);
+        const html = await response.text();
+
+        if (!response.ok && response.status !== 400) {
+            throw new Error(`experience-fetch-failed-${response.status}`);
+        }
+
+        if (response.status === 400) {
+            console.warn('[experiences] upstream 400, attempting parse', targetUrl);
+        }
+
+        const preview = parseMetaExperiencePreview(html, targetUrl);
+
+        if (!preview.posterUrl && !preview.description && !preview.videoUrl) {
+            throw new Error(`experience-empty-response-${response.status}`);
+        }
+
+        setCachedPreview(targetUrl, preview);
+
+        return preview;
+    })();
+
+    inflightPreviewRequests.set(targetUrl, requestPromise);
+
+    try {
+        return await requestPromise;
+    } finally {
+        inflightPreviewRequests.delete(targetUrl);
     }
-
-    return preview;
 }

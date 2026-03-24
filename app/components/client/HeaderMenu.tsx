@@ -1,20 +1,22 @@
 'use client';
 
-import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
-import { MouseEvent, isValidElement, useRef, useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { MouseEvent, useRef, useState } from 'react';
 import type { HeaderMenuProps } from '@/types/allTypes';
 import useClickAwayHeader from '@/lib/hooks/useClickAway';
 
-export function HeaderMenu({ children }: HeaderMenuProps) {
+const MENU_ICON = '/assets/icons/menu.svg';
+const CLOSE_ICON = '/assets/icons/close.svg';
+
+export function HeaderMenu({ items }: HeaderMenuProps) {
     const [open, setOpen] = useState(false);
     const wrapperRef = useRef<HTMLDivElement | null>(null);
-    const toggleRef = useRef<HTMLButtonElement | null>(null);
     const closeMenu = () => setOpen(false);
 
     useClickAwayHeader(wrapperRef, closeMenu);
 
-    const handleNavClick = (event: MouseEvent<HTMLDivElement>) => {
+    const handleNavClick = (event: MouseEvent<HTMLUListElement>) => {
         if (!open) {
             return;
         }
@@ -27,36 +29,70 @@ export function HeaderMenu({ children }: HeaderMenuProps) {
         }
     };
 
-    const navNode = isValidElement(children) ? children : null;
-    const baseClasses = 'fixed md:static top-0 right-0 h-screen md:h-auto max-w-xs md:max-w-none bg-dark md:bg-transparent mt-[var(--header-offset)] md:mt-0 pt-6 md:pt-0 px-8 md:px-0 transition-all z-50 md:z-auto';
-    const translateClasses = open ? ' translate-x-0' : ' translate-x-full md:translate-x-0';
+    const panelClasses = [
+        'fixed top-[var(--header-offset)] right-0 h-[calc(100vh-var(--header-offset))] w-72 bg-dark/95',
+        'px-7 py-6 shadow-xl transition-transform duration-300 md:hidden z-50 flex flex-col',
+        open ? 'translate-x-0' : 'translate-x-full',
+    ].join(' ');
 
     return (
         <>
             {open ? (
                 <div
                     className="md:hidden fixed inset-x-0 bottom-0 top-[var(--header-offset)] bg-black/60 backdrop-blur-[2px] z-40"
+                    aria-hidden="true"
                     onClick={closeMenu}
                 />
             ) : null}
 
-            <div className="flex items-center">
-                <button
-                    className="md:hidden cursor-pointer"
-                    onClick={() => setOpen(value => !value)}
-                    aria-label={open ? 'Close menu' : 'Open menu'}
-                    ref={toggleRef}
-                >
-                    {open ? <CloseIcon /> : <MenuIcon />}
-                </button>
+            <button
+                type="button"
+                className="md:hidden rounded-full border border-white/30 bg-white/10 p-2 text-white transition hover:bg-white/20"
+                aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
+                aria-expanded={open}
+                aria-controls="mobile-nav"
+                onClick={() => setOpen((value) => !value)}
+            >
+                <Image
+                    src={open ? CLOSE_ICON : MENU_ICON}
+                    width={28}
+                    height={28}
+                    alt=""
+                    priority={false}
+                />
+            </button>
 
-                <div
-                    ref={wrapperRef}
-                    className={baseClasses + translateClasses}
-                    onClick={handleNavClick}
-                >
-                    {navNode}
+            <div
+                ref={wrapperRef}
+                className={panelClasses}
+            >
+                <div className="flex items-center justify-between border-b border-white/20 pb-4">
+                    <span className="text-lg font-semibold">Menú</span>
+                    <button
+                        type="button"
+                        className="rounded-full border border-white/30 bg-white/10 p-1.5 text-white transition hover:bg-white/20"
+                        aria-label="Cerrar menú"
+                        onClick={closeMenu}
+                    >
+                        <Image src={CLOSE_ICON} width={22} height={22} alt="" priority={false} />
+                    </button>
                 </div>
+
+                <nav className="mt-6 flex-1 overflow-y-auto">
+                    <ul
+                        id="mobile-nav"
+                        className="flex flex-col gap-4 text-lg"
+                        onClick={handleNavClick}
+                    >
+                        {items.map(({ href, label }) => (
+                            <li key={typeof href === 'string' ? href : `${href.pathname ?? ''}#${href.hash ?? ''}`}>
+                                <Link href={href} className="block py-1" data-nav-link>
+                                    {label}
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </nav>
             </div>
         </>
     );
