@@ -251,7 +251,7 @@ export function GameBrowser({
 
         void fetchPreviews();
 
-        origin/optimization     return () => {
+        return () => {
             isSubscribed = false;
             previewRequestIdRef.current += 1;
             abortControllers.forEach((controller) => {
