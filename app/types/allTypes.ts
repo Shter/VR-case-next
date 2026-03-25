@@ -1,6 +1,6 @@
 import { Route } from "next";
 import { UrlObject } from "url";
-import { ReactElement, ReactNode, MouseEvent } from "react";
+import { ReactNode, MouseEvent } from "react";
 import { DialogProps } from "@mui/material/Dialog";
 
 export type Offer = {
@@ -28,10 +28,11 @@ export type NavItem = {
 
 export type HeaderNavigationProps = {
     items: NavItem[];
+    orientation?: 'horizontal' | 'vertical';
 };
 
 export type HeaderMenuProps = {
-    children: ReactElement;
+    items: NavItem[];
 };
 
 export type PriceSectionProps = {

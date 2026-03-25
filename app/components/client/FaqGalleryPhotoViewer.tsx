@@ -3,9 +3,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import Dialog from '@mui/material/Dialog';
 import IconButton from '@mui/material/IconButton';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Image from 'next/image';
+import { ChevronLeftIcon, ChevronRightIcon } from '@/components/client/icons';
 import { FaqGalleryLightboxProps } from '@/types/allTypes';
 import { asset } from '@/lib/site'
 
@@ -140,7 +139,7 @@ export function FaqGalleryPhotoViewer({
                             size="large"
                             onClick={handleShowPrevious}
                         >
-                            <ArrowBackIosNewIcon sx={{ color: 'white' }} />
+                            <ChevronLeftIcon width={28} height={28} />
                         </IconButton>
                     )}
 
@@ -167,7 +166,7 @@ export function FaqGalleryPhotoViewer({
                             size="large"
                             onClick={handleShowNext}
                         >
-                            <ArrowForwardIosIcon sx={{ color: 'white' }} />
+                            <ChevronRightIcon width={28} height={28} />
                         </IconButton>
                     )}
                 </div>

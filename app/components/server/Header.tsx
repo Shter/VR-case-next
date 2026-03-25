@@ -14,9 +14,11 @@ export function Header() {
                     <span className="header-logo">VR<span className="text-secondary">.CASE</span></span>
                 </Link>
 
-                <HeaderMenu>
-                    <HeaderNavigation items={navItems} />
-                </HeaderMenu>
+                <div className="hidden md:block">
+                    <HeaderNavigation items={navItems} orientation="horizontal" />
+                </div>
+
+                <HeaderMenu items={navItems} />
             </div>
         </header>
     );
