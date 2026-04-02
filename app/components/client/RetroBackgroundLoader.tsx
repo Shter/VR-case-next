@@ -1,14 +1,26 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-const MIN_LOADER_DURATION_MS = 2000;
+const INITIAL_LOADER_MIN_MS = 2000;
+const NAVIGATION_LOADER_DELAY_MS = 80;
+const NAVIGATION_LOADER_MIN_MS = 1500;
 
 const RetroParallaxBackground = dynamic<{ onReady?: () => void }>(
     () => import('@/components/client/RetroParallaxBackground').then((mod) => mod.RetroParallaxBackground),
     { ssr: false, loading: () => null }
 );
+
+function buildRouteKey(pathname: string | null, params: ReturnType<typeof useSearchParams> | null) {
+    if (!pathname) {
+        return null;
+    }
+
+    const query = params?.toString();
+    return query ? `${pathname}?${query}` : pathname;
+}
 
 type IdleRequestCallback = (deadline: { didTimeout: boolean; timeRemaining: () => number }) => void;
 type IdleWindow = Window & {
@@ -52,8 +64,8 @@ function RetroLoaderOverlay({ hidden }: { hidden: boolean }) {
                     <div className="absolute inset-4 rounded-full border border-[#7c4dff]/30 animate-[spin_4s_linear_infinite_reverse]" />
                     <div className="h-3 w-3 rounded-full bg-[#ff2d95] shadow-[0_0_25px_rgba(255,45,149,0.8)]" />
                 </div>
-                <div className="space-y-2 text-sm uppercase tracking-[0.35em] text-white/60 font-bold header-logo">
-                    VR<span className="text-secondary">.CASE</span>
+                <div className="space-y-2 text-sm uppercase tracking-[0.35em] text-white/60">
+                    <p className="text-xs font-semibold tracking-[0.5em] text-[#00ffe0]">VR.CASE</p>
                     <p>Inicializando universo</p>
                 </div>
                 <div className="flex h-1.5 w-48 overflow-hidden rounded-full bg-white/10">
@@ -65,6 +77,8 @@ function RetroLoaderOverlay({ hidden }: { hidden: boolean }) {
 }
 
 export function RetroBackgroundLoader() {
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
     const [shouldRender, setShouldRender] = useState(false);
     const [isLoaderVisible, setIsLoaderVisible] = useState(true);
     const [hasHydrated, setHasHydrated] = useState(false);
@@ -72,6 +86,11 @@ export function RetroBackgroundLoader() {
     const [isBackgroundReady, setIsBackgroundReady] = useState(false);
     const loaderStartRef = useRef<number | null>(null);
     const loaderTimeoutRef = useRef<number | null>(null);
+    const navigationShowTimeoutRef = useRef<number | null>(null);
+    const navigationHideTimeoutRef = useRef<number | null>(null);
+    const navigationVisibleSinceRef = useRef<number | null>(null);
+    const pendingNavigationKeyRef = useRef<string | null>(null);
+    const lastCompletedRouteRef = useRef<string | null>(null);
 
     useEffect(() => {
         if (typeof window === 'undefined') {
@@ -83,6 +102,14 @@ export function RetroBackgroundLoader() {
         return () => {
             if (loaderTimeoutRef.current !== null) {
                 window.clearTimeout(loaderTimeoutRef.current);
+            }
+
+            if (navigationShowTimeoutRef.current !== null) {
+                window.clearTimeout(navigationShowTimeoutRef.current);
+            }
+
+            if (navigationHideTimeoutRef.current !== null) {
+                window.clearTimeout(navigationHideTimeoutRef.current);
             }
         };
     }, []);
@@ -122,10 +149,14 @@ export function RetroBackgroundLoader() {
             return;
         }
 
+        if (navigationVisibleSinceRef.current !== null) {
+            return;
+        }
+
         const now = performance.now();
         const start = loaderStartRef.current ?? now;
         const elapsed = now - start;
-        const remaining = Math.max(MIN_LOADER_DURATION_MS - elapsed, 0);
+        const remaining = Math.max(INITIAL_LOADER_MIN_MS - elapsed, 0);
 
         if (loaderTimeoutRef.current !== null) {
             window.clearTimeout(loaderTimeoutRef.current);

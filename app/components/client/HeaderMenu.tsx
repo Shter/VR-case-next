@@ -66,18 +66,6 @@ export function HeaderMenu({ items }: HeaderMenuProps) {
                 ref={wrapperRef}
                 className={panelClasses}
             >
-                <div className="flex items-center justify-between border-b border-white/20 pb-4">
-                    <span className="text-lg font-semibold">Menú</span>
-                    <button
-                        type="button"
-                        className="rounded-full border border-white/30 bg-white/10 p-1.5 text-white transition hover:bg-white/20"
-                        aria-label="Cerrar menú"
-                        onClick={closeMenu}
-                    >
-                        <Image src={CLOSE_ICON} width={22} height={22} alt="" priority={false} />
-                    </button>
-                </div>
-
                 <nav className="mt-6 flex-1 overflow-y-auto">
                     <ul
                         id="mobile-nav"
