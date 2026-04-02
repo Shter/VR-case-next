@@ -25,10 +25,10 @@ function disposeObject3D(object: THREE.Object3D) {
 }
 
 type RetroParallaxBackgroundProps = {
-    onReady?: () => void;
+    onReadyAction?: () => void;
 };
 
-export function RetroParallaxBackground({ onReady }: RetroParallaxBackgroundProps) {
+export function RetroParallaxBackground({ onReadyAction }: RetroParallaxBackgroundProps) {
     const mountRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
@@ -185,7 +185,7 @@ export function RetroParallaxBackground({ onReady }: RetroParallaxBackgroundProp
         const notifyReady = () => {
             if (!hasSignaledReady) {
                 hasSignaledReady = true;
-                onReady?.();
+                onReadyAction?.();
             }
         };
 
@@ -256,7 +256,7 @@ export function RetroParallaxBackground({ onReady }: RetroParallaxBackgroundProp
                 mountNode.removeChild(renderer.domElement);
             }
         };
-    }, [onReady]);
+    }, [onReadyAction]);
 
     return <div ref={mountRef} className="pointer-events-none fixed inset-0 z-0" aria-hidden="true" />;
 }

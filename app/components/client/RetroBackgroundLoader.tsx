@@ -2,25 +2,14 @@
 
 import dynamic from 'next/dynamic';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 const INITIAL_LOADER_MIN_MS = 2000;
-const NAVIGATION_LOADER_DELAY_MS = 80;
-const NAVIGATION_LOADER_MIN_MS = 1500;
 
-const RetroParallaxBackground = dynamic<{ onReady?: () => void }>(
+const RetroParallaxBackground = dynamic<{ onReadyAction?: () => void }>(
     () => import('@/components/client/RetroParallaxBackground').then((mod) => mod.RetroParallaxBackground),
     { ssr: false, loading: () => null }
 );
-
-function buildRouteKey(pathname: string | null, params: ReturnType<typeof useSearchParams> | null) {
-    if (!pathname) {
-        return null;
-    }
-
-    const query = params?.toString();
-    return query ? `${pathname}?${query}` : pathname;
-}
 
 type IdleRequestCallback = (deadline: { didTimeout: boolean; timeRemaining: () => number }) => void;
 type IdleWindow = Window & {
@@ -77,8 +66,6 @@ function RetroLoaderOverlay({ hidden }: { hidden: boolean }) {
 }
 
 export function RetroBackgroundLoader() {
-    const pathname = usePathname();
-    const searchParams = useSearchParams();
     const [shouldRender, setShouldRender] = useState(false);
     const [isLoaderVisible, setIsLoaderVisible] = useState(true);
     const [hasHydrated, setHasHydrated] = useState(false);
@@ -89,8 +76,6 @@ export function RetroBackgroundLoader() {
     const navigationShowTimeoutRef = useRef<number | null>(null);
     const navigationHideTimeoutRef = useRef<number | null>(null);
     const navigationVisibleSinceRef = useRef<number | null>(null);
-    const pendingNavigationKeyRef = useRef<string | null>(null);
-    const lastCompletedRouteRef = useRef<string | null>(null);
 
     useEffect(() => {
         if (typeof window === 'undefined') {
@@ -226,7 +211,7 @@ export function RetroBackgroundLoader() {
     return (
         <>
             <RetroLoaderOverlay hidden={!isLoaderVisible} />
-            {shouldRender ? <RetroParallaxBackground onReady={handleBackgroundReady} /> : null}
+            {shouldRender ? <RetroParallaxBackground onReadyAction={handleBackgroundReady} /> : null}
         </>
     );
 }
