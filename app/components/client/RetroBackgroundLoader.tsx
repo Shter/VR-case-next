@@ -1,7 +1,6 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { usePathname, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 const INITIAL_LOADER_MIN_MS = 2000;
@@ -47,19 +46,15 @@ function RetroLoaderOverlay({ hidden }: { hidden: boolean }) {
             <div className="absolute inset-x-0 bottom-0 h-1/3 opacity-40 [background-image:linear-gradient(transparent,rgba(4,0,23,0.8)),repeating-linear-gradient(0deg,rgba(255,255,255,0.08),rgba(255,255,255,0.08)_2px,transparent_2px,transparent_40px)]" />
             <div className="relative z-10 flex flex-col items-center gap-6 text-center">
                 <div className="relative flex h-28 w-28 items-center justify-center">
-                    <div className="absolute inset-2 rounded-full border border-white/20 blur-lg" />
-                    <div className="absolute inset-0 rounded-full border border-[#ff2d95]/40" />
+                    <div className="absolute inset-2 rounded-full border-3 border-white/20 blur-lg" />
+                    <div className="absolute inset-0 rounded-full border-3 border-[#ff2d95]/40" />
                     <div className="absolute inset-0 rounded-full border-t-2 border-[#00ffe0] border-r-transparent border-b-transparent border-l-transparent animate-[spin_2.4s_linear_infinite]" />
-                    <div className="absolute inset-4 rounded-full border border-[#7c4dff]/30 animate-[spin_4s_linear_infinite_reverse]" />
+                    <div className="absolute inset-4 rounded-full border-2 border-[#7c4dff]/30 animate-[spin_4s_linear_infinite_reverse]" />
                     <div className="h-3 w-3 rounded-full bg-[#ff2d95] shadow-[0_0_25px_rgba(255,45,149,0.8)]" />
                 </div>
-                <div className="space-y-2 text-sm uppercase tracking-[0.35em] text-white/60">
-                    <p className="text-xs font-semibold tracking-[0.5em] text-[#00ffe0]">VR.CASE</p>
-                    <p>Inicializando universo</p>
-                </div>
-                <div className="flex h-1.5 w-48 overflow-hidden rounded-full bg-white/10">
-                    <span className="block h-full w-full bg-gradient-to-r from-[#ff2d95] via-[#7c4dff] to-[#00ffe0] animate-[progress_2.4s_ease-in-out_infinite]" />
-                </div>
+                <h3 className="font-bold header-logo">
+                    VR<span className="text-secondary">.CASE</span>
+                </h3>
             </div>
         </div>
     );

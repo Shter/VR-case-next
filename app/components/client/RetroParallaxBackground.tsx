@@ -123,9 +123,9 @@ export function RetroParallaxBackground({ onReadyAction }: RetroParallaxBackgrou
         const gridGroups = [floorGrid, ceilingGrid];
 
         const parallaxTarget = new THREE.Vector2();
-        const clock = new THREE.Clock();
         let animationFrameId = 0;
         let hasSignaledReady = false;
+        let lastFrameTime = performance.now();
 
         const notifyReady = () => {
             if (!hasSignaledReady) {
@@ -149,8 +149,9 @@ export function RetroParallaxBackground({ onReadyAction }: RetroParallaxBackgrou
             renderer.setSize(width, height);
         };
 
-        const animate = () => {
-            const delta = clock.getDelta();
+        const animate = (timestamp: number) => {
+            const delta = (timestamp - lastFrameTime) / 1000;
+            lastFrameTime = timestamp;
 
             const advanceLines = (lines: THREE.Mesh[]) => {
                 lines.forEach((line) => {
@@ -177,7 +178,7 @@ export function RetroParallaxBackground({ onReadyAction }: RetroParallaxBackgrou
 
         window.addEventListener('pointermove', handlePointerMove);
         window.addEventListener('resize', handleResize);
-        animate();
+        animationFrameId = window.requestAnimationFrame(animate);
 
         return () => {
             window.removeEventListener('pointermove', handlePointerMove);
