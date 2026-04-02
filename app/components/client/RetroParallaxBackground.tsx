@@ -24,7 +24,11 @@ function disposeObject3D(object: THREE.Object3D) {
     });
 }
 
-export function RetroParallaxBackground() {
+type RetroParallaxBackgroundProps = {
+    onReadyAction?: () => void;
+};
+
+export function RetroParallaxBackground({ onReadyAction }: RetroParallaxBackgroundProps) {
     const mountRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
@@ -56,12 +60,7 @@ export function RetroParallaxBackground() {
         camera.lookAt(new THREE.Vector3(0, walkwayCenterY, -200));
         const baseCameraRotation = camera.rotation.clone();
 
-        const neonPalette = {
-            sky: 0x040014,
-            horizon: 0xff2d95,
-            grid: 0xff76ff,
-            teal: 0x00fff0,
-        } as const;
+        const gridColor = 0xff76ff;
 
         const ambient = new THREE.AmbientLight(0x402050, 0.6);
         const rimLight = new THREE.PointLight(0xff61d2, 2.2, 600, 2);
@@ -79,7 +78,7 @@ export function RetroParallaxBackground() {
         const horizontalLoopDistance = horizontalSpacing * horizontalLineCount;
 
         const createGridLineMaterial = () => new THREE.MeshBasicMaterial({
-            color: neonPalette.grid,
+            color: gridColor,
             side: THREE.DoubleSide,
         });
 
@@ -123,59 +122,17 @@ export function RetroParallaxBackground() {
         const ceilingGrid = buildGrid(ceilingOffsetY, ceilingHorizontalLines);
         const gridGroups = [floorGrid, ceilingGrid];
 
-        const createMountainLayer = (offset: number, color: number) => {
-            const points: THREE.Vector3[] = [];
-
-            for (let i = -50; i <= 50; i += 1) {
-                const x = i * 2.5;
-                const y = Math.sin(i * 0.23 + offset) * 3 + offset * 0.5 + 6;
-                const z = -120 - offset * 12;
-                points.push(new THREE.Vector3(x, y, z));
-            }
-
-            const geometry = new THREE.BufferGeometry().setFromPoints(points);
-            const material = new THREE.LineBasicMaterial({
-                color,
-                transparent: true,
-                opacity: 0.4 + offset * 0.05,
-            });
-
-            const line = new THREE.Line(geometry, material);
-            scene.add(line);
-
-            return line;
-        };
-
-        const mountainLayers = [
-            createMountainLayer(0, neonPalette.teal),
-            createMountainLayer(1, neonPalette.horizon),
-            createMountainLayer(2, neonPalette.grid),
-        ];
-
-        const sunMaterial = new THREE.MeshBasicMaterial({
-            color: neonPalette.horizon,
-            transparent: true,
-            opacity: 0.45,
-            side: THREE.DoubleSide,
-        });
-        const sun = new THREE.Mesh(new THREE.CircleGeometry(18, 80), sunMaterial);
-        sun.position.set(0, 40, -200);
-        scene.add(sun);
-
-        const hazeMaterial = new THREE.MeshBasicMaterial({
-            color: neonPalette.sky,
-            transparent: true,
-            opacity: 0.35,
-            side: THREE.DoubleSide,
-        });
-        const haze = new THREE.Mesh(new THREE.PlaneGeometry(600, 400), hazeMaterial);
-        haze.position.set(0, 20, -180);
-        haze.lookAt(camera.position);
-        scene.add(haze);
-
         const parallaxTarget = new THREE.Vector2();
-        const clock = new THREE.Clock();
         let animationFrameId = 0;
+        let hasSignaledReady = false;
+        let lastFrameTime = performance.now();
+
+        const notifyReady = () => {
+            if (!hasSignaledReady) {
+                hasSignaledReady = true;
+                onReadyAction?.();
+            }
+        };
 
         const handlePointerMove = (event: PointerEvent) => {
             const x = event.clientX / window.innerWidth;
@@ -192,8 +149,9 @@ export function RetroParallaxBackground() {
             renderer.setSize(width, height);
         };
 
-        const animate = () => {
-            const delta = clock.getDelta();
+        const animate = (timestamp: number) => {
+            const delta = (timestamp - lastFrameTime) / 1000;
+            lastFrameTime = timestamp;
 
             const advanceLines = (lines: THREE.Mesh[]) => {
                 lines.forEach((line) => {
@@ -208,42 +166,32 @@ export function RetroParallaxBackground() {
             advanceLines(floorHorizontalLines);
             advanceLines(ceilingHorizontalLines);
 
-            mountainLayers.forEach((line, index) => {
-                line.position.z += delta * (8 + index * 2.5);
-
-                if (line.position.z > -20) {
-                    line.position.z = -160 - index * 15;
-                }
-            });
-
             const targetRotationY = baseCameraRotation.y + parallaxTarget.x;
             const targetRotationX = baseCameraRotation.x + parallaxTarget.y;
             camera.rotation.y += (targetRotationY - camera.rotation.y) * 0.04;
             camera.rotation.x += (targetRotationX - camera.rotation.x) * 0.04;
 
             renderer.render(scene, camera);
+            notifyReady();
             animationFrameId = window.requestAnimationFrame(animate);
         };
 
         window.addEventListener('pointermove', handlePointerMove);
         window.addEventListener('resize', handleResize);
-        animate();
+        animationFrameId = window.requestAnimationFrame(animate);
 
         return () => {
             window.removeEventListener('pointermove', handlePointerMove);
             window.removeEventListener('resize', handleResize);
             window.cancelAnimationFrame(animationFrameId);
             gridGroups.forEach((group) => disposeObject3D(group));
-            mountainLayers.forEach((layer) => disposeObject3D(layer));
-            disposeObject3D(sun);
-            disposeObject3D(haze);
             renderer.dispose();
 
             if (renderer.domElement.parentNode === mountNode) {
                 mountNode.removeChild(renderer.domElement);
             }
         };
-    }, []);
+    }, [onReadyAction]);
 
     return <div ref={mountRef} className="pointer-events-none fixed inset-0 z-0" aria-hidden="true" />;
 }

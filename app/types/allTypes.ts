@@ -63,29 +63,6 @@ export type ReservePlanDialogTriggerProps = {
     description?: string;
 };
 
-export type GalleryImage = {
-    id: string;
-    src: string;
-    alt: string;
-    caption?: string;
-    width: number;
-    height: number;
-};
-
-export type FaqGalleryItem = {
-    id: string;
-    question: string;
-    answer: string;
-};
-
-export type FaqGalleryLightboxProps = {
-    images: GalleryImage[];
-    currentIndex: number;
-    open: boolean;
-    onCloseAction: () => void;
-    onNavigateAction: (nextIndex: number) => void;
-};
-
 export type MediaAssetKind = 'photo' | 'video';
 
 export type MediaAsset = {

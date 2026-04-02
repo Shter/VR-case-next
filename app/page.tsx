@@ -6,8 +6,6 @@ import { PricingTeaser } from "@/components/server/PricingTeaser";
 import { Contact }       from "@/components/server/Contact";
 import { JsonLd }                                          from "@/components/server/JsonLd";
 import { homeBreadcrumbLd, homeRentalLd, pricingRentalLd } from "@/lib/structured";
-import { Faq } from "@/components/server/Faq";
-import { Gallery } from "@/components/server/Gallery";
 
 export const metadata: Metadata = {
     alternates: { canonical: "/", languages: { "es-AR": "/" } }
@@ -31,12 +29,6 @@ export default function Page() {
                 </div>
             </section>
 
-            <section id="faq-gallery">
-                <div className="container flex flex-col gap-12 lg:flex-row py-10 md:py-16">
-                    <Faq />
-                    <Gallery />
-                </div>
-            </section>
         </>
     );
 }

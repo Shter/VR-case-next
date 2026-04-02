@@ -23,7 +23,6 @@ export function Footer() {
                         <li><Link href="/vr-buenos-aires">VR Buenos Aires</Link></li>
                         <li><Link href="/#about">Sobre nosotros</Link></li>
                         <li><Link href="/#features">Ventajas</Link></li>
-                        <li><Link href="/#faq-gallery">FAQ/Gallery</Link></li>
                         <li><Link href="/alquiler#price">Precios</Link></li>
                     </ul>
                 </div>
