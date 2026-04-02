@@ -24,7 +24,11 @@ function disposeObject3D(object: THREE.Object3D) {
     });
 }
 
-export function RetroParallaxBackground() {
+type RetroParallaxBackgroundProps = {
+    onReady?: () => void;
+};
+
+export function RetroParallaxBackground({ onReady }: RetroParallaxBackgroundProps) {
     const mountRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
@@ -176,6 +180,14 @@ export function RetroParallaxBackground() {
         const parallaxTarget = new THREE.Vector2();
         const clock = new THREE.Clock();
         let animationFrameId = 0;
+        let hasSignaledReady = false;
+
+        const notifyReady = () => {
+            if (!hasSignaledReady) {
+                hasSignaledReady = true;
+                onReady?.();
+            }
+        };
 
         const handlePointerMove = (event: PointerEvent) => {
             const x = event.clientX / window.innerWidth;
@@ -222,6 +234,7 @@ export function RetroParallaxBackground() {
             camera.rotation.x += (targetRotationX - camera.rotation.x) * 0.04;
 
             renderer.render(scene, camera);
+            notifyReady();
             animationFrameId = window.requestAnimationFrame(animate);
         };
 
@@ -243,7 +256,7 @@ export function RetroParallaxBackground() {
                 mountNode.removeChild(renderer.domElement);
             }
         };
-    }, []);
+    }, [onReady]);
 
     return <div ref={mountRef} className="pointer-events-none fixed inset-0 z-0" aria-hidden="true" />;
 }
