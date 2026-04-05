@@ -35,7 +35,7 @@ function RetroLoaderOverlay({ hidden }: { hidden: boolean }) {
     return (
         <div
             className={[
-                'fixed inset-0 z-[999] flex flex-col items-center justify-center gap-8 overflow-hidden bg-[#04000f] touch-none',
+                'fixed inset-0 z-[2147483647] flex flex-col items-center justify-center gap-8 overflow-hidden bg-[#04000f] touch-none',
                 'transition-opacity duration-500',
                 hidden ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'
             ].join(' ')}
