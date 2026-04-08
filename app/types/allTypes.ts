@@ -14,9 +14,17 @@ export type Offer = {
     plusUnit?: string;
 };
 
-export type PricingOfferGroups = {
-    oneHeadset: Offer[];
-    twoHeadsets: Offer[];
+export type PricingOfferGroups = Record<number, Offer[]>;
+
+export type PricingSelectorOption = {
+    value: number;
+    label: string;
+    description: string;
+};
+
+export type PricingMatrixProps = {
+    options: PricingSelectorOption[];
+    offersByHeadsets: PricingOfferGroups;
 };
 
 type NavHref = Route | UrlObject;
@@ -33,11 +41,6 @@ export type HeaderNavigationProps = {
 
 export type HeaderMenuProps = {
     items: NavItem[];
-};
-
-export type PriceSectionProps = {
-    title: string;
-    offers: Offer[];
 };
 
 export type PriceCardProps = {

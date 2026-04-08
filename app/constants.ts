@@ -1,6 +1,6 @@
 import type { Route } from "next";
 import type { UrlObject } from "url";
-import { NavItem, PricingOfferGroups } from '@/types/allTypes';
+import { NavItem, PricingOfferGroups, PricingSelectorOption } from '@/types/allTypes';
 
 export const navItems: NavItem[] = [
     { href: '/' satisfies Route, label: 'Principal' },
@@ -56,71 +56,142 @@ export const featuresItems = [
 ];
 
 export const pricingItems: PricingOfferGroups = {
-    oneHeadset : [
+    1: [
         {
-            id       : '2h-1',
+            id: '2h-1',
             rentLimit: 'De 2 a 4 horas de experiencia',
-            title    : 'VR por 2 horas',
-            headsets : 1,
-            period   : '2h',
-            price    : 25000,
+            title: 'VR por 2 horas',
+            headsets: 1,
+            period: '2h',
+            price: 25000,
             plusPrice: 9000,
-            plusUnit : 'hora'
+            plusUnit: 'hora'
         },
         {
-            id       : 'day-1',
+            id: 'day-1',
             rentLimit: 'Desde 1 dia',
-            title    : 'VR por dia',
-            headsets : 1,
-            period   : 'day',
-            price    : 60000,
+            title: 'VR por dia',
+            headsets: 1,
+            period: 'day',
+            price: 60000,
             plusPrice: 40000,
-            plusUnit : 'dia'
+            plusUnit: 'dia'
         },
         {
-            id       : 'week-1',
+            id: 'week-1',
             rentLimit: 'Desde 1 semana',
-            title    : 'VR por semana',
-            headsets : 1,
-            period   : 'week',
-            price    : 230000,
+            title: 'VR por semana',
+            headsets: 1,
+            period: 'week',
+            price: 230000,
             plusPrice: 150000,
-            plusUnit : 'semana'
+            plusUnit: 'semana'
         }
     ],
-    twoHeadsets: [
+    2: [
         {
-            id       : '2h-2',
+            id: '2h-2',
             rentLimit: 'De 2 a 4 horas de experiencia',
-            title    : 'VR por 2 horas',
-            headsets : 2,
-            period   : '2h',
-            price    : 42000,
+            title: 'VR por 2 horas',
+            headsets: 2,
+            period: '2h',
+            price: 42000,
             plusPrice: 18000,
-            plusUnit : 'hora'
+            plusUnit: 'hora'
         },
         {
-            id       : 'day-2',
+            id: 'day-2',
             rentLimit: 'Desde 1 dia',
-            title    : 'VR por dia',
-            headsets : 2,
-            period   : 'day',
-            price    : 110000,
+            title: 'VR por dia',
+            headsets: 2,
+            period: 'day',
+            price: 110000,
             plusPrice: 55000,
-            plusUnit : 'dia'
+            plusUnit: 'dia'
         },
         {
-            id       : 'week-2',
+            id: 'week-2',
             rentLimit: 'Desde 1 semana',
-            title    : 'VR por semana',
-            headsets : 2,
-            period   : 'week',
-            price    : 399000,
+            title: 'VR por semana',
+            headsets: 2,
+            period: 'week',
+            price: 399000,
             plusPrice: 170000,
-            plusUnit : 'semana'
+            plusUnit: 'semana'
+        }
+    ],
+    3: [
+        {
+            id: '2h-3',
+            rentLimit: 'De 2 a 4 horas de experiencia',
+            title: 'VR por 2 horas',
+            headsets: 3,
+            period: '2h',
+            price: 57000,
+            plusPrice: 26000,
+            plusUnit: 'hora'
+        },
+        {
+            id: 'day-3',
+            rentLimit: 'Desde 1 dia',
+            title: 'VR por dia',
+            headsets: 3,
+            period: 'day',
+            price: 155000,
+            plusPrice: 70000,
+            plusUnit: 'dia'
+        },
+        {
+            id: 'week-3',
+            rentLimit: 'Desde 1 semana',
+            title: 'VR por semana',
+            headsets: 3,
+            period: 'week',
+            price: 560000,
+            plusPrice: 220000,
+            plusUnit: 'semana'
+        }
+    ],
+    4: [
+        {
+            id: '2h-4',
+            rentLimit: 'De 2 a 4 horas de experiencia',
+            title: 'VR por 2 horas',
+            headsets: 4,
+            period: '2h',
+            price: 72000,
+            plusPrice: 33000,
+            plusUnit: 'hora'
+        },
+        {
+            id: 'day-4',
+            rentLimit: 'Desde 1 dia',
+            title: 'VR por dia',
+            headsets: 4,
+            period: 'day',
+            price: 195000,
+            plusPrice: 82000,
+            plusUnit: 'dia'
+        },
+        {
+            id: 'week-4',
+            rentLimit: 'Desde 1 semana',
+            title: 'VR por semana',
+            headsets: 4,
+            period: 'week',
+            price: 710000,
+            plusPrice: 260000,
+            plusUnit: 'semana'
         }
     ]
-}
+};
+
+export const pricingHeadsetOptions: PricingSelectorOption[] = [
+    { value: 1, label: '1 visor', description: 'Demos personales, training o QA' },
+    { value: 2, label: '2 visores', description: 'Activaciones chicas y duelos' },
+    { value: 3, label: '3 visores', description: 'Puestos simultáneos sin filas' },
+    { value: 4, label: '4 visores', description: 'Eventos medianos y flujos constantes' }
+];
 
 export const defaultEvents: Array<keyof WindowEventMap> = ['mousedown', 'touchstart'];
 

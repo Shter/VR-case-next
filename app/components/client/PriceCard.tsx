@@ -1,6 +1,8 @@
+"use client";
+
 import { ReserveDialog } from '@/components/client/ReserveDialog';
 import type { PriceCardProps } from '@/types/allTypes';
-import { hourlyRentalNotice } from "@/app/constants"
+import { hourlyRentalNotice } from '@/app/constants';
 
 export function PriceCard({ offer }: PriceCardProps) {
     const isHourlyOffer = offer.period === '2h';
