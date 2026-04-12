@@ -58,142 +58,134 @@ export const featuresItems = [
 export const pricingItems: PricingOfferGroups = {
     1: [
         {
-            id: '2h-1',
-            rentLimit: 'De 2 a 4 horas de experiencia',
-            title: 'VR por 2 horas',
+            id: '4h-1',
+            rentLimit: 'Uso de 4 a 6 horas',
+            title: 'VR por 4 horas',
             headsets: 1,
-            period: '2h',
-            price: 25000,
-            plusPrice: 9000,
-            plusUnit: 'hora'
+            period: '4h',
+            price: 45000,
+            plusPrice: 18000,
+            plusUnit: 'extra hora'
         },
         {
             id: 'day-1',
-            rentLimit: 'Desde 1 dia',
+            rentLimit: 'Uso por 24 horas desde la entrega',
             title: 'VR por dia',
             headsets: 1,
             period: 'day',
-            price: 60000,
-            plusPrice: 40000,
-            plusUnit: 'dia'
+            price: 70000,
+            plusPrice: 45000,
+            plusUnit: 'extra dia'
         },
         {
             id: 'week-1',
-            rentLimit: 'Desde 1 semana',
+            rentLimit: '7 días de uso',
             title: 'VR por semana',
             headsets: 1,
             period: 'week',
-            price: 230000,
-            plusPrice: 150000,
-            plusUnit: 'semana'
+            price: 350000
         }
     ],
     2: [
         {
-            id: '2h-2',
-            rentLimit: 'De 2 a 4 horas de experiencia',
-            title: 'VR por 2 horas',
+            id: '4h-2',
+            rentLimit: 'Uso de 4 a 6 horas',
+            title: 'VR por 4 horas',
             headsets: 2,
-            period: '2h',
-            price: 42000,
-            plusPrice: 18000,
-            plusUnit: 'hora'
+            period: '4h',
+            price: 90000,
+            plusPrice: 36000,
+            plusUnit: 'extra hora'
         },
         {
             id: 'day-2',
-            rentLimit: 'Desde 1 dia',
+            rentLimit: 'Uso por 24 horas desde la entrega',
             title: 'VR por dia',
             headsets: 2,
             period: 'day',
-            price: 110000,
-            plusPrice: 55000,
-            plusUnit: 'dia'
+            price: 130000,
+            plusPrice: 80000,
+            plusUnit: 'extra dia'
         },
         {
             id: 'week-2',
-            rentLimit: 'Desde 1 semana',
+            rentLimit: '7 días de uso',
             title: 'VR por semana',
             headsets: 2,
             period: 'week',
-            price: 399000,
-            plusPrice: 170000,
-            plusUnit: 'semana'
+            price: 650000
         }
     ],
     3: [
         {
-            id: '2h-3',
-            rentLimit: 'De 2 a 4 horas de experiencia',
-            title: 'VR por 2 horas',
+            id: '4h-3',
+            rentLimit: 'Uso de 4 a 6 horas',
+            title: 'VR por 4 horas',
             headsets: 3,
-            period: '2h',
-            price: 57000,
-            plusPrice: 26000,
-            plusUnit: 'hora'
+            period: '4h',
+            price: 135000,
+            plusPrice: 54000,
+            plusUnit: 'extra hora'
         },
         {
             id: 'day-3',
-            rentLimit: 'Desde 1 dia',
+            rentLimit: 'Uso por 24 horas desde la entrega',
             title: 'VR por dia',
             headsets: 3,
             period: 'day',
-            price: 155000,
-            plusPrice: 70000,
-            plusUnit: 'dia'
+            price: 190000,
+            plusPrice: 120000,
+            plusUnit: 'extra dia'
         },
         {
             id: 'week-3',
-            rentLimit: 'Desde 1 semana',
+            rentLimit: '7 días de uso',
             title: 'VR por semana',
             headsets: 3,
             period: 'week',
-            price: 560000,
-            plusPrice: 220000,
-            plusUnit: 'semana'
+            price: 950000
         }
     ],
     4: [
         {
-            id: '2h-4',
-            rentLimit: 'De 2 a 4 horas de experiencia',
-            title: 'VR por 2 horas',
+            id: '4h-4',
+            rentLimit: 'Uso de 4 a 6 horas',
+            title: 'VR por 4 horas',
             headsets: 4,
-            period: '2h',
-            price: 72000,
-            plusPrice: 33000,
-            plusUnit: 'hora'
+            period: '4h',
+            price: 180000,
+            plusPrice: 72000,
+            plusUnit: 'extra hora'
         },
         {
             id: 'day-4',
-            rentLimit: 'Desde 1 dia',
+            rentLimit: 'Uso por 24 horas desde la entrega',
             title: 'VR por dia',
             headsets: 4,
             period: 'day',
-            price: 195000,
-            plusPrice: 82000,
-            plusUnit: 'dia'
+            price: 250000,
+            plusPrice: 150000,
+            plusUnit: 'extra dia'
         },
         {
             id: 'week-4',
-            rentLimit: 'Desde 1 semana',
+            rentLimit: '7 días de uso',
             title: 'VR por semana',
             headsets: 4,
             period: 'week',
-            price: 710000,
-            plusPrice: 260000,
-            plusUnit: 'semana'
+            price: 1200000
         }
     ]
 };
 
 export const pricingHeadsetOptions: PricingSelectorOption[] = [
-    { value: 1, label: '1 visor', description: 'Demos personales, training o QA' },
-    { value: 2, label: '2 visores', description: 'Activaciones chicas y duelos' },
-    { value: 3, label: '3 visores', description: 'Puestos simultáneos sin filas' },
-    { value: 4, label: '4 visores', description: 'Eventos medianos y flujos constantes' }
+    { value: 1, label: 'MINI', description: 'Demos, testing y uso individual' },
+    { value: 2, label: 'DUO', description: 'Para compartir · Juegos o reuniones' },
+    { value: 3, label: 'PRO', description: 'Grupo · Uso simultáneo' },
+    { value: 4, label: 'PARTY', description: 'Eventos · Experiencia compartida' }
 ];
 
 export const defaultEvents: Array<keyof WindowEventMap> = ['mousedown', 'touchstart'];
 
 export const hourlyRentalNotice = 'El alquiler por horas es válido hasta las 20:00.\n' +
-    'Las reservas que finalicen después de las 20:00 se consideran alquiler por día completo.';
+    'Si la reserva finaliza después, se toma como día completo.';

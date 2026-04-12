@@ -4,13 +4,12 @@ import { useState } from 'react';
 import { PriceCard } from '@/components/client/PriceCard';
 import type { PricingMatrixProps } from '@/types/allTypes';
 
+const formatHeadsetCountLabel = (count: number) => (count === 1 ? '1 visor' : `${count} visores`);
+
 export function PricingMatrix({ options, offersByHeadsets }: PricingMatrixProps) {
     const fallbackValue = options[0]?.value ?? 1;
     const [selectedValue, setSelectedValue] = useState<number>(fallbackValue);
     const selectedOffers = offersByHeadsets[selectedValue] ?? [];
-    const heading = selectedValue === 1
-        ? 'Alquiler de 1 VR lente Meta Quest 3'
-        : `Alquiler de ${selectedValue} VR lentes Meta Quest 3`;
 
     return (
         <div className="card-glass rounded-2xl border-4 p-4 md:p-6">
@@ -19,15 +18,12 @@ export function PricingMatrix({ options, offersByHeadsets }: PricingMatrixProps)
                     <p className="text-base font-semibold uppercase tracking-wide text-secondary">
                         Elegí cuántos visores necesitás
                     </p>
-                    <p className="text-sm text-white/70">
-                        Mostramos tarifas por sesión, día completo y semana con envío incluido
-                    </p>
                 </div>
 
                 <div
                     role="radiogroup"
                     aria-label="Cantidad de visores Meta Quest 3"
-                    className="grid grid-cols-2 gap-3 md:grid-cols-4"
+                    className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-4"
                 >
                     {options.map((option) => {
                         const isActive = option.value === selectedValue;
@@ -39,7 +35,7 @@ export function PricingMatrix({ options, offersByHeadsets }: PricingMatrixProps)
                                 aria-checked={isActive}
                                 onClick={() => setSelectedValue(option.value)}
                                 className={[
-                                    'rounded-2xl border-2 px-4 py-3 text-left transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary',
+                                    'rounded-2xl border-2 px-4 py-3 text-left transition focus-visible:outline-offset-4 focus-visible:outline-secondary cursor-pointer',
                                     isActive
                                         ? 'border-secondary bg-secondary/20 text-white shadow-[0_10px_25px_rgba(0,0,0,0.35)]'
                                         : 'border-white/20 bg-white/5 text-white/80 hover:border-secondary/60'
@@ -47,6 +43,9 @@ export function PricingMatrix({ options, offersByHeadsets }: PricingMatrixProps)
                             >
                                 <span className="block text-lg font-semibold">
                                     {option.label}
+                                </span>
+                                <span className="block text-base text-white">
+                                    {formatHeadsetCountLabel(option.value)}
                                 </span>
                                 <span className="block text-sm text-white/70">
                                     {option.description}
@@ -58,12 +57,7 @@ export function PricingMatrix({ options, offersByHeadsets }: PricingMatrixProps)
             </div>
 
             <div className="mt-8">
-                <div className="mb-6 text-center">
-                    <h2 className="text-2xl font-bold">{heading}</h2>
-                    <p className="text-sm text-white/70">
-                        Bibliotecas curadas, soporte remoto y delivery coordinado en CABA y zona norte
-                    </p>
-                </div>
+
 
                 {selectedOffers.length > 0 ? (
                     <div className="grid gap-6 md:grid-cols-3">

@@ -52,7 +52,7 @@ export default function Page() {
 
                     <div className="self-center flex items-center gap-4 w-fit rounded-2xl text-center py-4 px-4 md:px-6 font-bold text-accent">
                         <AccentNoticeIcon />
-                        <span>LOS PRECIOS PARA LOS DÍAS FESTIVOS SE DEBEN CONSULTAR CON EL OPERADOR</span>
+                        <span>LOS PRECIOS PARA FECHAS FESTIVAS SE CONSULTAN CON EL OPERADOR</span>
                         <AccentNoticeIcon />
                     </div>
                 </div>
@@ -66,10 +66,10 @@ export default function Page() {
                         <h2 className="text-2xl font-semibold">Qué incluye cada alquiler</h2>
 
                         <ul className="space-y-3 text-base opacity-90">
-                            <li>- Headsets Meta Quest 3 configurados con librería de juegos premium</li>
-                            <li>- Controles, correas higiénicas, estación de carga y Chromecast para casting</li>
-                            <li>- Onboarding express para tu equipo y soporte en vivo vía WhatsApp</li>
-                            <li>- Delivery y retiro coordinado en horarios extendidos</li>
+                            <li>- Headsets Meta Quest 3 configurados con una librería de juegos de diferentes géneros</li>
+                            <li>- Controles, dos baterías externas para carga rápida del headset y estación de carga incluida</li>
+                            <li>- Soporte en vivo vía WhatsApp durante toda la experiencia</li>
+                            <li>- Delivery y retiro coordinados en horarios flexibles, adaptados a cada evento o planificación</li>
                         </ul>
                     </div>
 

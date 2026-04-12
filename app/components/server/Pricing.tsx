@@ -8,7 +8,7 @@ export function Pricing() {
                 <PricingMatrix options={pricingHeadsetOptions} offersByHeadsets={pricingItems} />
 
                 <p className="text-center text-sm text-white/70">
-                    ¿Necesitás más de 4 visores o asistencia presencial? <span className="font-semibold text-secondary">Escribinos</span> para diseñar un paquete a medida.
+                    Necesitás más de 4 visores o asistencia presencial? <span className="font-semibold text-secondary">Escribinos</span> para diseñar un paquete a medida
                 </p>
             </div>
         </section>

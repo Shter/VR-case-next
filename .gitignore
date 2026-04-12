@@ -15,4 +15,4 @@ yarn-error.log*
 AGENTS.md
 tsconfig.tsbuildinfo
 .env.local
-next-env.d
+next-env.d.ts

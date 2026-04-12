@@ -9,14 +9,14 @@ jest.mock('@/components/client/ReserveDialog', () => ({
 
 describe('PriceCard', () => {
   const baseOffer: Offer = {
-    id: '2h-1',
+    id: '4h-1',
     headsets: 1,
-    period: '2h',
-    price: 25000,
-    rentLimit: '2 horas',
-    title: 'VR por 2 horas',
-    plusPrice: 9000,
-    plusUnit: 'hora'
+    period: '4h',
+    price: 45000,
+    rentLimit: '4 horas',
+    title: 'VR por 4 horas',
+    plusPrice: 18000,
+    plusUnit: 'extra hora'
   };
 
   it('renders pricing details and hourly notice', () => {
