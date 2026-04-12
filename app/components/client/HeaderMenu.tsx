@@ -12,9 +12,10 @@ const CLOSE_ICON = '/assets/icons/close.svg';
 export function HeaderMenu({ items }: HeaderMenuProps) {
     const [open, setOpen] = useState(false);
     const wrapperRef = useRef<HTMLDivElement | null>(null);
+    const toggleButtonRef = useRef<HTMLButtonElement | null>(null);
     const closeMenu = () => setOpen(false);
 
-    useClickAwayHeader(wrapperRef, closeMenu);
+    useClickAwayHeader(wrapperRef, closeMenu, { ignoreRefs: [toggleButtonRef] });
 
     const handleNavClick = (event: MouseEvent<HTMLUListElement>) => {
         if (!open) {
@@ -52,6 +53,7 @@ export function HeaderMenu({ items }: HeaderMenuProps) {
                 aria-expanded={open}
                 aria-controls="mobile-nav"
                 onClick={() => setOpen((value) => !value)}
+                ref={toggleButtonRef}
             >
                 <Image
                     src={open ? CLOSE_ICON : MENU_ICON}

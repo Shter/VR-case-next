@@ -13,3 +13,6 @@ yarn-error.log*
 
 .vscode/*
 AGENTS.md
+tsconfig.tsbuildinfo
+.env.local
+next-env.d
