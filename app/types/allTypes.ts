@@ -1,6 +1,6 @@
 import { Route } from "next";
 import { UrlObject } from "url";
-import { ReactNode, MouseEvent } from "react";
+import { ReactNode, MouseEvent, RefObject } from "react";
 import { DialogProps } from "@mui/material/Dialog";
 
 export type Offer = {
@@ -33,6 +33,11 @@ export type HeaderNavigationProps = {
 
 export type HeaderMenuProps = {
     items: NavItem[];
+};
+
+export type ClickAwayOptions = {
+    events?: Array<keyof WindowEventMap>;
+    ignoreRefs?: RefObject<HTMLElement | null>[];
 };
 
 export type PriceSectionProps = {
