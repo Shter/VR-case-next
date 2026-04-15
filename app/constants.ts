@@ -65,17 +65,17 @@ export const pricingItems: PricingOfferGroups = {
             period: '4h',
             price: 45000,
             plusPrice: 18000,
-            plusUnit: 'extra hora'
+            plusUnit: 'hora extra'
         },
         {
             id: 'day-1',
             rentLimit: 'Uso por 24 horas desde la entrega',
-            title: 'VR por dia',
+            title: 'VR por día',
             headsets: 1,
             period: 'day',
             price: 70000,
             plusPrice: 45000,
-            plusUnit: 'extra dia'
+            plusUnit: 'extra día'
         },
         {
             id: 'week-1',
@@ -95,17 +95,17 @@ export const pricingItems: PricingOfferGroups = {
             period: '4h',
             price: 90000,
             plusPrice: 36000,
-            plusUnit: 'extra hora'
+            plusUnit: 'hora extra'
         },
         {
             id: 'day-2',
             rentLimit: 'Uso por 24 horas desde la entrega',
-            title: 'VR por dia',
+            title: 'VR por día',
             headsets: 2,
             period: 'day',
             price: 130000,
             plusPrice: 80000,
-            plusUnit: 'extra dia'
+            plusUnit: 'extra día'
         },
         {
             id: 'week-2',
@@ -125,17 +125,17 @@ export const pricingItems: PricingOfferGroups = {
             period: '4h',
             price: 135000,
             plusPrice: 54000,
-            plusUnit: 'extra hora'
+            plusUnit: 'hora extra'
         },
         {
             id: 'day-3',
             rentLimit: 'Uso por 24 horas desde la entrega',
-            title: 'VR por dia',
+            title: 'VR por día',
             headsets: 3,
             period: 'day',
             price: 190000,
             plusPrice: 120000,
-            plusUnit: 'extra dia'
+            plusUnit: 'extra día'
         },
         {
             id: 'week-3',
@@ -155,17 +155,17 @@ export const pricingItems: PricingOfferGroups = {
             period: '4h',
             price: 180000,
             plusPrice: 72000,
-            plusUnit: 'extra hora'
+            plusUnit: 'hora extra'
         },
         {
             id: 'day-4',
             rentLimit: 'Uso por 24 horas desde la entrega',
-            title: 'VR por dia',
+            title: 'VR por día',
             headsets: 4,
             period: 'day',
             price: 250000,
             plusPrice: 150000,
-            plusUnit: 'extra dia'
+            plusUnit: 'extra día'
         },
         {
             id: 'week-4',
@@ -188,4 +188,4 @@ export const pricingHeadsetOptions: PricingSelectorOption[] = [
 export const defaultEvents: Array<keyof WindowEventMap> = ['mousedown', 'touchstart'];
 
 export const hourlyRentalNotice = 'El alquiler por horas es válido hasta las 20:00.\n' +
-    'Si la reserva finaliza después, se toma como día completo.';
+    'Si la reserva finaliza después, se toma como día completo';

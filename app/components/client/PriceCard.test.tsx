@@ -16,7 +16,7 @@ describe('PriceCard', () => {
     rentLimit: '4 horas',
     title: 'VR por 4 horas',
     plusPrice: 18000,
-    plusUnit: 'extra hora'
+    plusUnit: 'hora extra'
   };
 
   it('renders pricing details and hourly notice', () => {
