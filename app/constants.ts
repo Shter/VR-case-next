@@ -75,7 +75,7 @@ export const pricingItems: PricingOfferGroups = {
             period: 'day',
             price: 70000,
             plusPrice: 45000,
-            plusUnit: 'extra día'
+            plusUnit: 'día extra'
         },
         {
             id: 'week-1',
@@ -105,7 +105,7 @@ export const pricingItems: PricingOfferGroups = {
             period: 'day',
             price: 130000,
             plusPrice: 80000,
-            plusUnit: 'extra día'
+            plusUnit: 'día extra'
         },
         {
             id: 'week-2',
@@ -135,7 +135,7 @@ export const pricingItems: PricingOfferGroups = {
             period: 'day',
             price: 190000,
             plusPrice: 120000,
-            plusUnit: 'extra día'
+            plusUnit: 'día extra'
         },
         {
             id: 'week-3',
@@ -165,7 +165,7 @@ export const pricingItems: PricingOfferGroups = {
             period: 'day',
             price: 250000,
             plusPrice: 150000,
-            plusUnit: 'extra día'
+            plusUnit: 'día extra'
         },
         {
             id: 'week-4',
