@@ -63,8 +63,8 @@ export const pricingItems: PricingOfferGroups = {
             title: 'VR por 4 horas',
             headsets: 1,
             period: '4h',
-            price: 45000,
-            plusPrice: 18000,
+            price: 50000,
+            plusPrice: 35000,
             plusUnit: 'hora extra'
         },
         {
@@ -73,8 +73,8 @@ export const pricingItems: PricingOfferGroups = {
             title: 'VR por día',
             headsets: 1,
             period: 'day',
-            price: 70000,
-            plusPrice: 45000,
+            price: 77000,
+            plusPrice: 60000,
             plusUnit: 'día extra'
         },
         {
@@ -83,7 +83,7 @@ export const pricingItems: PricingOfferGroups = {
             title: 'VR por semana',
             headsets: 1,
             period: 'week',
-            price: 350000
+            price: 385000
         }
     ],
     2: [
@@ -93,8 +93,8 @@ export const pricingItems: PricingOfferGroups = {
             title: 'VR por 4 horas',
             headsets: 2,
             period: '4h',
-            price: 90000,
-            plusPrice: 36000,
+            price: 105000,
+            plusPrice: 70000,
             plusUnit: 'hora extra'
         },
         {
@@ -103,8 +103,8 @@ export const pricingItems: PricingOfferGroups = {
             title: 'VR por día',
             headsets: 2,
             period: 'day',
-            price: 130000,
-            plusPrice: 80000,
+            price: 145000,
+            plusPrice: 120000,
             plusUnit: 'día extra'
         },
         {
@@ -113,7 +113,7 @@ export const pricingItems: PricingOfferGroups = {
             title: 'VR por semana',
             headsets: 2,
             period: 'week',
-            price: 650000
+            price: 750000
         }
     ],
     3: [
@@ -123,8 +123,8 @@ export const pricingItems: PricingOfferGroups = {
             title: 'VR por 4 horas',
             headsets: 3,
             period: '4h',
-            price: 135000,
-            plusPrice: 54000,
+            price: 145000,
+            plusPrice: 100000,
             plusUnit: 'hora extra'
         },
         {
@@ -133,8 +133,8 @@ export const pricingItems: PricingOfferGroups = {
             title: 'VR por día',
             headsets: 3,
             period: 'day',
-            price: 190000,
-            plusPrice: 120000,
+            price: 230000,
+            plusPrice: 180000,
             plusUnit: 'día extra'
         },
         {
@@ -143,7 +143,7 @@ export const pricingItems: PricingOfferGroups = {
             title: 'VR por semana',
             headsets: 3,
             period: 'week',
-            price: 950000
+            price: 990000
         }
     ],
     4: [
@@ -153,8 +153,8 @@ export const pricingItems: PricingOfferGroups = {
             title: 'VR por 4 horas',
             headsets: 4,
             period: '4h',
-            price: 180000,
-            plusPrice: 72000,
+            price: 200000,
+            plusPrice: 140000,
             plusUnit: 'hora extra'
         },
         {
@@ -163,8 +163,8 @@ export const pricingItems: PricingOfferGroups = {
             title: 'VR por día',
             headsets: 4,
             period: 'day',
-            price: 250000,
-            plusPrice: 150000,
+            price: 310000,
+            plusPrice: 240000,
             plusUnit: 'día extra'
         },
         {
@@ -173,7 +173,7 @@ export const pricingItems: PricingOfferGroups = {
             title: 'VR por semana',
             headsets: 4,
             period: 'week',
-            price: 1200000
+            price: 1500000
         }
     ]
 };
