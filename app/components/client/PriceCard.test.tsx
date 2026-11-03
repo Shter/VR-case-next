@@ -12,10 +12,10 @@ describe('PriceCard', () => {
     id: '4h-1',
     headsets: 1,
     period: '4h',
-    price: 45000,
+    price: 50000,
     rentLimit: '4 horas',
     title: 'VR por 4 horas',
-    plusPrice: 18000,
+    plusPrice: 35000,
     plusUnit: 'hora extra'
   };
 
