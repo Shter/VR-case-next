@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+import Tooltip from '@mui/material/Tooltip';
 import { asset } from '@/lib/site';
 
 const contactButtonBaseSx = {
@@ -13,9 +14,8 @@ const contactButtonBaseSx = {
     boxShadow    : '0 10px 20px rgba(0, 0, 0, 0.15)',
     transition   : 'transform 0.2s ease, box-shadow 0.2s ease',
     display      : 'inline-flex',
-    width        : {xs: '100%', md: 260},
+    width        : 72,
     alignItems   : 'center',
-    gap          : 1.5,
 };
 
 const contactButtonHoverSx = {
@@ -40,43 +40,64 @@ export function Contact() {
             </h2>
 
             <p className="mb-6 text-lg opacity-90">
-                Coordinamos reservas por WhatsApp e Instagram para brindarte disponibilidad inmediata,
+                Coordinamos reservas por WhatsApp, Instagram y email para brindarte disponibilidad inmediata,
                 recomendaciones de contenido y asistencia logística
             </p>
 
             <Stack
-                direction={{xs: "column", md: "row"}}
-                spacing={{xs: 3, md: 6}}
+                direction="row"
+                spacing={3}
                 justifyContent="center"
-                alignItems={{xs: "stretch", md: "center"}}
+                alignItems="center"
             >
-                <Button
-                    component="a"
-                    href="https://wa.me/5491127827150"
-                    target="_blank"
-                    rel="nofollow noopener"
-                    variant="contained"
-                    disableElevation
-                    aria-label="Contactar por WhatsApp"
-                    sx={contactButtonSx('var(--color-accent)', 'var(--color-accent)')}
-                >
-                    <Image src={asset('/icons/whatsapp.svg')} alt="WhatsApp" width={40} height={40} priority/>
-                    <span className="text-lg">WhatsApp</span>
-                </Button>
+                <Tooltip title="WhatsApp: +54 9 11 2782-7150" enterDelay={200} leaveDelay={0}>
+                    <Button
+                        component="a"
+                        href="https://wa.me/5491127827150"
+                        target="_blank"
+                        rel="nofollow noopener"
+                        variant="contained"
+                        disableElevation
+                        aria-label="Contactar por WhatsApp"
+                        sx={contactButtonSx('var(--color-accent)', 'var(--color-accent)')}
+                    >
+                        <Image src={asset('/icons/whatsapp.svg')} alt="" width={40} height={40} priority/>
+                    </Button>
+                </Tooltip>
 
-                <Button
-                    component="a"
-                    href="https://instagram.com/vr.case.ar"
-                    target="_blank"
-                    rel="nofollow noopener"
-                    variant="contained"
-                    disableElevation
-                    aria-label="Contactar por Instagram"
-                    sx={contactButtonSx('color-mix(in srgb, #1B449E 90%, transparent)', 'var(--color-primary)')}
-                >
-                    <Image src={asset('/icons/instagram.svg')} alt="Instagram" width={40} height={40}/>
-                    <span className="text-lg">Instagram</span>
-                </Button>
+                <Tooltip title="instagram.com/vr.case.ar" enterDelay={200} leaveDelay={0}>
+                    <Button
+                        component="a"
+                        href="https://instagram.com/vr.case.ar"
+                        target="_blank"
+                        rel="nofollow noopener"
+                        variant="contained"
+                        disableElevation
+                        aria-label="Contactar por Instagram"
+                        sx={contactButtonSx('color-mix(in srgb, #1B449E 90%, transparent)', 'var(--color-primary)')}
+                    >
+                        <Image src={asset('/icons/instagram.svg')} alt="" width={40} height={40}/>
+                    </Button>
+                </Tooltip>
+
+                <Tooltip title="vr.case.ar@gmail.com" enterDelay={200} leaveDelay={0}>
+                    <Button
+                        component="a"
+                        href="mailto:vr.case.ar@gmail.com"
+                        variant="contained"
+                        disableElevation
+                        aria-label="Contactar por email"
+                        sx={contactButtonSx('var(--color-secondary)', 'var(--color-primary)')}
+                    >
+                        <Image
+                            src="/assets/icons/email-icon.svg"
+                            alt=""
+                            width={40}
+                            height={40}
+                            className="brightness-0 invert"
+                        />
+                    </Button>
+                </Tooltip>
             </Stack>
         </div>
     );

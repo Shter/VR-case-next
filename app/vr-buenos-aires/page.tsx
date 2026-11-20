@@ -7,9 +7,9 @@ import { asset } from '@/lib/site';
 import { vrBuenosAiresBreadcrumbLd, vrServiceLd } from '@/lib/structured';
 
 export const metadata: Metadata = {
-    title: " Realidad virtual en Buenos Aires (VR Buenos Aires) — Alquiler realidad virtual VR Meta Quest 3",
+    title: 'Realidad Virtual Buenos Aires — Alquiler VR Meta Quest 3',
     description:
-        "Lentes VR Meta Quest 3 en Buenos Aires (VR Argentina) para eventos, fiestas y empresas. Envío, instalación y soporte incluidos.",
+        'Llevamos VR Meta Quest 3 a tu evento, empresa o fiesta en CABA y zona norte. Instalación guiada, soporte en vivo y retiro coordinado.',
     keywords: [
         "VR Buenos Aires",
         "VR Argentina",
@@ -182,6 +182,21 @@ export default function VRBuenosAiresPage() {
                         precios o la disponibilidad en la fecha de tu evento
                     </p>
                 </div>
+
+                <section id="cobertura" className="rounded-2xl pt-6">
+                    <h2 className="mb-4 text-2xl font-semibold">Zonas donde entregamos en Buenos Aires</h2>
+                    <p className="mb-4">
+                        Realizamos entregas y retiros en toda la Ciudad Autónoma de Buenos Aires, incluyendo{' '}
+                        <strong>Palermo</strong>, <strong>Belgrano</strong>, <strong>Recoleta</strong>,{' '}
+                        <strong>San Telmo</strong>, <strong>Caballito</strong>, <strong>Flores</strong>,{' '}
+                        <strong>Villa Devoto</strong>, <strong>Almagro</strong>, <strong>Boedo</strong> y{' '}
+                        <strong>Núñez</strong>.
+                    </p>
+                    <p>
+                        También cubrimos <strong>zona norte GBA</strong>: San Isidro, Vicente López, Tigre,
+                        San Fernando y Olivos.
+                    </p>
+                </section>
 
                 <div className="mt-4 md:mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-8">
                     <Link href="/alquiler#price" className="btn w-full sm:w-64 text-center">Reservar Meta Quest 3</Link>

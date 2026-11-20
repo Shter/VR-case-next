@@ -14,15 +14,21 @@ import { JuegosCatalogSection } from '@/app/juegos/components/JuegosCatalogSecti
 import { GAMES_CATALOG_PAGE_SIZE } from '@/app/juegos/constants';
 
 export const metadata: Metadata = {
-    title: 'Realidad virtual Buenos Aires: catálogo VR.CASE',
-    description: 'Explorá el catálogo VR.CASE de realidad virtual en Buenos Aires: buscá juegos, filtrá por género y descubrí experiencias con Meta Quest.',
+    title: 'Catálogo de juegos VR Buenos Aires — Meta Quest 3',
+    description: 'Más de 20 juegos seleccionados para Meta Quest 3: acción, ritmo, terror y multijugador. Explorá el catálogo y elegí tu experiencia VR.',
     keywords: [
         'realidad virtual buenos aires',
         'juegos realidad virtual',
         'meta quest buenos aires',
         'catalogo vr juegos'
     ],
-    alternates: { canonical: '/juegos' }
+    alternates: { canonical: '/juegos' },
+    openGraph: {
+        title: 'Catálogo de juegos VR Buenos Aires — Meta Quest 3 | VR.CASE',
+        description: 'Más de 20 juegos seleccionados para Meta Quest 3: acción, ritmo, terror y multijugador. Explorá el catálogo y elegí tu experiencia VR.',
+        url: '/juegos',
+        type: 'website',
+    },
 };
 
 export default async function JuegosPage({ searchParams }: JuegosPageProps) {

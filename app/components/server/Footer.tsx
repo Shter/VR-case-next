@@ -40,9 +40,11 @@ export function Footer() {
                     <address className="not-italic leading-6">
                         VR.CASE
                         <br/>
-                        Buenos Aires, Argentina
+                        Buenos Aires, CABA, Argentina
                         <br/>
-                        Teléfono: +541127827150
+                        Teléfono: +54-11-2782-7150
+                        <br/>
+                        <a href="mailto:vr.case.ar@gmail.com">vr.case.ar@gmail.com</a>
                     </address>
                     <div className="mt-4 flex gap-3">
                         <a href="https://wa.me/5491127827150" rel="nofollow" target="_blank">
