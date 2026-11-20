@@ -8,7 +8,15 @@ import { JsonLd }                                          from "@/components/se
 import { homeBreadcrumbLd, homeRentalLd, pricingRentalLd } from "@/lib/structured";
 
 export const metadata: Metadata = {
-    alternates: { canonical: "/", languages: { "es-AR": "/" } }
+    title: 'Alquiler VR Meta Quest 3 Buenos Aires',
+    description: 'Alquilá lentes de realidad virtual Meta Quest 3 para eventos, corporativos y uso personal en Buenos Aires. Envío rápido, soporte incluido.',
+    alternates: { canonical: "/", languages: { "es-AR": "/" } },
+    openGraph: {
+        title: 'Alquiler VR Meta Quest 3 Buenos Aires | VR.CASE',
+        description: 'Alquilá lentes de realidad virtual Meta Quest 3 para eventos, corporativos y uso personal en Buenos Aires. Envío rápido, soporte incluido.',
+        url: '/',
+        type: 'website',
+    },
 };
 
 export default function Page() {

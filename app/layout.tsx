@@ -5,13 +5,34 @@ import { asset, site } from '@/lib/site';
 import { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/react';
 import { RetroBackgroundLoader } from '@/components/client/RetroBackgroundLoader';
+import { JsonLd } from '@/components/server/JsonLd';
 import './globals.css';
+
+const localBusinessSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: 'VR.CASE',
+    url: site.url,
+    telephone: '+54-11-2782-7150',
+    address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Buenos Aires',
+        addressRegion: 'CABA',
+        addressCountry: 'AR',
+    },
+    areaServed: {
+        '@type': 'City',
+        name: 'Buenos Aires',
+    },
+    priceRange: '$$',
+    sameAs: ['https://www.instagram.com/vr.case.ar'],
+};
 
 export const metadata: Metadata = {
     metadataBase: new URL(site.url),
     title: {
-        default: "VR Buenos Aires — Alquiler de realidad virtual Meta Quest 3 | VR.CASE",
-        template: "%s | VR.CASE",
+        default: 'Alquiler VR Meta Quest 3 Buenos Aires | VR.CASE',
+        template: '%s | VR.CASE',
     },
     description:
         "VR Buenos Aires: alquiler de lentes de realidad virtual Meta Quest 3 para eventos, corporativos y uso personal. Soporte completo y envío rápido",
@@ -34,7 +55,10 @@ export const metadata: Metadata = {
         description:
             "Alquila lentes VR Meta Quest 3 en Buenos Aires: ideal para eventos y uso personal. Envío y soporte incluidos.",
         siteName: "VR.CASE",
-        images: [{ url: asset('/images/on-station.webp') }]
+        images: [{
+            url: asset('/images/on-station.webp'),
+            alt: 'VR.CASE — Alquiler de realidad virtual en Buenos Aires',
+        }]
     },
     twitter: {
         card: "summary_large_image",
@@ -55,6 +79,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
             <AppRouterCacheProvider>
                 <body className="relative min-h-screen overflow-x-hidden bg-[#04000f] text-[#f4f0ff]">
                     <RetroBackgroundLoader />
+                    <JsonLd data={localBusinessSchema} />
                     <div className="relative z-10 flex min-h-screen flex-col">
                         <Header />
                         <main className="flex-1">{children}</main>

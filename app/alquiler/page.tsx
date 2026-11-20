@@ -1,7 +1,7 @@
 import { JsonLd } from '@/components/server/JsonLd';
 import { Pricing } from '@/components/server/Pricing';
 import { asset } from '@/lib/site';
-import { pricingBreadcrumbLd, pricingRentalLd } from '@/lib/structured';
+import { homeRentalLd, pricingBreadcrumbLd, pricingRentalLd } from '@/lib/structured';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
@@ -12,15 +12,15 @@ const AccentNoticeIcon = () => (
 );
 
 export const metadata: Metadata = {
-    title: "VR Buenos Aires — Precios de alquiler de lentes VR (Meta Quest 3) | VR.CASE",
+    title: 'Precios de alquiler VR en Buenos Aires (Meta Quest 3)',
     description:
-        "Precios de alquiler VR en Buenos Aires: Meta Quest 3 por horas, día o semana. Envío gratis y soporte",
+        'Alquilá lentes Meta Quest 3 por horas, día o semana. Desde $50.000. Envío gratis en CABA y zona norte. Soporte en vivo incluido.',
     alternates: { canonical: "/alquiler", languages: { "es-AR": "/alquiler" } },
     openGraph: {
         type: "website",
         locale: "es_AR",
-        title: "VR Buenos Aires — Precios de alquiler de lentes VR | VR.CASE",
-        description: "Tarifas flexibles por horas/día/semana para Meta Quest 3. Envío gratis.",
+        title: 'Precios de alquiler VR Buenos Aires (Meta Quest 3) | VR.CASE',
+        description: 'Alquilá Meta Quest 3 por horas, día o semana. Desde $50.000. Envío gratis CABA.',
         url: "/alquiler",
         images: [{ url: asset('/images/in-case.webp') }]
     },
@@ -36,6 +36,7 @@ export default function Page() {
     return (
         <>
             <JsonLd data={pricingBreadcrumbLd()} />
+            <JsonLd data={homeRentalLd()} />
             <JsonLd data={pricingRentalLd()} />
 
             <div className="container pt-24">
