@@ -6,7 +6,6 @@ export default function robots() {
             userAgent: "*",
             allow: "/"
         },
-        sitemap: `${site.url}/sitemap.xml`,
-        host: site.url
+        sitemap: `${site.url}/sitemap.xml`
     };
 }

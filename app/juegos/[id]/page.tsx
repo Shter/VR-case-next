@@ -17,7 +17,6 @@ import { GAME_CATALOG_COPY_JUEGOS, GAME_DETAILS_COPY_JUEGOS } from '@/data/gameC
 import { GAMES_CATALOG_PAGE_SIZE } from '@/app/juegos/constants';
 import { fetchPreviewForGame } from '@/lib/games/previews';
 import { JsonLd } from '@/components/server/JsonLd';
-import { site } from '@/lib/site';
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const paramsValue = await params;
@@ -75,20 +74,12 @@ export default async function JuegoModalPage({ params, searchParams }: PageProps
     const backHref = buildGamesListHref('/juegos', filtersQuery);
     const gameSchema = {
         '@context': 'https://schema.org',
-        '@type': 'Product',
-        name: game.name ?? `Juego VR #${game.id}`,
-        description: game.description ?? 'Experiencia de realidad virtual disponible en VR.CASE Buenos Aires.',
-        ...(game.image_url ? { image: game.image_url } : {}),
-        offers: {
-            '@type': 'Offer',
-            availability: 'https://schema.org/InStock',
-            priceCurrency: 'ARS',
-            seller: {
-                '@type': 'Organization',
-                name: 'VR.CASE',
-                url: site.url,
-            },
-        },
+        '@type': 'VideoGame',
+        name: game.name,
+        description: game.description,
+        url: `https://vr-case.com.ar/juegos/${game.id}`,
+        gamePlatform: 'Meta Quest 3',
+        provider: { '@type': 'Organization', name: 'VR.CASE' },
     };
 
     return (
