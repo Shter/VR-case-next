@@ -17,7 +17,6 @@ import { GAME_CATALOG_COPY_JUEGOS, GAME_DETAILS_COPY_JUEGOS } from '@/data/gameC
 import { GAMES_CATALOG_PAGE_SIZE } from '@/app/juegos/constants';
 import { fetchPreviewForGame } from '@/lib/games/previews';
 import { JsonLd } from '@/components/server/JsonLd';
-import { site } from '@/lib/site';
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const paramsValue = await params;
